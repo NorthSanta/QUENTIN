@@ -6,13 +6,15 @@ public class Player_Movement : MonoBehaviour {
 
     public float speed = 6.0f;
     public Player_Interaction interact;
+    
     //private CharacterController _charCont;
     // Use this for initialization
     void Start () {
         //_charCont = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
    
-        interact = GetComponent<Player_Interaction>();
+        interact = Camera.main.GetComponent<Player_Interaction>();
+        
     }
 
     
@@ -34,14 +36,16 @@ public class Player_Movement : MonoBehaviour {
 
             float deltaX = Input.GetAxis("Horizontal") * speed;
             float deltaZ = Input.GetAxis("Vertical") * speed;
+           
             deltaX *= Time.deltaTime;
             deltaZ *= Time.deltaTime;
-
+            
             transform.Translate(deltaX, 0, deltaZ);
             if (Input.GetKeyDown("escape"))
             {
                 Cursor.lockState = CursorLockMode.None;
             }
+            
         }
     }
 }

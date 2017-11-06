@@ -22,9 +22,14 @@ public class Camera_Control : MonoBehaviour {
     // Update is called once per frame
     public Player_Interaction interact;
 
+    public bool crouch;
+    public float crouchHeight;
+
     private void Start()
     {
-        interact = GetComponent<Player_Interaction>();
+        interact =  Camera.main.GetComponent<Player_Interaction>();
+        crouchHeight = transform.position.y;
+        crouch = false;
     }
     void Update () {
         if (!interact.picked)
@@ -39,6 +44,21 @@ public class Camera_Control : MonoBehaviour {
                 _rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
                 float rotationY = transform.localEulerAngles.y;
                 transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftControl) && !crouch)
+            {
+                transform.position = new Vector3(transform.position.x, crouchHeight/2, transform.position.z);
+                //this.GetComponent<CapsuleCollider>(). -= Vector3(0, crouchDeltaHeight, 0);
+                //this.GetComponent<CapsuleCollider>().height -= crouchHeight;
+                //crouching = true;
+                crouch = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftControl) && crouch)
+            {
+                transform.position = new Vector3(transform.position.x, crouchHeight, transform.position.z);
+                //this.GetComponent<CapsuleCollider>().height += crouchHeight;
+                crouch = false;
             }
         }
         
