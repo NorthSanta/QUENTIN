@@ -33,7 +33,7 @@ public class Player_Interaction : MonoBehaviour {
             }
             //print("OBJECT");
         }
-        if(canPick && Input.GetKeyDown(KeyCode.E))
+        if(canPick && Input.GetKeyDown(KeyCode.E) && !picked)
         {
             vell = interact.collider.gameObject;
             vell.SetActive(false);
@@ -46,7 +46,7 @@ public class Player_Interaction : MonoBehaviour {
             nou.AddComponent<Object_Movement>();
             picked = true;
         }
-        else if(picked && Input.GetKeyDown(KeyCode.E))
+        else if(picked && Input.GetKeyDown(KeyCode.E) && picked)
         {
             vell.SetActive(true);
             Destroy(nou);
