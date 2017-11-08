@@ -25,10 +25,13 @@ public class Camera_Control : MonoBehaviour {
     public bool crouch;
     public float crouchHeight;
 
+    
+
     private void Start()
     {
         interact =  Camera.main.GetComponent<Player_Interaction>();
         crouchHeight = transform.position.y;
+        
         crouch = false;
     }
     void Update () {
@@ -46,20 +49,25 @@ public class Camera_Control : MonoBehaviour {
                 transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftControl) && !crouch)
-            {
-                transform.position = new Vector3(transform.position.x, crouchHeight/2, transform.position.z);
-                //this.GetComponent<CapsuleCollider>(). -= Vector3(0, crouchDeltaHeight, 0);
-                //this.GetComponent<CapsuleCollider>().height -= crouchHeight;
-                //crouching = true;
-                crouch = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftControl) && crouch)
-            {
-                transform.position = new Vector3(transform.position.x, crouchHeight, transform.position.z);
-                //this.GetComponent<CapsuleCollider>().height += crouchHeight;
-                crouch = false;
-            }
+            //if (Input.GetKeyDown(KeyCode.LeftControl) && !crouch )
+            //{
+            //    float step = 1 * Time.deltaTime;
+            //    //transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, crouchHeight / 2, transform.position.z), 0.1f);
+                
+            //    transform.position = new Vector3(transform.position.x, crouchHeight/1.5f, transform.position.z);
+            //    //this.GetComponent<CapsuleCollider>(). -= Vector3(0, crouchDeltaHeight, 0);
+            //    //this.GetComponent<CapsuleCollider>().height -= crouchHeight;
+            //    //crouching = true;
+            //    crouch = true;
+            //}
+            //else if (Input.GetKeyUp(KeyCode.LeftControl) && crouch )
+            //{
+            //    float step = 1 * Time.deltaTime;
+            //    //transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, crouchHeight, transform.position.z), 0.1f);
+            //    transform.position = new Vector3(transform.position.x, crouchHeight, transform.position.z);
+            //    //this.GetComponent<CapsuleCollider>().height += crouchHeight;
+            //    crouch = false;
+            //}
         }
         
     }

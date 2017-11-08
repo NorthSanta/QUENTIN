@@ -6,7 +6,8 @@ public class Player_Movement : MonoBehaviour {
 
     public float speed = 6.0f;
     public Player_Interaction interact;
-    
+    public bool crouch;
+    public float crouchHeight;
     //private CharacterController _charCont;
     // Use this for initialization
     void Start () {
@@ -45,7 +46,25 @@ public class Player_Movement : MonoBehaviour {
             {
                 Cursor.lockState = CursorLockMode.None;
             }
-            
+            if(Input.GetKeyDown(KeyCode.LeftControl) && !crouch)
+            {
+                
+
+                //transform.position = new Vector3(transform.position.x, crouchHeight / 1.5f, transform.position.z);
+                //this.GetComponent<CapsuleCollider>(). -= Vector3(0, crouchDeltaHeight, 0);
+                this.GetComponent<CapsuleCollider>().height -= crouchHeight;
+                //crouching = true;
+                crouch = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftControl) && crouch)
+            {
+                //float step = 1 * Time.deltaTime;
+                //transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, crouchHeight, transform.position.z), 0.1f);
+                //transform.position = new Vector3(transform.position.x, crouchHeight, transform.position.z);
+                this.GetComponent<CapsuleCollider>().height += crouchHeight;
+                crouch = false;
+            }
+
         }
     }
 }
