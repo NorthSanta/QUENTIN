@@ -13,11 +13,11 @@ public class Object_Movement : MonoBehaviour {
 	void Update () {
 		if(Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - .2f, transform.position.z);
+            transform.localPosition -= new Vector3(0, 0, transform.position.z  - 50);
         }
         else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + .2f, transform.position.z);
+            transform.localPosition -= new Vector3(0,0, transform.position.z + 50);
         }
     }
 }
