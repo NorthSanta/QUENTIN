@@ -39,12 +39,14 @@ public class Player_Interaction : MonoBehaviour {
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
+            
             nou.GetComponent<BoxCollider>().enabled = false;
             //Destroy(nou.GetComponent<Rigidbody>());
             nou.transform.parent = GameObject.Find("Canvas").transform;
-            nou.transform.position = test.position;
+            nou.transform.localPosition = new Vector3(0,0,0);
             nou.transform.rotation = new Quaternion(0, 0, 0, 0);
             nou.AddComponent<Object_Movement>();
+            nou.AddComponent<rot_Obj>();
             picked = true;
         }
         else if(picked && Input.GetKeyDown(KeyCode.E) && picked)
