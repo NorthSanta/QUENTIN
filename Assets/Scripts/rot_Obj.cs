@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class rot_Obj : MonoBehaviour {
 
+    
     // Use this for initialization
-    void OnMouseDrag()
+    private void Update()
     {
-        print("dragg");
-        float rotX = Input.GetAxis("Mouse X") * 20 * Mathf.Deg2Rad;
-        float rotY = Input.GetAxis("Mouse Y") * 20 * Mathf.Deg2Rad;
-
-        transform.RotateAround(Vector3.up, -rotX);
-        transform.RotateAround(Vector3.right, rotY);
+        if (Input.GetMouseButton(0))
+        {
+            //Debug.Log("dragg");
+            float rotX = Input.GetAxis("Mouse X") * 3.5f * Mathf.Deg2Rad;
+            float rotY = Input.GetAxis("Mouse Y") * 3.5f * Mathf.Deg2Rad;
+            
+            transform.RotateAroundLocal(Vector3.up, -rotX);
+            transform.RotateAroundLocal(Vector3.right, rotY);
+        }
     }
 }

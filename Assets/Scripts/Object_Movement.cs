@@ -19,13 +19,13 @@ public class Object_Movement : MonoBehaviour {
         deltaZ *= Time.deltaTime;
 
         transform.Translate(deltaX, deltaZ, 0);
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.localPosition.z <= 100)
         {
-            transform.localPosition -= new Vector3(0, 0, transform.position.z  - 20);
+            transform.localScale -= new Vector3(10,10,10);
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.localPosition.z >= -335)
         {
-            transform.localPosition -= new Vector3(0,0, transform.position.z + 20);
+            transform.localScale += new Vector3(10,10,10);
         }
     }
     

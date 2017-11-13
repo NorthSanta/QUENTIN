@@ -23,15 +23,15 @@ public class Player_Interaction : MonoBehaviour {
        
        if( Physics.Raycast(transform.position,transform.forward,out interact, 1.5f) && !picked){
             if(interact.collider.tag == "Interact")
-            {
-                
-                canPick = true;
-                //count++;
-            }else
-            {
-                canPick = false;
+            {           
+                canPick = true;   
             }
-            //print("OBJECT");
+
+        }
+        else
+        {
+            
+            canPick = false;
         }
         if(canPick && Input.GetKeyDown(KeyCode.E) && !picked)
         {
