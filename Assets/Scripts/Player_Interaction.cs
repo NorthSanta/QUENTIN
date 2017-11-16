@@ -39,7 +39,7 @@ public class Player_Interaction : MonoBehaviour {
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
-            
+            //transform.rotation = new Quaternion(0, 0, 0, 0);
             nou.GetComponent<BoxCollider>().enabled = false;
             //Destroy(nou.GetComponent<Rigidbody>());
             nou.transform.parent = GameObject.Find("Canvas").transform;
