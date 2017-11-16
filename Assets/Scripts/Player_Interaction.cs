@@ -22,18 +22,24 @@ public class Player_Interaction : MonoBehaviour {
         Debug.DrawRay(transform.position,transform.forward *1.5f,Color.green);
        
        if( Physics.Raycast(transform.position,transform.forward,out interact, 1.5f) && !picked){
-            if(interact.collider.tag == "Interact")
+            if((interact.collider.tag != "Paret") && (interact.collider.tag != "Terra"))
             {           
                 canPick = true;   
+            }
+            else
+            {
+
+                canPick = false;
             }
 
         }
         else
         {
-            
+
             canPick = false;
         }
-        if(canPick && Input.GetKeyDown(KeyCode.E) && !picked)
+
+        if (canPick && Input.GetKeyDown(KeyCode.E) && !picked)
         {
             vell = interact.collider.gameObject;
             vell.SetActive(false);
@@ -46,6 +52,7 @@ public class Player_Interaction : MonoBehaviour {
             nou.transform.localPosition = new Vector3(0,0,0);
             nou.transform.rotation = new Quaternion(0, 0, 0, 0);
             nou.AddComponent<Object_Movement>();
+            nou.GetComponent<Object_Movement>().alpha = 100;
             nou.AddComponent<rot_Obj>();
             picked = true;
         }

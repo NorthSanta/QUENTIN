@@ -62,8 +62,13 @@ public class Player_Movement : MonoBehaviour {
                 //float step = 1 * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, crouchHeight, transform.position.z), 0.1f);
                 //transform.position = new Vector3(transform.position.x, crouchHeight, transform.position.z);
-                capsule.height += crouchHeight;
+                //capsule.height += crouchHeight;
                 crouch = false;
+            }
+
+            if(!crouch && capsule.height < 2)
+            {
+                capsule.height += 0.1f;
             }
 
         }

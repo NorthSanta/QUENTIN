@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Object_Movement : MonoBehaviour {
     private float speed = 1;
+
+    [SerializeField]
+    public int alpha;
+    public float scale;
+    public int offSet;
 	// Use this for initialization
 	void Start () {
-		
+        scale = transform.localScale.z;
+        offSet = 300;
 	}
 	
 	// Update is called once per frame
@@ -18,18 +24,43 @@ public class Object_Movement : MonoBehaviour {
         deltaX *= Time.deltaTime;
         deltaZ *= Time.deltaTime;
 
-        //transform.position = transform.position + Camera.main.transform.TransformDirection(deltaX, deltaZ, 0);
-       // Vector3 res = new Vector3(deltaX, deltaZ, 0);
-        //transform.position -= res;
-        
-        transform.Translate(deltaX, deltaZ, 0,Camera.main.transform);
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.localPosition.z <= 100)
+        if (transform.localPosition.x >= -550 && transform.localPosition.x <= 550)
         {
-            transform.localScale -= new Vector3(10,10,10);
+            print("horz");
+            transform.Translate(deltaX, 0, 0, Camera.main.transform);
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.localPosition.z >= -335)
+        if (transform.localPosition.y >= -180 && transform.localPosition.y <= 180)
         {
-            transform.localScale += new Vector3(10,10,10);
+            print("Vert");
+            transform.Translate(0, deltaZ, 0, Camera.main.transform);
+        }
+
+        if(transform.localPosition.x < -550f)
+        {
+            transform.localPosition = new Vector3(-550, transform.localPosition.y, transform.localPosition.z);
+        }
+        else if (transform.localPosition.x > 550f)
+        {
+            transform.localPosition = new Vector3(550, transform.localPosition.y, transform.localPosition.z);
+        }
+        if (transform.localPosition.y < -180)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, -180, transform.localPosition.z);
+        }
+        else if (transform.localPosition.y > 180)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, 180, transform.localPosition.z);
+        }
+
+
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.localScale.z >= scale - offSet)
+        {
+            transform.localScale -= new Vector3(alpha, alpha, alpha);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.localScale.z <= scale + offSet)
+        {
+            transform.localScale += new Vector3(alpha, alpha, alpha);
         }
     }
     
