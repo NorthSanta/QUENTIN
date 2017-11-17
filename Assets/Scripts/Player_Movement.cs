@@ -53,7 +53,7 @@ public class Player_Movement : MonoBehaviour {
 
                 //transform.position = new Vector3(transform.position.x, crouchHeight / 1.5f, transform.position.z);
                 //this.GetComponent<CapsuleCollider>(). -= Vector3(0, crouchDeltaHeight, 0);
-                capsule.height -= crouchHeight;
+                //capsule.height -= crouchHeight;
                 //crouching = true;
                 crouch = true;
             }
@@ -69,6 +69,10 @@ public class Player_Movement : MonoBehaviour {
             if(!crouch && capsule.height < 2)
             {
                 capsule.height += 0.1f;
+            }
+            else if (crouch && capsule.height > 1)
+            {
+                capsule.height -= 0.1f;
             }
 
         }
