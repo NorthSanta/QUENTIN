@@ -9,6 +9,8 @@ public class Player_Interaction : MonoBehaviour {
     public bool picked;
     GameObject nou;
     GameObject vell;
+
+    public GameObject panel;
     public Transform test;
    // public Object_Movement move;
     // Use this for initialization
@@ -41,6 +43,9 @@ public class Player_Interaction : MonoBehaviour {
 
         if (canPick && Input.GetKeyDown(KeyCode.E) && !picked)
         {
+            panel.SetActive(true);
+            panel.transform.localPosition = new Vector3(0, 0, 500);
+            panel.transform.localScale = new Vector3(10,10,10);
             vell = interact.collider.gameObject;
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
@@ -58,6 +63,7 @@ public class Player_Interaction : MonoBehaviour {
         }
         else if(picked && Input.GetKeyDown(KeyCode.E) && picked)
         {
+            panel.SetActive(false);
             vell.SetActive(true);
             Destroy(nou);
             picked = false;

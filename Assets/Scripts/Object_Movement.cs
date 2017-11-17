@@ -26,12 +26,12 @@ public class Object_Movement : MonoBehaviour {
 
         if (transform.localPosition.x >= -550 && transform.localPosition.x <= 550)
         {
-            print("horz");
+            //print("horz");
             transform.Translate(deltaX, 0, 0, Camera.main.transform);
         }
         if (transform.localPosition.y >= -180 && transform.localPosition.y <= 180)
         {
-            print("Vert");
+            //print("Vert");
             transform.Translate(0, deltaZ, 0, Camera.main.transform);
         }
 
