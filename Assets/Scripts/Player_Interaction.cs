@@ -22,24 +22,31 @@ public class Player_Interaction : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Debug.DrawRay(transform.position,transform.forward *1.5f,Color.green);
-       
-       if( Physics.Raycast(transform.position,transform.forward,out interact, 1.5f) && !picked){
-            if((interact.collider.tag != "Paret") && (interact.collider.tag != "Terra"))
-            {           
-                canPick = true;   
+        
+            if (Physics.Raycast(transform.position, transform.forward, out interact, 1.5f) && !picked)
+            {
+                if(interact.collider.tag == "Interact")
+                {
+                    print("PICK");
+                }
+                if ((interact.collider.tag != "Paret") && (interact.collider.tag != "Terra"))
+                {
+                    canPick = true;
+                }
+                else
+                {
+
+                    canPick = false;
+                }
+
             }
+
             else
             {
 
                 canPick = false;
             }
-
-        }
-        else
-        {
-
-            canPick = false;
-        }
+        
 
         if (canPick && Input.GetKeyDown(KeyCode.E) && !picked)
         {
