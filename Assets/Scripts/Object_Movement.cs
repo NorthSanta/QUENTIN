@@ -9,10 +9,12 @@ public class Object_Movement : MonoBehaviour {
     public int alpha;
     public float scale;
     public int offSet;
+    private Camera canvas;
 	// Use this for initialization
 	void Start () {
         scale = transform.localScale.z;
         offSet = 300;
+        canvas = GameObject.Find("CanvasCamera").GetComponent<Camera>();
 	}
 	
 	// Update is called once per frame
@@ -27,12 +29,12 @@ public class Object_Movement : MonoBehaviour {
         if (transform.localPosition.x >= -550 && transform.localPosition.x <= 550)
         {
             //print("horz");
-            transform.Translate(deltaX, 0, 0, Camera.main.transform);
+            transform.Translate(deltaX, 0, 0, canvas.transform);
         }
         if (transform.localPosition.y >= -180 && transform.localPosition.y <= 180)
         {
             //print("Vert");
-            transform.Translate(0, deltaZ, 0, Camera.main.transform);
+            transform.Translate(0, deltaZ, 0, canvas.transform);
         }
 
         if(transform.localPosition.x < -550f)

@@ -19,6 +19,8 @@ public class Player_Interaction : MonoBehaviour {
     void Start () {
         count = 0;
         picked = false;
+        ppProfile.depthOfField.enabled = false;
+        ppProfile.vignette.enabled = false;
         //ppProfile = Camera.main.GetComponent<PostProcessingProfile>();
     }
 	
@@ -65,6 +67,7 @@ public class Player_Interaction : MonoBehaviour {
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
+            nou.layer = 5;
             //transform.rotation = new Quaternion(0, 0, 0, 0);
             nou.GetComponent<BoxCollider>().enabled = false;
             //Destroy(nou.GetComponent<Rigidbody>());
