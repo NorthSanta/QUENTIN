@@ -19,6 +19,7 @@ public class Player_Interaction : MonoBehaviour {
     public Sprite lupa;
     public Sprite quadrat;
     private GameObject myCanvas;
+    public Camera canvasCam;
     // public Object_Movement move;
     // Use this for initialization
     void Start () {
@@ -27,7 +28,7 @@ public class Player_Interaction : MonoBehaviour {
         ppProfile.depthOfField.enabled = false;
         ppProfile.vignette.enabled = false;
         myCanvas = GameObject.Find("Canvas");
-        Cursor.visible = false;
+        Cursor.visible = true;
         //ppProfile = Camera.main.GetComponent<PostProcessingProfile>();
     }
 	
@@ -105,7 +106,7 @@ public class Player_Interaction : MonoBehaviour {
         if (picked)
         {
             Vector2 pos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(myCanvas.transform as RectTransform, Input.mousePosition, Camera.main, out pos);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(myCanvas.transform as RectTransform, Input.mousePosition, canvasCam, out pos);
             icon.transform.position = myCanvas.transform.TransformPoint(pos);
         }
         
