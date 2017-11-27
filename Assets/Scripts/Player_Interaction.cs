@@ -12,12 +12,10 @@ public class Player_Interaction : MonoBehaviour {
     GameObject nou;
     GameObject vell;
     public PostProcessingProfile ppProfile;
-    public GameObject panel;
-    public Transform test;
-    public Texture2D mouse;
+    public GameObject lupa;
+    public GameObject punter;
     public Image icon;
-    public Sprite lupa;
-    public Sprite quadrat;
+    
     private GameObject myCanvas;
     public Camera canvasCam;
     // public Object_Movement move;
@@ -27,14 +25,16 @@ public class Player_Interaction : MonoBehaviour {
         picked = false;
         ppProfile.depthOfField.enabled = false;
         ppProfile.vignette.enabled = false;
-        myCanvas = GameObject.Find("Canvas");
-        Cursor.visible = true;
+        myCanvas = GameObject.Find("trueCanvas");
+        Cursor.visible = false;
+        myCanvas.SetActive(false);
         //ppProfile = Camera.main.GetComponent<PostProcessingProfile>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        icon.sprite = quadrat;
+        
+        
         Debug.DrawRay(transform.position,transform.forward *1.5f,Color.green);
         
             if (Physics.Raycast(transform.position, transform.forward, out interact, 1.5f) && !picked)
@@ -46,12 +46,13 @@ public class Player_Interaction : MonoBehaviour {
                 }*/
                 if ((interact.collider.tag != "Paret") && (interact.collider.tag != "Terra"))
                 {
-                    icon.sprite = lupa;
+                    lupa.SetActive(true);
+                    punter.SetActive(false);
                     canPick = true;
                 }
                 else
                 {
-                   
+                    
                     canPick = false;
                 }
 
@@ -59,14 +60,15 @@ public class Player_Interaction : MonoBehaviour {
 
             else
             {
-
-                canPick = false;
+            punter.SetActive(true);
+            lupa.SetActive(false);
+            canPick = false;
             }
         
 
         if (canPick && Input.GetKeyDown(KeyCode.E) && !picked)
         {
-           
+            myCanvas.SetActive(true);
             ppProfile.depthOfField.enabled = true;
             ppProfile.vignette.enabled = true;
 
@@ -78,10 +80,10 @@ public class Player_Interaction : MonoBehaviour {
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
-            nou.layer = 5;
+            nou.layer = 4;
             
             nou.GetComponent<BoxCollider>().enabled = false;
-
+            
             nou.transform.parent =myCanvas.transform;
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0,0,0);
@@ -93,7 +95,7 @@ public class Player_Interaction : MonoBehaviour {
         }
         else if(picked && Input.GetKeyDown(KeyCode.E) && picked)
         {
-            
+            myCanvas.SetActive(false);
             ppProfile.depthOfField.enabled = false;
             ppProfile.vignette.enabled = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -108,6 +110,10 @@ public class Player_Interaction : MonoBehaviour {
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(myCanvas.transform as RectTransform, Input.mousePosition, canvasCam, out pos);
             icon.transform.position = myCanvas.transform.TransformPoint(pos);
+        }
+        else
+        {
+            icon.transform.localPosition = new Vector3(0, 0, 0);
         }
         
     }
