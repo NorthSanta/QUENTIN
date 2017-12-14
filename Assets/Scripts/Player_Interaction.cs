@@ -15,7 +15,7 @@ public class Player_Interaction : MonoBehaviour {
     public GameObject lupa;
     public GameObject punter;
     public Image icon;
-    
+    public Collider col;
     private GameObject myCanvas;
     public Camera canvasCam;
     // public Object_Movement move;
@@ -46,6 +46,7 @@ public class Player_Interaction : MonoBehaviour {
                 }*/
                 if ((interact.collider.tag != "Paret") && (interact.collider.tag != "Terra"))
                 {
+                    col = interact.collider;
                     lupa.SetActive(true);
                     punter.SetActive(false);
                     canPick = true;
@@ -81,9 +82,13 @@ public class Player_Interaction : MonoBehaviour {
             nou = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
             nou.layer = 4;
+
+            if (col.GetType() == typeof(BoxCollider))
+                nou.GetComponent<BoxCollider>().enabled = false;
+            else if (col.GetType() == typeof(MeshCollider))
+                nou.GetComponent<MeshCollider>().enabled = false;
             
-            nou.GetComponent<BoxCollider>().enabled = false;
-            
+
             nou.transform.parent =myCanvas.transform;
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0,0,0);
