@@ -7,18 +7,33 @@ using UnityEngine.SceneManagement;
 public class Load_Manager : MonoBehaviour {
 
     protected AsyncOperation async;
+
     [SerializeField]
     private Text text;
+
+    [SerializeField]
+    private GameObject printableInfo;
+
+    private Transform[] caseInfo;
+
     public bool isLoaded;
 
 	// Use this for initialization
 	void Start () {
         isLoaded = false;
 
-        async = SceneManager.LoadSceneAsync(2);
+        //Fill the array with all the printables cases.
+        caseInfo = printableInfo.transform.GetComponentsInChildren<Transform>(true); //Element 0 is the parent
+        
+        //Active the correct info depending on the case
+        for (int i = 1; i < caseInfo.Length; i++){
+            if (caseInfo[i].name == PlayerPrefs.GetString("SelectedCase")) caseInfo[i].gameObject.SetActive(true);
+        }
 
+        async = SceneManager.LoadSceneAsync(PlayerPrefs.GetString("SelectedCase"));
+   
         //Set the activation on full load on false
-        async.allowSceneActivation = false;
+        async.allowSceneActivation = false;  
 
         Cursor.visible = false;
 
