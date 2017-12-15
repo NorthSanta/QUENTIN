@@ -16,6 +16,7 @@ public class MENU : MonoBehaviour {
 	}
 
     public void loadScene(string name) {
+        PlayerPrefs.SetString("SelectedCase","Studio");
         SceneManager.LoadScene(name);
     }
 
