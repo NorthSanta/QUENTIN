@@ -15,12 +15,12 @@ public class MENU : MonoBehaviour {
 		
 	}
 
-    public void loadScene(string name) {
+    public void LoadScene(string name) {
         PlayerPrefs.SetString("SelectedCase","Studio");
         SceneManager.LoadScene(name);
     }
 
-    public void quit() {
+    public void Quit() {
         Application.Quit();
     }
 }
