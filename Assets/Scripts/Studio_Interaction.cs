@@ -76,6 +76,8 @@ public class Studio_Interaction : MonoBehaviour {
         //The mopuse raycast
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        //Debug.DrawRay(transform.position, Input.mousePosition * 1.5f, Color.red);
+
         //The Input of the player
         HandleInput();
 
@@ -231,6 +233,36 @@ public class Studio_Interaction : MonoBehaviour {
             if (Input.GetKeyUp(KeyCode.Mouse0)) {
                 if (Physics.Raycast(ray, out hit)) {
                     switch (hit.transform.name) {
+                        case "Case1":
+                            mapIndex = 1;
+                            activeCase = mapCases[mapIndex];
+                            boardEnabled = true;
+                            mapEnabled = false;
+                            break;
+                        case "Case2":
+                            mapIndex = 2;
+                            activeCase = mapCases[mapIndex];
+                            boardEnabled = true;
+                            mapEnabled = false;
+                            break;
+                        case "Case3":
+                            mapIndex = 3;
+                            activeCase = mapCases[mapIndex];
+                            boardEnabled = true;
+                            mapEnabled = false;
+                            break;
+                        case "Case4":
+                            mapIndex = 4;
+                            activeCase = mapCases[mapIndex];
+                            boardEnabled = true;
+                            mapEnabled = false;
+                            break;
+                        case "Case5":
+                            mapIndex = 5;
+                            activeCase = mapCases[mapIndex];
+                            boardEnabled = true;
+                            mapEnabled = false;
+                            break;
                         case "CaseAccept":
                             selectedCase = activeCase;
                             boardEnabled = false;
