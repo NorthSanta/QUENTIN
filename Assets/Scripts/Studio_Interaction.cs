@@ -59,7 +59,7 @@ public class Studio_Interaction : MonoBehaviour {
         activeCase = mapCases[1];
 
         //The map and board cannot used
-        mapEnabled = true;
+        mapEnabled = false;
         boardEnabled = false;
         doorOpen = false;
 
@@ -80,6 +80,20 @@ public class Studio_Interaction : MonoBehaviour {
 
         //The Input of the player
         HandleInput();
+
+        //Print the map cases on scene
+        if (mapEnabled) {
+            for (int i = 1; i < mapCases.Length; i++) {
+                mapCases[i].gameObject.SetActive(true);
+            }
+            mapCases[0].GetComponent<BoxCollider>().enabled = false;
+        }
+        else{
+            for (int i = 1; i < mapCases.Length; i++) {
+                mapCases[i].gameObject.SetActive(false);
+            }
+            mapCases[0].GetComponent<BoxCollider>().enabled = true;
+        }
 
         //Change the Board Info depending to the activeCase
         switch (activeCase.gameObject.name) {
@@ -178,40 +192,42 @@ public class Studio_Interaction : MonoBehaviour {
                             mapIndex = 1;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "Case2":
                             mapIndex = 2;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "Case3":
                             mapIndex = 3;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "Case4":
                             mapIndex = 4;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "Case5":
                             mapIndex = 5;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         default:
                             break;
                     }
                 }
+
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    boardIndex = 0;
+                    boardEnabled = false;
+                    mapEnabled = false;
+                }
             }
 
             //KEYBOARD INPUT
-            if (Input.GetKeyUp(KeyCode.UpArrow)) if (mapIndex > 1) mapIndex--;
+            /*if (Input.GetKeyUp(KeyCode.UpArrow)) if (mapIndex > 1) mapIndex--;
             if (Input.GetKeyUp(KeyCode.DownArrow)) if (mapIndex < mapCases.Length - 1) mapIndex++;
             if (Input.GetKeyUp(KeyCode.Return)) {
                 activeCase = mapCases[mapIndex];
@@ -222,11 +238,11 @@ public class Studio_Interaction : MonoBehaviour {
             if (Input.GetKeyUp(KeyCode.Escape)) {
                 mapEnabled = false;
                 Cursor.visible = false;
-            }
+            }*/
         }
 
         //The input when the BOARD is enabled
-        if (!mapEnabled && boardEnabled) {
+        if (mapEnabled && boardEnabled) {
             Cursor.visible = true;
 
             //MOUSE INPUT
@@ -237,31 +253,26 @@ public class Studio_Interaction : MonoBehaviour {
                             mapIndex = 1;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "Case2":
                             mapIndex = 2;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "Case3":
                             mapIndex = 3;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "Case4":
                             mapIndex = 4;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "Case5":
                             mapIndex = 5;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
-                            mapEnabled = false;
                             break;
                         case "CaseAccept":
                             selectedCase = activeCase;
@@ -271,7 +282,7 @@ public class Studio_Interaction : MonoBehaviour {
                             break;
                         case "CaseCancel":
                             boardEnabled = false;
-                            mapEnabled = true;
+                            mapEnabled = false;
                             break;
                         default:
                             break;
@@ -280,7 +291,7 @@ public class Studio_Interaction : MonoBehaviour {
             }
 
             //KEYBOARD INPUT
-            if (Input.GetKeyUp(KeyCode.RightArrow)) if (boardIndex == 0) boardIndex = 1;
+            /*if (Input.GetKeyUp(KeyCode.RightArrow)) if (boardIndex == 0) boardIndex = 1;
             if (Input.GetKeyUp(KeyCode.LeftArrow)) if (boardIndex == 1) boardIndex = 0;
             if (Input.GetKeyUp(KeyCode.Return) && counter < Time.timeSinceLevelLoad) {
                 if (boardIndex == 0) {
@@ -294,14 +305,15 @@ public class Studio_Interaction : MonoBehaviour {
                     boardEnabled = false;
                     mapEnabled = true;
                 }
-            }
-            if (Input.GetKeyUp(KeyCode.Escape)) {
-                boardIndex = 0;
-                boardEnabled = false;
-                mapEnabled = true;
-            }
+            }*/
         }
 
+
+        if (Input.GetKeyUp(KeyCode.Escape)) {
+            boardIndex = 0;
+            boardEnabled = false;
+            mapEnabled = false;
+        }
     }
 
 }

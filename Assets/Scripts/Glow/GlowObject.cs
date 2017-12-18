@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GlowObject : MonoBehaviour {
 
@@ -38,13 +39,25 @@ public class GlowObject : MonoBehaviour {
 	//}
 
     private void OnMouseOver() {
-        if (Vector3.Distance(transform.position, player.position) < 1.5f) {
-            _targetColor = GlowColor;
-            enabled = true;
+        if (SceneManager.GetActiveScene().name == "studio") {
+            if (Vector3.Distance(transform.position, player.position) < 2.0f) {
+                _targetColor = GlowColor;
+                enabled = true;
+            }
+            else {
+                _targetColor = Color.black;
+                enabled = true;
+            }
         }
         else {
-            _targetColor = Color.black;
-            enabled = true;
+            if (Vector3.Distance(transform.position, player.position) < 1.5f) {
+                _targetColor = GlowColor;
+                enabled = true;
+            }
+            else {
+                _targetColor = Color.black;
+                enabled = true;
+            }
         }
     }
 

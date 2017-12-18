@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Player_Interaction : MonoBehaviour {
     RaycastHit interact;
@@ -18,9 +20,23 @@ public class Player_Interaction : MonoBehaviour {
     public Collider col;
     private GameObject myCanvas;
     public Camera canvasCam;
+    [SerializeField] private Transform target;
+    [SerializeField] private Studio_Interaction studio_Script;
+    private bool inStudio;
+    private float interactDistance;
     // public Object_Movement move;
     // Use this for initialization
     void Start () {
+
+        if (SceneManager.GetActiveScene().name == "studio") {
+            inStudio = true;
+            interactDistance = 2.0f;
+        }
+        else {
+            inStudio = false;
+            interactDistance = 1.5f;
+        }
+
         count = 0;
         picked = false;
         ppProfile.depthOfField.enabled = false;
@@ -34,17 +50,44 @@ public class Player_Interaction : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
+        if(inStudio) {
+            lookMap(studio_Script.mapEnabled);
+        }
+   
+        Debug.DrawRay(transform.position,transform.forward * interactDistance,Color.green);
         
-        Debug.DrawRay(transform.position,transform.forward *1.5f,Color.green);
-        
-            if (Physics.Raycast(transform.position, transform.forward, out interact, 1.5f) && !picked)
+            if (Physics.Raycast(transform.position, transform.forward, out interact, interactDistance) && !picked)
             {
-                /*if(interact.collider.tag == "Interact")
-                {
-                    icon.sprite = lupa;
-                    print("PICK");
-                }*/
-                if ((interact.collider.tag != "Paret") && (interact.collider.tag != "Terra"))
+            /*if(interact.collider.tag == "Interact")
+            {
+                icon.sprite = lupa;
+                print("PICK");
+            }*/
+            switch (interact.collider.tag)
+            {
+                case "Interact":
+                    col = interact.collider;
+                    lupa.SetActive(true);
+                    punter.SetActive(false);
+                    canPick = true;
+                    break;
+                case "Door":
+                    break;
+                case "Map":
+                    canPick = false;
+                    if (Input.GetKeyDown(KeyCode.E)) {
+                        transform.parent.position = new Vector3(-0.6287f, 1.5f, -0.6045f);
+                        transform.parent.eulerAngles = new Vector3(0, 207.746f, 0);
+                        transform.localEulerAngles = new Vector3(8.1f, 0, 0);
+                        //transform.LookAt(target);
+                        studio_Script.mapEnabled = true;
+                    }
+                    break;
+                default:
+                    canPick = false;
+                    break;
+            }
+                if ((interact.collider.tag == "Interact"))
                 {
                     col = interact.collider;
                     lupa.SetActive(true);
@@ -122,4 +165,25 @@ public class Player_Interaction : MonoBehaviour {
         }
         
     }
+
+    void lookMap(bool enabled)
+    {
+        if (enabled) {
+            punter.SetActive(false);
+            GetComponent<Camera_Control>().enabled = false;
+            transform.parent.GetComponent<Camera_Control>().enabled = false;
+            transform.parent.GetComponent<Player_Movement>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            //transform.LookAt(transform.parent.forward);
+            punter.SetActive(true);
+            GetComponent<Camera_Control>().enabled = true;
+            transform.parent.GetComponent<Camera_Control>().enabled = true;
+            transform.parent.GetComponent<Player_Movement>().enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
 }
