@@ -56,7 +56,7 @@ public class GlowObject : MonoBehaviour {
     /// <summary>
     /// Loop over all cached materials and update their color, disable self if we reach our target color.
     /// </summary>
-    private void Update() {
+    private void Update() {        
 		_currentColor = Color.Lerp(_currentColor, _targetColor, Time.deltaTime * LerpFactor);
 
 		for (int i = 0; i < _materials.Count; i++) {
