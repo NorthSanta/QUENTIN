@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e7268f6b1b6c50a45be451789a42348e
+timeCreated: 1513593359
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: pixel-love
+  fontNames:
+  - pixel-love
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
