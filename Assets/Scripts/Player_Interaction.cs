@@ -28,7 +28,7 @@ public class Player_Interaction : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        if (SceneManager.GetActiveScene().name == "studio") {
+        if (SceneManager.GetActiveScene().name == "Studio") {
             inStudio = true;
             interactDistance = 2.0f;
         }
@@ -56,62 +56,44 @@ public class Player_Interaction : MonoBehaviour {
    
         Debug.DrawRay(transform.position,transform.forward * interactDistance,Color.green);
         
-            if (Physics.Raycast(transform.position, transform.forward, out interact, interactDistance) && !picked)
-            {
-            /*if(interact.collider.tag == "Interact")
-            {
-                icon.sprite = lupa;
-                print("PICK");
-            }*/
-            switch (interact.collider.tag)
-            {
-                case "Interact":
-                    col = interact.collider;
-                    lupa.SetActive(true);
-                    punter.SetActive(false);
-                    canPick = true;
-                    break;
-                case "Door":
-                    break;
-                case "Map":
-                    canPick = false;
-                    if (Input.GetKeyDown(KeyCode.E)) {
-                        transform.parent.position = new Vector3(-0.6287f, 1.5f, -0.6045f);
-                        transform.parent.eulerAngles = new Vector3(0, 207.746f, 0);
-                        transform.localEulerAngles = new Vector3(8.1f, 0, 0);
-                        //transform.LookAt(target);
-                        studio_Script.mapEnabled = true;
-                    }
-                    break;
-                default:
-                    canPick = false;
-                    break;
-            }
-                if ((interact.collider.tag == "Interact"))
+            if (Physics.Raycast(transform.position, transform.forward, out interact, interactDistance) && !picked) {
+                /*if(interact.collider.tag == "Interact")
                 {
-                    col = interact.collider;
-                    lupa.SetActive(true);
-                    punter.SetActive(false);
-                    canPick = true;
+                    icon.sprite = lupa;
+                    print("PICK");
+                }*/
+                switch (interact.collider.tag) {
+                    case "Interact":
+                        col = interact.collider;
+                        lupa.SetActive(true);
+                        punter.SetActive(false);
+                        canPick = true;
+                        break;
+                    case "Door":
+                        break;
+                    case "Map":
+                        canPick = false;
+                        if (Input.GetKeyDown(KeyCode.E)) {
+                            transform.parent.position = new Vector3(-0.6287f, 1.5f, -0.6045f);
+                            transform.parent.eulerAngles = new Vector3(0, 207.746f, 0);
+                            transform.localEulerAngles = new Vector3(8.1f, 0, 0);
+                            //transform.LookAt(target);
+                            studio_Script.mapEnabled = true;
+                        }
+                        break;
+                    default:
+                        canPick = false;
+                        break;
                 }
-                else
-                {
-                    
-                    canPick = false;
-                }
-
             }
-
-            else
-            {
+            else {
             punter.SetActive(true);
             lupa.SetActive(false);
             canPick = false;
             }
         
 
-        if (canPick && Input.GetKeyDown(KeyCode.E) && !picked)
-        {
+        if (canPick && Input.GetKeyDown(KeyCode.E) && !picked) {
             myCanvas.SetActive(true);
             ppProfile.depthOfField.enabled = true;
             ppProfile.vignette.enabled = true;
@@ -141,8 +123,7 @@ public class Player_Interaction : MonoBehaviour {
             nou.AddComponent<rot_Obj>();
             picked = true;
         }
-        else if(picked && Input.GetKeyDown(KeyCode.E) && picked)
-        {
+        else if(picked && Input.GetKeyDown(KeyCode.E) && picked) {
             myCanvas.SetActive(false);
             ppProfile.depthOfField.enabled = false;
             ppProfile.vignette.enabled = false;
@@ -153,21 +134,18 @@ public class Player_Interaction : MonoBehaviour {
             picked = false;
         }
 
-        if (picked)
-        {
+        if (picked) {
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(myCanvas.transform as RectTransform, Input.mousePosition, canvasCam, out pos);
             icon.transform.position = myCanvas.transform.TransformPoint(pos);
         }
-        else
-        {
+        else {
             icon.transform.localPosition = new Vector3(0, 0, 0);
         }
         
     }
 
-    void lookMap(bool enabled)
-    {
+    void lookMap(bool enabled)  {
         if (enabled) {
             punter.SetActive(false);
             GetComponent<Camera_Control>().enabled = false;
@@ -175,8 +153,7 @@ public class Player_Interaction : MonoBehaviour {
             transform.parent.GetComponent<Player_Movement>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
         }
-        else
-        {
+        else {
             //transform.LookAt(transform.parent.forward);
             punter.SetActive(true);
             GetComponent<Camera_Control>().enabled = true;

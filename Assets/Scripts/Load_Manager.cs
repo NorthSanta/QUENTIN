@@ -8,11 +8,9 @@ public class Load_Manager : MonoBehaviour {
 
     protected AsyncOperation async;
 
-    [SerializeField]
-    private Text text;
+    [SerializeField] private Text text;
 
-    [SerializeField]
-    private GameObject printableInfo;
+    [SerializeField] private GameObject printableInfo;
 
     private Transform[] caseInfo;
 
@@ -36,7 +34,6 @@ public class Load_Manager : MonoBehaviour {
         async.allowSceneActivation = false;  
 
         Cursor.visible = false;
-
     }
 	
 	// Update is called once per frame
@@ -47,6 +44,5 @@ public class Load_Manager : MonoBehaviour {
         if (isLoaded) text.text = "PRESS ANY KEY";
 
         if (isLoaded && Input.anyKey) async.allowSceneActivation = true;
-
     }
 }

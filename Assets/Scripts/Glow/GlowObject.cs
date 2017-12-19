@@ -39,7 +39,7 @@ public class GlowObject : MonoBehaviour {
 	//}
 
     private void OnMouseOver() {
-        if (SceneManager.GetActiveScene().name == "studio") {
+        if (SceneManager.GetActiveScene().name == "Studio") {
             if (Vector3.Distance(transform.position, player.position) < 2.0f) {
                 _targetColor = GlowColor;
                 enabled = true;

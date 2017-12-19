@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Camera_Control : MonoBehaviour {
-
 	
-    public enum RotAxis
-    {
+    public enum RotAxis {
          xAxis = 1,
          yAxis = 2
     }
@@ -27,22 +25,19 @@ public class Camera_Control : MonoBehaviour {
 
     
 
-    private void Start()
-    {
+    private void Start() {
         interact =  Camera.main.GetComponent<Player_Interaction>();
         crouchHeight = transform.position.y;
         
         crouch = false;
     }
+
     void Update () {
-        if (!interact.picked)
-        {
-            if (axis == RotAxis.xAxis)
-            {
+        if (!interact.picked) {
+            if (axis == RotAxis.xAxis) {
                 transform.Rotate(0, Input.GetAxis("Mouse X") * sensHorz, 0);
             }
-            else if (axis == RotAxis.yAxis)
-            {
+            else if (axis == RotAxis.yAxis) {
                 _rotationX -= Input.GetAxis("Mouse Y") * sensVert;
                 _rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
                 float rotationY = transform.localEulerAngles.y;
@@ -69,6 +64,5 @@ public class Camera_Control : MonoBehaviour {
             //    crouch = false;
             //}
         }
-        
     }
 }

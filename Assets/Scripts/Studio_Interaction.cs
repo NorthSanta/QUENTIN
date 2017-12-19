@@ -9,23 +9,16 @@ public class Studio_Interaction : MonoBehaviour {
     private Ray ray;
 
     //All the Assets
-    [SerializeField]
-    private GameObject door;
+    [SerializeField] private GameObject door;
 
-    [SerializeField]
-    private GameObject map;
+    [SerializeField] private GameObject map;
 
-    [SerializeField]
-    private GameObject caseName;
-    [SerializeField]
-    private GameObject caseImage;
-    [SerializeField]
-    private GameObject caseDescription;
+    [SerializeField] private GameObject caseName;
+    [SerializeField] private GameObject caseImage;
+    [SerializeField] private GameObject caseDescription;
 
-    [SerializeField]
-    private GameObject caseAccept;
-    [SerializeField]
-    private GameObject caseCancel;
+    [SerializeField] private GameObject caseAccept;
+    [SerializeField] private GameObject caseCancel;
 
     public Transform[] mapCases;
 
@@ -97,7 +90,7 @@ public class Studio_Interaction : MonoBehaviour {
 
         //Change the Board Info depending to the activeCase
         switch (activeCase.gameObject.name) {
-            case "Case1":
+            case "CaseOffice":
                 for(int i = 1; i < mapCases.Length; i++) {
                     if (i == 1) {
                         nameCases[i].gameObject.SetActive(true);
@@ -188,7 +181,7 @@ public class Studio_Interaction : MonoBehaviour {
             if (Input.GetKeyUp(KeyCode.Mouse0)) {
                 if (Physics.Raycast(ray, out hit)) {
                     switch (hit.transform.name) {
-                        case "Case1":
+                        case "CaseOffice":
                             mapIndex = 1;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;
@@ -249,7 +242,7 @@ public class Studio_Interaction : MonoBehaviour {
             if (Input.GetKeyUp(KeyCode.Mouse0)) {
                 if (Physics.Raycast(ray, out hit)) {
                     switch (hit.transform.name) {
-                        case "Case1":
+                        case "CaseOffice":
                             mapIndex = 1;
                             activeCase = mapCases[mapIndex];
                             boardEnabled = true;

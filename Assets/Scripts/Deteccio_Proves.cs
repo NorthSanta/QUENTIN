@@ -18,42 +18,32 @@ public class Deteccio_Proves : MonoBehaviour {
      
     }
 
-    public void enableLightUV()
-    {
-        if (UV.activeSelf)
-        {
+    public void enableLightUV() {
+        if (UV.activeSelf) {
             UV.SetActive(false);
-        }else
-        {
+        }else {
             UV.SetActive(true);
             Polvos.SetActive(false);
             ADN.SetActive(false);
         }
-       
     }
-    public void enableLightPO()
-    {
 
-        if (Polvos.activeSelf)
-        {
+    public void enableLightPO() {
+        if (Polvos.activeSelf) {
             Polvos.SetActive(false);
         }
-        else
-        {
+        else {
             Polvos.SetActive(true);
             UV.SetActive(false);
             ADN.SetActive(false);
         }
     }
-    public void enableLightADN()
-    {
 
-        if (ADN.activeSelf)
-        {
+    public void enableLightADN() {
+        if (ADN.activeSelf) {
             ADN.SetActive(false);
         }
-        else
-        {
+        else {
             ADN.SetActive(true);
             UV.SetActive(false);
             Polvos.SetActive(false);

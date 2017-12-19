@@ -12,18 +12,15 @@ public class Player_Movement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-      
         Cursor.lockState = CursorLockMode.Locked;
         capsule = GetComponent<CapsuleCollider>();
         interact = Camera.main.GetComponent<Player_Interaction>();
-        
     }
   
     // Update is called once per frame
     void Update () {
 
-        if (!interact.picked)
-        {
+        if (!interact.picked) {
             float deltaX = Input.GetAxis("Horizontal") * speed;
             float deltaZ = Input.GetAxis("Vertical") * speed;
            
@@ -31,25 +28,20 @@ public class Player_Movement : MonoBehaviour {
             deltaZ *= Time.deltaTime;
             
             transform.Translate(deltaX, 0, deltaZ);
-            if (Input.GetKeyDown("escape"))
-            {
+            if (Input.GetKeyDown("escape")) {
                 Cursor.lockState = CursorLockMode.None;
             }
-            if(Input.GetKeyDown(KeyCode.LeftControl) && !crouch)
-            {           
+            if(Input.GetKeyDown(KeyCode.LeftControl) && !crouch) {           
                 crouch = true;
             }
-            else if (Input.GetKeyUp(KeyCode.LeftControl) && crouch)
-            {
+            else if (Input.GetKeyUp(KeyCode.LeftControl) && crouch) {
                 crouch = false;
             }
 
-            if(!crouch && capsule.height < 2)
-            {
+            if(!crouch && capsule.height < 2) {
                 capsule.height += 0.1f;
             }
-            else if (crouch && capsule.height > 1)
-            {
+            else if (crouch && capsule.height > 1) {
                 capsule.height -= 0.1f;
             }
 
