@@ -12,6 +12,7 @@ public class Studio_Interaction : MonoBehaviour {
     [SerializeField] private GameObject door;
 
     [SerializeField] private GameObject map;
+    [SerializeField] private GameObject board;
 
     [SerializeField] private GameObject caseName;
     [SerializeField] private GameObject caseImage;
@@ -74,18 +75,26 @@ public class Studio_Interaction : MonoBehaviour {
         //The Input of the player
         HandleInput();
 
-        //Print the map cases on scene
-        if (mapEnabled) {
+        //Print the map cases on scene & accept/cancel
+        if (mapEnabled && !boardEnabled) {
             for (int i = 1; i < mapCases.Length; i++) {
                 mapCases[i].gameObject.SetActive(true);
             }
             mapCases[0].GetComponent<BoxCollider>().enabled = false;
+            board.GetComponent<BoxCollider>().enabled = false;
+        }
+        else if (mapEnabled && boardEnabled) {
+            caseAccept.gameObject.SetActive(true);
+            caseCancel.gameObject.SetActive(true);
         }
         else{
             for (int i = 1; i < mapCases.Length; i++) {
                 mapCases[i].gameObject.SetActive(false);
             }
             mapCases[0].GetComponent<BoxCollider>().enabled = true;
+            board.GetComponent<BoxCollider>().enabled = true;
+            caseAccept.gameObject.SetActive(false);
+            caseCancel.gameObject.SetActive(false);
         }
 
         //Change the Board Info depending to the activeCase
@@ -165,11 +174,11 @@ public class Studio_Interaction : MonoBehaviour {
                 break;
         }
 
+
         if (doorOpen) {
             PlayerPrefs.SetString("SelectedCase", selectedCase.name);
             door.gameObject.tag = "Door";
         }
-
 	}
 
     //Input Function
