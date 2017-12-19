@@ -12,7 +12,6 @@ public class Menu_Manager : MonoBehaviour {
     [SerializeField] private RectTransform Audio;
     [SerializeField] private Slider VolSlider;
 
-
     public static int myFrameRate = 30;
 
     //VIDEO VARIABLES
@@ -22,9 +21,6 @@ public class Menu_Manager : MonoBehaviour {
     //AUDIO VARIABLES
     private float vol;
     private bool mute;
-
-    
-
 
     // Use this for initialization
     void Start () {
@@ -51,7 +47,6 @@ public class Menu_Manager : MonoBehaviour {
                 resX = 1280;
                 break;
         }
-
     }
 	
 	// Update is called once per frame
@@ -159,6 +154,12 @@ public class Menu_Manager : MonoBehaviour {
     public void BackAudio() {
         Audio.gameObject.SetActive(false);
         Options.gameObject.SetActive(true);
+    }
+    #endregion
+
+#region SocialMedia
+    public void GoURL(string name) {
+        Application.OpenURL(name);
     }
 #endregion
 
