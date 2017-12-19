@@ -70,6 +70,15 @@ public class Player_Interaction : MonoBehaviour {
                         canPick = true;
                         break;
                     case "Door":
+                        canPick = false;
+                        //Make the transition & door animation bool to true;
+                        //TODO
+                        if (Input.GetKeyDown(KeyCode.E)) {
+                            if (!inStudio) {
+                                PlayerPrefs.SetString("SelectedCase", "Studio");
+                            }
+                            SceneManager.LoadScene("Loading");
+                        }
                         break;
                     case "Map":
                         canPick = false;

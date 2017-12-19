@@ -167,6 +167,7 @@ public class Studio_Interaction : MonoBehaviour {
 
         if (doorOpen) {
             PlayerPrefs.SetString("SelectedCase", selectedCase.name);
+            door.gameObject.tag = "Door";
         }
 
 	}
