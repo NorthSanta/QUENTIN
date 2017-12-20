@@ -40,7 +40,7 @@ public class Studio_Interaction : MonoBehaviour {
     public int boardIndex;
 
     //Guarrada
-    private double counter;
+    //private double counter;
 
 
     // Use this for initialization
@@ -62,7 +62,7 @@ public class Studio_Interaction : MonoBehaviour {
         boardIndex = 0;
 
         //Init the Guarrada (every unit is 1 sec)
-        counter = 0.0f; 
+        //counter = 0.0f; 
     }
 	
 	// Update is called once per frame

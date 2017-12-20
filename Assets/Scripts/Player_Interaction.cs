@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.PostProcessing;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Reflection;
 
 
 public class Player_Interaction : MonoBehaviour {
     RaycastHit interact;
-    int count;
     public bool canPick;
     public bool picked;
     GameObject nou;
@@ -36,8 +36,7 @@ public class Player_Interaction : MonoBehaviour {
             inStudio = false;
             interactDistance = 1.5f;
         }
-
-        count = 0;
+        
         picked = false;
         ppProfile.depthOfField.enabled = false;
         ppProfile.vignette.enabled = false;
@@ -49,20 +48,21 @@ public class Player_Interaction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-        if(inStudio) {
+        ClearLog();
+        Debug.Log("Position: " + transform.position);
+        Debug.Log("Rotation: " + transform.rotation);
+
+        if (inStudio) {
             lookMap(studio_Script.mapEnabled);
         }
-        if (canPick)
-        {
+        if (canPick) {
             if (!lupa.activeSelf) lupa.SetActive(true);
             if (punter.activeSelf) punter.SetActive(false);
-        }else
-        {
+        }else {
             if(lupa.activeSelf) lupa.SetActive(false);
-
             if(!punter.activeSelf) punter.SetActive(true);
         }
+
         Debug.DrawRay(transform.position,transform.forward * interactDistance,Color.green);
         
             if (Physics.Raycast(transform.position, transform.forward, out interact, interactDistance) && !picked) {
@@ -90,10 +90,10 @@ public class Player_Interaction : MonoBehaviour {
                     case "Map":
                         canPick = false;
                         if (Input.GetKeyDown(KeyCode.E)) {
-                            transform.parent.position = new Vector3(-0.6287f, 1.5f, -0.6045f);
-                            transform.parent.eulerAngles = new Vector3(0, 207.746f, 0);
-                            transform.localEulerAngles = new Vector3(8.1f, 0, 0);
-                            //transform.LookAt(target);
+                            transform.parent.position = new Vector3(-0.5857f, 1.5f, -0.5630f);
+                            transform.parent.rotation = new Quaternion(0.0f, 1.0f, 0.0f, -0.24f);
+                            transform.rotation.Set(0.0f, 1.0f, -0.05f, -0.24f);// = new Quaternion(0.0f, 1.0f, -0.05f, -0.24f);
+                            //transform.parent.eulerAngles = new Vector3(0, -0.5630f, 0);
                             studio_Script.mapEnabled = true;
                         }
                         break;
@@ -103,9 +103,9 @@ public class Player_Interaction : MonoBehaviour {
                 }
             }
             else {
-            punter.SetActive(true);
-            lupa.SetActive(false);
-            canPick = false;
+                punter.SetActive(true);
+                lupa.SetActive(false);
+                canPick = false;
             }
         
 
@@ -177,6 +177,14 @@ public class Player_Interaction : MonoBehaviour {
             transform.parent.GetComponent<Player_Movement>().enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
         }
+    }
+
+
+    public void ClearLog() {
+        var assembly = Assembly.GetAssembly(typeof(UnityEditor.ActiveEditorTracker));
+        var type = assembly.GetType("UnityEditorInternal.LogEntries");
+        var method = type.GetMethod("Clear");
+        method.Invoke(new object(), null);
     }
 
 }
