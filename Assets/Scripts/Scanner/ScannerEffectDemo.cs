@@ -29,8 +29,9 @@ public class ScannerEffectDemo : MonoBehaviour
                 ScanDistance = 0;
             }
             foreach (Scannable s in _scannables) {
-				if (Vector3.Distance(_ScannerOrigin, s.transform.position) <= ScanDetection) //Aqui es pot definir a quina distancia maxima es detecten pistes
-					s.Ping();
+                if (Vector3.Distance(_ScannerOrigin, s.transform.position) <= ScanDetection) { //Aqui es pot definir a quina distancia maxima es detecten pistes
+                    s.Ping();
+                }
 			}
 		}
 

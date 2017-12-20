@@ -10,7 +10,10 @@ using System.Reflection;
 public class Player_Interaction : MonoBehaviour {
     RaycastHit interact;
     public bool canPick;
+    public bool interactuable;
     public bool picked;
+    public GameObject llibreta;
+    public GameObject textPista;
     GameObject nou;
     GameObject vell;
     public PostProcessingProfile ppProfile;
@@ -49,13 +52,13 @@ public class Player_Interaction : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ClearLog();
-        Debug.Log("Position: " + transform.position);
-        Debug.Log("Rotation: " + transform.rotation);
+        /*Debug.Log("Position: " + transform.position);
+        Debug.Log("Rotation: " + transform.rotation);*/
 
         if (inStudio) {
             lookMap(studio_Script.mapEnabled);
         }
-        if (canPick) {
+        if (interactuable) {
             if (!lupa.activeSelf) lupa.SetActive(true);
             if (punter.activeSelf) punter.SetActive(false);
         }else {
@@ -74,10 +77,12 @@ public class Player_Interaction : MonoBehaviour {
                 switch (interact.collider.tag) {
                     case "Interact":
                         col = interact.collider;
+                        interactuable = true;
                         canPick = true;
                         break;
                     case "Door":
                         canPick = false;
+                        interactuable = false;
                         //Make the transition & door animation bool to true;
                         //TODO
                         if (Input.GetKeyDown(KeyCode.E)) {
@@ -89,6 +94,7 @@ public class Player_Interaction : MonoBehaviour {
                         break;
                     case "Map":
                         canPick = false;
+                        interactuable = false;
                         if (Input.GetKeyDown(KeyCode.E)) {
                             transform.parent.position = new Vector3(-0.5857f, 1.5f, -0.5630f);
                             transform.parent.rotation = new Quaternion(0.0f, 1.0f, 0.0f, -0.24f);
@@ -97,16 +103,25 @@ public class Player_Interaction : MonoBehaviour {
                             studio_Script.mapEnabled = true;
                         }
                         break;
+                    case "RastreV":
+                        col = interact.collider;
+                        interactuable = true;
+                        if (Input.GetKeyDown(KeyCode.E)) {
+                            llibreta.SetActive(true);
+                            textPista.SetActive(true);
+                        }
+                        //canPick = true;
+                        break;
                     default:
-                        canPick = false;
+                           canPick = false;
+                           interactuable = false;
                         break;
                 }
-            }
-            else {
-                punter.SetActive(true);
-                lupa.SetActive(false);
-                canPick = false;
-            }
+        }else
+        {
+            interactuable = false;
+        }
+            
         
 
         if (canPick && Input.GetKeyDown(KeyCode.E) && !picked) {
