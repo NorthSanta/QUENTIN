@@ -25,6 +25,8 @@ public class Player_Interaction : MonoBehaviour {
     public Camera canvasCam;
     [SerializeField] private Transform target;
     [SerializeField] private Studio_Interaction studio_Script;
+    [SerializeField] private Animator liftController;
+    [SerializeField] private Animator doorController;
     private bool inStudio;
     private float interactDistance;
     // public Object_Movement move;
@@ -51,10 +53,9 @@ public class Player_Interaction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ClearLog();
+        //ClearLog();
         /*Debug.Log("Position: " + transform.position);
         Debug.Log("Rotation: " + transform.rotation);*/
-
         if (inStudio) {
             lookMap(studio_Script.mapEnabled);
         }
@@ -66,14 +67,10 @@ public class Player_Interaction : MonoBehaviour {
             if(!punter.activeSelf) punter.SetActive(true);
         }
 
+
         Debug.DrawRay(transform.position,transform.forward * interactDistance,Color.green);
         
             if (Physics.Raycast(transform.position, transform.forward, out interact, interactDistance) && !picked) {
-                /*if(interact.collider.tag == "Interact")
-                {
-                    icon.sprite = lupa;
-                    print("PICK");
-                }*/
                 switch (interact.collider.tag) {
                     case "Interact":
                         col = interact.collider;
@@ -84,11 +81,12 @@ public class Player_Interaction : MonoBehaviour {
                         canPick = false;
                         interactuable = false;
                         //Make the transition & door animation bool to true;
-                        //TODO
                         if (Input.GetKeyDown(KeyCode.E)) {
                             if (!inStudio) {
                                 PlayerPrefs.SetString("SelectedCase", "Studio");
                             }
+                            doorController.SetBool("Active", true);
+                            
                             SceneManager.LoadScene("Loading");
                         }
                         break;
@@ -103,22 +101,28 @@ public class Player_Interaction : MonoBehaviour {
                             studio_Script.mapEnabled = true;
                         }
                         break;
-                    case "RastreV":
-                        col = interact.collider;
-                        interactuable = true;
+                    case "Lift":
+                        canPick = false;
+                        interactuable = false;
                         if (Input.GetKeyDown(KeyCode.E)) {
-                            llibreta.SetActive(true);
-                            textPista.SetActive(true);
+                            liftController.SetBool("Active", true);
                         }
-                        //canPick = true;
                         break;
+                    case "RastreV":
+                            col = interact.collider;
+                            interactuable = true;
+                            if (Input.GetKeyDown(KeyCode.E)) {
+                                llibreta.SetActive(true);
+                                textPista.SetActive(true);
+                            }
+                            //canPick = true;
+                            break;
                     default:
                            canPick = false;
                            interactuable = false;
                         break;
                 }
-        }else
-        {
+        }else {
             interactuable = false;
         }
             

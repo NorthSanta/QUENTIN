@@ -40,7 +40,13 @@ public class GlowObject : MonoBehaviour {
 
     private void OnMouseOver() {
         if (SceneManager.GetActiveScene().name == "Studio") {
-            if (Vector3.Distance(transform.position, player.position) < 2.0f) {
+            if (transform.name == "DoorInterior") {
+                if(Vector3.Distance(transform.parent.position, player.position) < 2.0f) {
+                    _targetColor = GlowColor;
+                    enabled = true;
+                }
+            }
+            else if (Vector3.Distance(transform.position, player.position) < 2.0f) {
                 _targetColor = GlowColor;
                 enabled = true;
             }
