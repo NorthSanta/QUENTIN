@@ -5,8 +5,10 @@ using System.Collections;
 public class ScannerEffectDemo : MonoBehaviour
 {
 	public Transform ScannerOrigin;
+    private Vector3 _ScannerOrigin;
 	public Material EffectMaterial;
 	public float ScanDistance;
+    public float ScanDetection = 5.0f;
     public float MaxScanDistance = 10.0f;
 
 	private Camera _camera;
@@ -27,14 +29,17 @@ public class ScannerEffectDemo : MonoBehaviour
                 ScanDistance = 0;
             }
             foreach (Scannable s in _scannables) {
-				if (Vector3.Distance(ScannerOrigin.position, s.transform.position) <= ScanDistance) //Aqui es pot definir a quina distancia maxima es detecten pistes
+				if (Vector3.Distance(_ScannerOrigin, s.transform.position) <= ScanDetection) //Aqui es pot definir a quina distancia maxima es detecten pistes
 					s.Ping();
 			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.C)) {
-			_scanning = true;
-			ScanDistance = 0;
+		if (Input.GetKeyUp(KeyCode.C)) {
+            if (!_scanning) {
+                _scanning = true;
+                ScanDistance = 0;
+                _ScannerOrigin = ScannerOrigin.position;
+            }
 		}
 
         /* FOR MOUSE INTERACTION
@@ -58,7 +63,7 @@ public class ScannerEffectDemo : MonoBehaviour
 
 	[ImageEffectOpaque]
 	void OnRenderImage(RenderTexture src, RenderTexture dst) {
-		EffectMaterial.SetVector("_WorldSpaceScannerPos", ScannerOrigin.position);
+		EffectMaterial.SetVector("_WorldSpaceScannerPos", _ScannerOrigin);
 		EffectMaterial.SetFloat("_ScanDistance", ScanDistance);
 		RaycastCornerBlit(src, dst, EffectMaterial);
 	}
