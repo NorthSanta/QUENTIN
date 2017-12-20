@@ -7,22 +7,34 @@ public class Intro_Manager : MonoBehaviour {
 
     public static int myFrameRate = 30;
 
+    private float introCounter = 0.0f;
+
+    [SerializeField] private Animator donkeyLogo;
+    [SerializeField] private Animator quentinLogo;
+    [SerializeField] private Animator unityLogo;
+    [SerializeField] private Animator dsLogo;
+    [SerializeField] private Animator text;
+
     //Async Operator for preload scene
     protected AsyncOperation async;
 
     void Awake() {
-        PlayerPrefs.SetInt("Fps", 30);
-        PlayerPrefs.SetInt("Res", 720);
-        PlayerPrefs.SetInt("VSync", 0);
-        PlayerPrefs.SetInt("AA", 0);
+        if (PlayerPrefs.GetInt("FirstEntry") == 0) { }
+        else {
+            PlayerPrefs.SetInt("Fps", 30);
+            PlayerPrefs.SetInt("Res", 720);
+            PlayerPrefs.SetInt("VSync", 0);
+            PlayerPrefs.SetInt("AA", 0);
 
-        PlayerPrefs.SetFloat("Vol", 1.0f);
-        PlayerPrefs.SetInt("Mute", 0);
+            PlayerPrefs.SetFloat("Vol", 1.0f);
+            PlayerPrefs.SetInt("Mute", 0);
 
-        PlayerPrefs.SetInt("Character", 0);
-        PlayerPrefs.SetInt("Map", 0);
+            PlayerPrefs.SetInt("Character", 0);
+            PlayerPrefs.SetInt("Map", 0);
 
-
+            PlayerPrefs.SetInt("FirstEntry", 0);
+        }
+        
         //Set the current frameRate
         Application.targetFrameRate = myFrameRate;
     }
@@ -48,15 +60,27 @@ public class Intro_Manager : MonoBehaviour {
         else AudioListener.volume = PlayerPrefs.GetFloat("Vol");
 
         //Pre Load the menu scene for smooth transition
-        async = SceneManager.LoadSceneAsync("Menu Scene");
+        async = SceneManager.LoadSceneAsync("Menu");
         //Set the activation on full load on false
         async.allowSceneActivation = false;
-
+        
         Cursor.visible = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		//TODO
-	}
+        //TODO
+        introCounter += Time.deltaTime;
+        if (introCounter >= 1.0f && introCounter <= 2.0f) donkeyLogo.SetBool("Active", true);
+
+        else if (introCounter >= 5.99f && introCounter <= 8.99f) quentinLogo.SetBool("Active", true);
+
+        else if (introCounter >= 10.99f && introCounter <= 11.99f) {
+            unityLogo.GetComponent<Animator>().SetBool("Active", true);
+            dsLogo.GetComponent<Animator>().SetBool("Active", true);
+            text.GetComponent<Animator>().SetBool("Active", true);
+        }
+
+        if (introCounter >= 16.50 && introCounter <= 17.50) async.allowSceneActivation = true;
+    }
 }
