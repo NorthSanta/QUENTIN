@@ -53,7 +53,16 @@ public class Player_Interaction : MonoBehaviour {
         if(inStudio) {
             lookMap(studio_Script.mapEnabled);
         }
-   
+        if (canPick)
+        {
+            if (!lupa.activeSelf) lupa.SetActive(true);
+            if (punter.activeSelf) punter.SetActive(false);
+        }else
+        {
+            if(lupa.activeSelf) lupa.SetActive(false);
+
+            if(!punter.activeSelf) punter.SetActive(true);
+        }
         Debug.DrawRay(transform.position,transform.forward * interactDistance,Color.green);
         
             if (Physics.Raycast(transform.position, transform.forward, out interact, interactDistance) && !picked) {
@@ -65,8 +74,6 @@ public class Player_Interaction : MonoBehaviour {
                 switch (interact.collider.tag) {
                     case "Interact":
                         col = interact.collider;
-                        lupa.SetActive(true);
-                        punter.SetActive(false);
                         canPick = true;
                         break;
                     case "Door":
