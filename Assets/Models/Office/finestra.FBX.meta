@@ -6,10 +6,19 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Box057
+    100004: Plane001
     400000: //RootNode
+    400002: Box057
+    400004: Plane001
     2300000: //RootNode
+    2300002: Box057
+    2300004: Plane001
     3300000: //RootNode
+    3300002: Box057
+    3300004: Plane001
     4300000: Box057
+    4300002: Plane001
     9500000: //RootNode
   materials:
     importMaterials: 1
