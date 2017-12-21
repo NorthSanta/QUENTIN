@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: ff4f4c2be496d524fa2a253b47159011
-timeCreated: 1512237657
+guid: 6a11fc35c00ac514ea174955d90f84e2
+timeCreated: 1513851237
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -10,7 +10,6 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cylinder001
-    4300002: Object001
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -56,7 +55,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 0
+    tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
