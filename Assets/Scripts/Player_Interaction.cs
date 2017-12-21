@@ -25,7 +25,8 @@ public class Player_Interaction : MonoBehaviour
     public GameObject punter;
     public Image icon;
     public Collider col;
-    private GameObject myCanvas;
+    public GameObject MENU;
+    public GameObject buttons;
     public Camera canvasCam;
     [SerializeField]
     private Transform target;
@@ -37,6 +38,12 @@ public class Player_Interaction : MonoBehaviour
     private Animator doorController;
     private bool inStudio;
     private float interactDistance;
+
+    public GameObject UV;
+    public GameObject Polvos;
+    public GameObject ADN;
+
+    public GameObject puzzleProg;
     // public Object_Movement move;
     // Use this for initialization
     void Start()
@@ -56,9 +63,12 @@ public class Player_Interaction : MonoBehaviour
         picked = false;
         ppProfile.depthOfField.enabled = false;
         ppProfile.vignette.enabled = false;
-        myCanvas = GameObject.Find("trueCanvas");
-        Cursor.visible = false;
-        myCanvas.SetActive(false);
+        buttons.SetActive(false);
+        MENU.SetActive(false);
+        
+        //myCanvas = GameObject.Find("trueCanvas");
+        //Cursor.visible = false;
+        //myCanvas.SetActive(false);
         //ppProfile = Camera.main.GetComponent<PostProcessingProfile>();
     }
 
@@ -150,7 +160,23 @@ public class Player_Interaction : MonoBehaviour
                     //canPick = true;
                     break;
                 case "Puzzle":
-
+                    interactuable = true;
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        puzzleProg.SetActive(!puzzleProg.activeSelf);
+                        punter.SetActive(false);
+                        lupa.SetActive(false);
+                        GetComponent<Camera_Control>().enabled = false;
+                        transform.parent.GetComponent<Camera_Control>().enabled = false;
+                        transform.parent.GetComponent<Player_Movement>().enabled = false;
+                        Cursor.lockState = CursorLockMode.None;
+                    }else if (Input.GetKeyDown(KeyCode.R))
+                    {
+                        GetComponent<Camera_Control>().enabled = true;
+                        transform.parent.GetComponent<Camera_Control>().enabled = true;
+                        transform.parent.GetComponent<Player_Movement>().enabled = true;
+                        Cursor.lockState = CursorLockMode.Locked;
+                    }
                     break;
                 default:
                     canPick = false;
@@ -161,13 +187,14 @@ public class Player_Interaction : MonoBehaviour
         else
         {
             interactuable = false;
+            canPick = false;
         }
 
 
 
         if (canPick && Input.GetKeyDown(KeyCode.E) && !picked)
         {
-            myCanvas.SetActive(true);
+            buttons.SetActive(true);
             ppProfile.depthOfField.enabled = true;
             ppProfile.vignette.enabled = true;
 
@@ -178,27 +205,49 @@ public class Player_Interaction : MonoBehaviour
             vell = interact.collider.gameObject;
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
+            GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
             nou.layer = 4;
-
+            //nou.GetComponent<GlowObject>().enabled = false;
             if (col.GetType() == typeof(BoxCollider))
+            {
                 nou.GetComponent<BoxCollider>().enabled = false;
+                copy.GetComponent<BoxCollider>().enabled = false;
+            }
             else if (col.GetType() == typeof(MeshCollider))
+            {
                 nou.GetComponent<MeshCollider>().enabled = false;
+                copy.GetComponent<MeshCollider>().enabled = false;
+            }
 
-
-            nou.transform.parent = myCanvas.transform;
+            
+            nou.transform.parent = buttons.transform.parent;
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0, 0, 0);
             nou.transform.rotation = new Quaternion(0, 0, 0, 0);
             nou.AddComponent<Object_Movement>();
             nou.GetComponent<Object_Movement>().alpha = 100;
             nou.AddComponent<rot_Obj>();
+           // copy.transform.parent = buttons.transform.parent;
+           //// copy.transform.SetAsFirstSibling();
+           // copy.transform.localPosition = new Vector3(0, 0, 0);
+           // copy.transform.rotation = new Quaternion(0, 0, 0, 0);
+           // copy.AddComponent<Object_Movement>();
+           // copy.GetComponent<Object_Movement>().alpha = 100;
+           // copy.AddComponent<rot_Obj>();
+           // copy.layer = 8;
+           // copy.SetActive(true);
+            //copy.GetComponent<>().color = Color.red;
+           
+            
             picked = true;
         }
-        else if (picked && Input.GetKeyDown(KeyCode.E) && picked)
+        else if (picked && Input.GetKeyDown(KeyCode.E))
         {
-            myCanvas.SetActive(false);
+            UV.SetActive(false);
+            Polvos.SetActive(false);
+            ADN.SetActive(false);
+            buttons.SetActive(false);
             ppProfile.depthOfField.enabled = false;
             ppProfile.vignette.enabled = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -211,11 +260,12 @@ public class Player_Interaction : MonoBehaviour
         if (picked)
         {
             Vector2 pos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(myCanvas.transform as RectTransform, Input.mousePosition, canvasCam, out pos);
-            icon.transform.position = myCanvas.transform.TransformPoint(pos);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(buttons.transform.parent.transform as RectTransform, Input.mousePosition, canvasCam, out pos);
+            icon.transform.position = buttons.transform.parent.transform.TransformPoint(pos);
         }
         else
         {
+           
             icon.transform.localPosition = new Vector3(0, 0, 0);
         }
 
@@ -223,6 +273,7 @@ public class Player_Interaction : MonoBehaviour
 
     void lookMap(bool enabled)
     {
+        
         if (enabled)
         {
             punter.SetActive(false);

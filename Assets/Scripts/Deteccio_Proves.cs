@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Deteccio_Proves : MonoBehaviour {
-    RaycastHit interact;
+    
     public GameObject UV;
     public GameObject Polvos;
     public GameObject ADN;
-
+    public GameObject seeThrough;
+    public Player_Interaction interact;
     // Use this for initialization
     void Start () {
 		
@@ -19,6 +20,7 @@ public class Deteccio_Proves : MonoBehaviour {
     }
 
     public void enableLightUV() {
+       // seeThrough.SetActive(true);
         if (UV.activeSelf) {
             UV.SetActive(false);
         }else {
@@ -29,6 +31,7 @@ public class Deteccio_Proves : MonoBehaviour {
     }
 
     public void enableLightPO() {
+      //  seeThrough.SetActive(true);
         if (Polvos.activeSelf) {
             Polvos.SetActive(false);
         }
@@ -40,6 +43,7 @@ public class Deteccio_Proves : MonoBehaviour {
     }
 
     public void enableLightADN() {
+       // seeThrough.SetActive(true);
         if (ADN.activeSelf) {
             ADN.SetActive(false);
         }

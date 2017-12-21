@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Llibreta_Fade : MonoBehaviour {
-    public float cool;
+    private float cool;
+    public float max;
 	// Use this for initialization
 	void Start () {
-        cool = 2.5f;
+        //cool = 2.5f;
+        cool = max;
 	}
 	
 	// Update is called once per frame
@@ -15,7 +17,7 @@ public class Llibreta_Fade : MonoBehaviour {
         if(cool<= 0)
         {
             gameObject.SetActive(false);
-            cool = 2.5f;
+            cool = max;
         }
 	}
 }

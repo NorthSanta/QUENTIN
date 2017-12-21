@@ -13,12 +13,14 @@ public class Player_Movement : MonoBehaviour {
     public float crouchHeight;
     public CapsuleCollider capsule;
     private GameObject fader;
-
+    private GameObject pauseMenu;
+   
     private bool firstEntry;
 
     // Use this for initialization
     void Start () {
         fader = GameObject.Find("Fader");
+        pauseMenu = GameObject.Find("PauseMenu");
         firstEntry = true;
         opacity = 1.0f;
         c = new Color(0, 0, 0, 1);
@@ -35,6 +37,7 @@ public class Player_Movement : MonoBehaviour {
             opacity -= 0.5f * Time.deltaTime;
             if (opacity <= 0.0f) {
                 firstEntry = false;
+                fader.SetActive(false);
             }
         }
 
@@ -49,10 +52,7 @@ public class Player_Movement : MonoBehaviour {
                 deltaZ *= Time.deltaTime;
 
                 transform.Translate(deltaX, 0, deltaZ);
-                if (Input.GetKeyDown("escape"))
-                {
-                    Cursor.lockState = CursorLockMode.None;
-                }
+             
                 if (Input.GetKeyDown(KeyCode.LeftControl) && !crouch)
                 {
                     crouch = true;

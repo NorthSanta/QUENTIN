@@ -33,9 +33,11 @@ public class Return_Controller : MonoBehaviour {
         {
             firstOut = true;
             anim.SetBool("Active", false);
+            fader.SetActive(false);
         }else if (Mathf.Abs(Vector3.Distance(player.position, exit.position)) <= 1.3f && firstOut) {
             PlayerPrefs.SetString("SelectedCase", "Studio");
             getOut = true;
+            fader.SetActive(true);
         }
 
         if (getOut) {
