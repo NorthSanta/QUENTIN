@@ -14,19 +14,26 @@ public class Return_Controller : MonoBehaviour {
     [SerializeField] private GameObject fader;
 
     private bool getOut;
+    private bool firstOut;
 
+    public Animator anim;
 	// Use this for initialization
 	void Start () {
         opacity = 0.0f;
         c = new Color(0, 0, 0, 0);
         getOut = false;
+        firstOut = false;
+        anim = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         fader.GetComponent<Image>().color = c;
-
-		if(Mathf.Abs(Vector3.Distance(player.position, exit.position)) <= 1.3f) {
+        if (Mathf.Abs(Vector3.Distance(player.position, exit.position)) >= 2.5f && !firstOut)
+        {
+            firstOut = true;
+            anim.SetBool("Active", false);
+        }else if (Mathf.Abs(Vector3.Distance(player.position, exit.position)) <= 1.3f && firstOut) {
             PlayerPrefs.SetString("SelectedCase", "Studio");
             getOut = true;
         }

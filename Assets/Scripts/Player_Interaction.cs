@@ -41,7 +41,7 @@ public class Player_Interaction : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         if (SceneManager.GetActiveScene().name == "Studio")
         {
             inStudio = true;
@@ -148,6 +148,9 @@ public class Player_Interaction : MonoBehaviour
                         }
                     }
                     //canPick = true;
+                    break;
+                case "Puzzle":
+
                     break;
                 default:
                     canPick = false;
