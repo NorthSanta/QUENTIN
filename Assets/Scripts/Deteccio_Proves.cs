@@ -20,7 +20,8 @@ public class Deteccio_Proves : MonoBehaviour {
     }
 
     public void enableLightUV() {
-       // seeThrough.SetActive(true);
+        // seeThrough.SetActive(true);
+        Debug.Log("Hi");
         if (UV.activeSelf) {
             UV.SetActive(false);
         }else {

@@ -56,7 +56,7 @@ public class GlowObject : MonoBehaviour {
             }
         }
         else {
-            if (Vector3.Distance(transform.position, player.position) < 1.5f) {
+            if (Vector3.Distance(transform.position, player.position) < 1.5f && !player.GetComponentInChildren<Player_Interaction>().picked) {
                 _targetColor = GlowColor;
                 enabled = true;
             }
