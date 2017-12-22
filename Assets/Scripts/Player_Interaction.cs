@@ -28,14 +28,10 @@ public class Player_Interaction : MonoBehaviour
     public GameObject MENU;
     public GameObject buttons;
     public Camera canvasCam;
-    [SerializeField]
-    private Transform target;
-    [SerializeField]
-    private Studio_Interaction studio_Script;
-    [SerializeField]
-    private Animator liftController;
-    [SerializeField]
-    private Animator doorController;
+    [SerializeField] private Transform target;
+    [SerializeField] public Studio_Interaction studio_Script;
+    [SerializeField] private Animator liftController;
+    [SerializeField] private Animator doorController;
     private bool inStudio;
     private float interactDistance;
 
@@ -46,16 +42,13 @@ public class Player_Interaction : MonoBehaviour
     public GameObject puzzleProg;
     // public Object_Movement move;
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         //PlayerPrefs.DeleteAll();
-        if (SceneManager.GetActiveScene().name == "Studio")
-        {
+        if (SceneManager.GetActiveScene().name == "Studio") {
             inStudio = true;
             interactDistance = 2.0f;
         }
-        else
-        {
+        else {
             inStudio = false;
             interactDistance = 1.5f;
         }
@@ -65,6 +58,7 @@ public class Player_Interaction : MonoBehaviour
         ppProfile.vignette.enabled = false;
         buttons.SetActive(false);
         MENU.SetActive(false);
+        cluesFound = 0;
         
         //myCanvas = GameObject.Find("trueCanvas");
         //Cursor.visible = false;
@@ -73,22 +67,18 @@ public class Player_Interaction : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         //ClearLog();
         /*Debug.Log("Position: " + transform.position);
         Debug.Log("Rotation: " + transform.rotation);*/
-        if (inStudio)
-        {
+        if (inStudio) {
             lookMap(studio_Script.mapEnabled);
         }
-        if (interactuable)
-        {
+        if (interactuable) {
             if (!lupa.activeSelf) lupa.SetActive(true);
             if (punter.activeSelf) punter.SetActive(false);
         }
-        else
-        {
+        else {
             if (lupa.activeSelf) lupa.SetActive(false);
             if (!punter.activeSelf) punter.SetActive(true);
         }
@@ -96,10 +86,8 @@ public class Player_Interaction : MonoBehaviour
 
         Debug.DrawRay(transform.position, transform.forward * interactDistance, Color.green);
 
-        if (Physics.Raycast(transform.position, transform.forward, out interact, interactDistance) && !picked)
-        {
-            switch (interact.collider.tag)
-            {
+        if (Physics.Raycast(transform.position, transform.forward, out interact, interactDistance) && !picked) {
+            switch (interact.collider.tag) {
                 case "Interact":
                     col = interact.collider;
                     interactuable = true;
@@ -109,10 +97,8 @@ public class Player_Interaction : MonoBehaviour
                     canPick = false;
                     interactuable = false;
                     //Make the transition & door animation bool to true;
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        if (!inStudio)
-                        {
+                    if (Input.GetKeyDown(KeyCode.E)) {
+                        if (!inStudio) {
                             PlayerPrefs.SetString("SelectedCase", "Studio");
                         }
                         doorController.SetBool("Active", true);
@@ -123,8 +109,7 @@ public class Player_Interaction : MonoBehaviour
                 case "Map":
                     canPick = false;
                     interactuable = false;
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
+                    if (Input.GetKeyDown(KeyCode.E)) {
                         transform.parent.position = new Vector3(-0.5857f, 1.5f, -0.5630f);
                         transform.parent.rotation = new Quaternion(0.0f, 1.0f, 0.0f, -0.24f);
                         transform.rotation.Set(0.0f, 1.0f, -0.05f, -0.24f);// = new Quaternion(0.0f, 1.0f, -0.05f, -0.24f);
@@ -141,16 +126,13 @@ public class Player_Interaction : MonoBehaviour
                     }
                     break;
                 case "RastreV":
-                    
                     col = interact.collider;
                     interactuable = true;
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
+                    if (Input.GetKeyDown(KeyCode.E)) {
                         if (!interact.collider.gameObject.GetComponent<Clue_Index>().found) {
                             indexClue = interact.collider.gameObject.GetComponent<Clue_Index>().clueIndex;
                             textPista.GetComponent<Text>().text = manager.caseClues[indexClue];
-                            PlayerPrefs.SetString("office" + cluesFound, manager.caseClues[indexClue]);
-                            cluesFound++;
+                            PlayerPrefs.SetString("office" + cluesFound++, manager.caseClues[indexClue]);
                             interact.collider.gameObject.GetComponent<Clue_Index>().found = true;
                             //textPista.GetComponent<Text>().text = PlayerPrefs.GetString("office" + indexClue);
                             llibreta.SetActive(true);
@@ -161,8 +143,7 @@ public class Player_Interaction : MonoBehaviour
                     break;
                 case "Puzzle":
                     interactuable = true;
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
+                    if (Input.GetKeyDown(KeyCode.E)) {
                         puzzleProg.SetActive(!puzzleProg.activeSelf);
                         punter.SetActive(false);
                         lupa.SetActive(false);
@@ -170,8 +151,7 @@ public class Player_Interaction : MonoBehaviour
                         transform.parent.GetComponent<Camera_Control>().enabled = false;
                         transform.parent.GetComponent<Player_Movement>().enabled = false;
                         Cursor.lockState = CursorLockMode.None;
-                    }else if (Input.GetKeyDown(KeyCode.R))
-                    {
+                    }else if (Input.GetKeyDown(KeyCode.R)) {
                         GetComponent<Camera_Control>().enabled = true;
                         transform.parent.GetComponent<Camera_Control>().enabled = true;
                         transform.parent.GetComponent<Player_Movement>().enabled = true;
@@ -192,8 +172,7 @@ public class Player_Interaction : MonoBehaviour
 
 
 
-        if (canPick && Input.GetKeyDown(KeyCode.E) && !picked)
-        {
+        if (canPick && Input.GetKeyDown(KeyCode.E) && !picked){
             buttons.SetActive(true);
             ppProfile.depthOfField.enabled = true;
             ppProfile.vignette.enabled = true;
@@ -242,8 +221,7 @@ public class Player_Interaction : MonoBehaviour
             
             picked = true;
         }
-        else if (picked && Input.GetKeyDown(KeyCode.E))
-        {
+        else if (picked && Input.GetKeyDown(KeyCode.E)){
             UV.SetActive(false);
             Polvos.SetActive(false);
             ADN.SetActive(false);
@@ -257,45 +235,39 @@ public class Player_Interaction : MonoBehaviour
             picked = false;
         }
 
-        if (picked)
-        {
+        if (picked){
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(buttons.transform.parent.transform as RectTransform, Input.mousePosition, canvasCam, out pos);
             icon.transform.position = buttons.transform.parent.transform.TransformPoint(pos);
         }
-        else
-        {
+        else{
            
             icon.transform.localPosition = new Vector3(0, 0, 0);
         }
 
     }
 
-    void lookMap(bool enabled)
-    {
+    void lookMap(bool enabled) {
         
-        if (enabled)
-        {
+        if (enabled) {
             punter.SetActive(false);
             GetComponent<Camera_Control>().enabled = false;
             transform.parent.GetComponent<Camera_Control>().enabled = false;
             transform.parent.GetComponent<Player_Movement>().enabled = false;
             Cursor.lockState = CursorLockMode.None;
         }
-        else
-        {
+        else {
             //transform.LookAt(transform.parent.forward);
             punter.SetActive(true);
             GetComponent<Camera_Control>().enabled = true;
             transform.parent.GetComponent<Camera_Control>().enabled = true;
             transform.parent.GetComponent<Player_Movement>().enabled = true;
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
 
-    public void ClearLog()
-    {
+    public void ClearLog() {
         var assembly = Assembly.GetAssembly(typeof(UnityEditor.ActiveEditorTracker));
         var type = assembly.GetType("UnityEditorInternal.LogEntries");
         var method = type.GetMethod("Clear");

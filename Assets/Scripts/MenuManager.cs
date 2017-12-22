@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -21,83 +22,82 @@ public class MenuManager : MonoBehaviour
     public Player_Interaction interact;
 
     public bool inMenu;
+    public bool inStudio;
+    public bool mapEnabled;
     // Use this for initialization
-    void Start()
-    {
-     
+    void Start() {
         //pauseMenu = GameObject.Find("PauseMenu");
         player = GameObject.Find("Player");
         clue_manager = GetComponent<Clue_Manager>();
         inMenu = false;
+        mapEnabled = false;
+        if (SceneManager.GetActiveScene().name == "Studio") {
+            inStudio = true;
+        }
+        else {
+            inStudio = false;
+        }
     }
 
     // Update is called once per frame
-    void Update()
-    {
-
-        if (Input.GetKeyDown("escape"))
-        {
-
-            if (inMenu)
-            {
+    void Update() {
+        if (inStudio) {
+            mapEnabled = interact.studio_Script.mapEnabled;
+        }
+        if (Input.GetKeyDown("escape")) {
+            if (mapEnabled) {
+                return;
+            }
+            else if (inMenu) {
                 //Cursor.lockState = CursorLockMode.Confined;
-
                 inMenu = false;
                 interact.picked = false;
             }
-            else if (!inMenu && !interact.picked)
-            {
+            else if (!inMenu && !interact.picked) {
                 //Cursor.lockState = CursorLockMode.None;
                 //Cursor.visible = true;
                 Cursor.visible = false;
                 inMenu = true;
+                GameMenu();
                 interact.picked = true;
             }
             pauseMenu.SetActive(!pauseMenu.activeSelf);
             player.GetComponent<Player_Movement>().enabled = !player.GetComponent<Player_Movement>().enabled;
             player.GetComponent<Camera_Control>().enabled = !player.GetComponent<Camera_Control>().enabled;
             Camera.main.GetComponent<Camera_Control>().enabled = !Camera.main.GetComponent<Camera_Control>().enabled;
-
-
         }
-
-
     }
 
-    public void OptionsMenu()
-    {
+    public void OptionsMenu() {
         text.text = "";
         Op.SetActive(true);
         Game.SetActive(false);
         Clues.SetActive(false);
         Tips.SetActive(false);
     }
-    public void GameMenu()
-    {
+
+    public void GameMenu() {
         text.text = "";
         Game.SetActive(true);
         Op.SetActive(false);
         Clues.SetActive(false);
         Tips.SetActive(false);
     }
-    public void CluesMenu()
-    {
+
+    public void CluesMenu() {
         text.text = "";
         Clues.SetActive(true);
         Game.SetActive(false);
         Op.SetActive(false);
         Tips.SetActive(false);
 
-        for (int i = 0; i < clue_manager.caseClues.Length; i++)
-        {
-            if (PlayerPrefs.GetString("office" + i) != "")
-            {
+        for (int i = 0; i < clue_manager.caseClues.Length; i++) {
+            if (PlayerPrefs.GetString("office" + i) != "") {
                 text.text += (i + 1) + "." + PlayerPrefs.GetString("office" + i) + "\n";
             }
         }
     }
-    public void TipsMenu()
-    {
+    public void TipsMenu() {
         text.text = "";
         Tips.SetActive(true);
         Game.SetActive(false);
@@ -105,8 +105,7 @@ public class MenuManager : MonoBehaviour
         Clues.SetActive(false);
     }
 
-    public void resume()
-    {
+    public void resume() {
         Cursor.lockState = CursorLockMode.Locked;
         inMenu = false;
         interact.picked = false;
@@ -115,8 +114,12 @@ public class MenuManager : MonoBehaviour
         player.GetComponent<Camera_Control>().enabled = !player.GetComponent<Camera_Control>().enabled;
         Camera.main.GetComponent<Camera_Control>().enabled = !Camera.main.GetComponent<Camera_Control>().enabled;
     }
-    public void clues()
-    {
 
+    public void clues() {
+
+    }
+
+    public void Exit() {
+        SceneManager.LoadScene("Menu");
     }
 }

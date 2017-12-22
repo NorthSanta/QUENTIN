@@ -179,6 +179,7 @@ public class Studio_Interaction : MonoBehaviour {
             PlayerPrefs.SetString("SelectedCase", selectedCase.name);
             door.gameObject.tag = "Door";
         }
+
 	}
 
     //Input Function
@@ -310,7 +311,6 @@ public class Studio_Interaction : MonoBehaviour {
                 }
             }*/
         }
-
 
         if (Input.GetKeyUp(KeyCode.Escape)) {
             boardIndex = 0;

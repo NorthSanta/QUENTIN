@@ -47,6 +47,8 @@ public class Menu_Manager : MonoBehaviour {
                 resX = 1280;
                 break;
         }
+
+        Cursor.visible = true;
     }
 	
 	// Update is called once per frame
