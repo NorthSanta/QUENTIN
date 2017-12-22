@@ -150,7 +150,7 @@ public class Player_Interaction : MonoBehaviour
                         GetComponent<Camera_Control>().enabled = false;
                         transform.parent.GetComponent<Camera_Control>().enabled = false;
                         transform.parent.GetComponent<Player_Movement>().enabled = false;
-                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.lockState = CursorLockMode.Confined;
                     }else if (Input.GetKeyDown(KeyCode.R)) {
                         GetComponent<Camera_Control>().enabled = true;
                         transform.parent.GetComponent<Camera_Control>().enabled = true;
@@ -179,7 +179,7 @@ public class Player_Interaction : MonoBehaviour
 
             //Camera.main.GetComponent<PostProcessingProfile>().depthOfField.settings = ppProfile.depthOfField.settings;
             //Cursor.SetCursor(mouse, Vector2.zero, CursorMode.Auto);
-            Cursor.lockState = CursorLockMode.None;
+           // Cursor.lockState = CursorLockMode.Confined;
 
             vell = interact.collider.gameObject;
             vell.SetActive(false);
@@ -221,14 +221,14 @@ public class Player_Interaction : MonoBehaviour
             
             picked = true;
         }
-        else if (picked && Input.GetKeyDown(KeyCode.E)){
+        else if (picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio"){
             UV.SetActive(false);
             Polvos.SetActive(false);
             ADN.SetActive(false);
             buttons.SetActive(false);
             ppProfile.depthOfField.enabled = false;
             ppProfile.vignette.enabled = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
             //panel.SetActive(false);
             vell.SetActive(true);
             Destroy(nou);
@@ -236,27 +236,31 @@ public class Player_Interaction : MonoBehaviour
         }
 
         if (picked){
+            Cursor.lockState = CursorLockMode.None;
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(buttons.transform.parent.transform as RectTransform, Input.mousePosition, canvasCam, out pos);
             icon.transform.position = buttons.transform.parent.transform.TransformPoint(pos);
         }
         else{
-           
+            Cursor.lockState = CursorLockMode.Locked;
             icon.transform.localPosition = new Vector3(0, 0, 0);
+            
         }
 
     }
 
     void lookMap(bool enabled) {
-        
+        print(enabled);
         if (enabled) {
+            picked = true;
             punter.SetActive(false);
             GetComponent<Camera_Control>().enabled = false;
             transform.parent.GetComponent<Camera_Control>().enabled = false;
             transform.parent.GetComponent<Player_Movement>().enabled = false;
-            Cursor.lockState = CursorLockMode.None;
+            //Cursor.lockState = CursorLockMode.Confined;
         }
         else {
+            picked = false;
             //transform.LookAt(transform.parent.forward);
             punter.SetActive(true);
             GetComponent<Camera_Control>().enabled = true;

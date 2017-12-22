@@ -18,7 +18,7 @@ public class Clue_Manager : MonoBehaviour {
                 caseClues[2] = "Quentin Logo.";
                 break;
             default:
-                caseClues[0] = "";
+                //caseClues[0] = "";
                 break;
         }
     }
