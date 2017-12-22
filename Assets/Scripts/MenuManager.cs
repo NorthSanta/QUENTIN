@@ -44,7 +44,7 @@ public class MenuManager : MonoBehaviour
         if (inStudio) {
             mapEnabled = interact.studio_Script.mapEnabled;
         }
-        if (Input.GetKeyDown("escape")) {
+        if (Input.GetKeyUp(KeyCode.Escape)) {
             if (mapEnabled) {
                 return;
             }
@@ -97,6 +97,7 @@ public class MenuManager : MonoBehaviour
             }
         }
     }
+
     public void TipsMenu() {
         text.text = "";
         Tips.SetActive(true);

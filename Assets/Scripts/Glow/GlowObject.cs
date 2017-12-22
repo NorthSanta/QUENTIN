@@ -7,6 +7,7 @@ public class GlowObject : MonoBehaviour {
 	public Color GlowColor;
 	public float LerpFactor = 10;
     private Transform player;
+    private GameObject manager;
 
 	public Renderer[] Renderers {
 		get;
@@ -23,6 +24,7 @@ public class GlowObject : MonoBehaviour {
 
 	void Start() {
         player = GameObject.Find("Player").transform;
+        manager = GameObject.Find("Manager");
 
 		Renderers = GetComponentsInChildren<Renderer>();
 
@@ -39,31 +41,31 @@ public class GlowObject : MonoBehaviour {
 	//}
 
     private void OnMouseOver() {
-        if (SceneManager.GetActiveScene().name == "Studio") {
-            if (transform.name == "DoorInterior") {
-                if(Vector3.Distance(transform.parent.position, player.position) < 2.0f) {
+        if (!manager.GetComponentInChildren<MenuManager>().inMenu) {
+            if (SceneManager.GetActiveScene().name == "Studio") {
+                if (Vector3.Distance(transform.position, player.position) < player.GetComponentInChildren<Player_Interaction>().interactDistance) {
                     _targetColor = GlowColor;
                     enabled = true;
                 }
-            }
-            else if (Vector3.Distance(transform.position, player.position) < 2.0f) {
-                _targetColor = GlowColor;
-                enabled = true;
+                else {
+                    _targetColor = Color.black;
+                    enabled = true;
+                }
             }
             else {
-                _targetColor = Color.black;
-                enabled = true;
+                if (Vector3.Distance(transform.position, player.position) < player.GetComponentInChildren<Player_Interaction>().interactDistance && !player.GetComponentInChildren<Player_Interaction>().picked) {
+                    _targetColor = GlowColor;
+                    enabled = true;
+                }
+                else {
+                    _targetColor = Color.black;
+                    enabled = true;
+                }
             }
         }
         else {
-            if (Vector3.Distance(transform.position, player.position) < 1.5f && !player.GetComponentInChildren<Player_Interaction>().picked) {
-                _targetColor = GlowColor;
-                enabled = true;
-            }
-            else {
-                _targetColor = Color.black;
-                enabled = true;
-            }
+            _targetColor = Color.black;
+            enabled = true;
         }
     }
 

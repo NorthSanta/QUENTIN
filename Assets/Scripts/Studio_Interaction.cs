@@ -186,7 +186,6 @@ public class Studio_Interaction : MonoBehaviour {
     void HandleInput() {
         //The input when the MAP is enabled
         if (mapEnabled && !boardEnabled) {
-            Cursor.visible = true;
 
             //MOUSE INPUT
             if (Input.GetKeyUp(KeyCode.Mouse0)) {
@@ -247,8 +246,7 @@ public class Studio_Interaction : MonoBehaviour {
 
         //The input when the BOARD is enabled
         if (mapEnabled && boardEnabled) {
-            Cursor.visible = true;
-
+            Cursor.visible = false;
             //MOUSE INPUT
             if (Input.GetKeyUp(KeyCode.Mouse0)) {
                 if (Physics.Raycast(ray, out hit)) {

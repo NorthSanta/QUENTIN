@@ -33,7 +33,7 @@ public class Player_Interaction : MonoBehaviour
     [SerializeField] private Animator liftController;
     [SerializeField] private Animator doorController;
     private bool inStudio;
-    private float interactDistance;
+    public float interactDistance;
 
     public GameObject UV;
     public GameObject Polvos;
@@ -59,6 +59,7 @@ public class Player_Interaction : MonoBehaviour
         buttons.SetActive(false);
         MENU.SetActive(false);
         cluesFound = 0;
+        Cursor.visible = false;
         
         //myCanvas = GameObject.Find("trueCanvas");
         //Cursor.visible = false;
@@ -251,7 +252,7 @@ public class Player_Interaction : MonoBehaviour
 
     void lookMap(bool enabled) {
         print(enabled);
-        if (enabled) {
+        if (enabled || manager.GetComponent<MenuManager>().inMenu) {
             picked = true;
             punter.SetActive(false);
             GetComponent<Camera_Control>().enabled = false;
@@ -259,7 +260,7 @@ public class Player_Interaction : MonoBehaviour
             transform.parent.GetComponent<Player_Movement>().enabled = false;
             //Cursor.lockState = CursorLockMode.Confined;
         }
-        else {
+        else{
             picked = false;
             //transform.LookAt(transform.parent.forward);
             punter.SetActive(true);

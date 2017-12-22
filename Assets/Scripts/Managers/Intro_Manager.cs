@@ -21,6 +21,7 @@ public class Intro_Manager : MonoBehaviour {
     void Awake() {
         if (PlayerPrefs.GetInt("FirstEntry") == 0) { }
         else {
+            PlayerPrefs.SetInt("FullScreen", 0);
             PlayerPrefs.SetInt("Fps", 30);
             PlayerPrefs.SetInt("Res", 720);
             PlayerPrefs.SetInt("VSync", 0);
