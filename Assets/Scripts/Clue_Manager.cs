@@ -14,10 +14,11 @@ public class Clue_Manager : MonoBehaviour {
         switch (SceneManager.GetActiveScene().name) {
             case "CaseOffice":
                 caseClues[0] = "Somebody walks here.";
-                caseClues[1] = "Keeps walking";
+                caseClues[1] = "Keeps walking.";
                 caseClues[2] = "Quentin Logo.";
                 break;
             default:
+                caseClues[0] = "";
                 break;
         }
     }
