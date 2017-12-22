@@ -7,7 +7,7 @@ public class Player_Movement : MonoBehaviour {
 
     private float opacity;
     private Color c;
-    public float speed = 6.0f;
+    public float speed = 2.0f;
     public Player_Interaction interact;
     public bool crouch;
     public float crouchHeight;
