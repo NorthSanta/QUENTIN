@@ -267,11 +267,11 @@ public class Player_Interaction : MonoBehaviour
     }
 
 
-    public void ClearLog() {
-        var assembly = Assembly.GetAssembly(typeof(UnityEditor.ActiveEditorTracker));
-        var type = assembly.GetType("UnityEditorInternal.LogEntries");
-        var method = type.GetMethod("Clear");
-        method.Invoke(new object(), null);
-    }
+    //public void ClearLog() {
+    //    var assembly = Assembly.GetAssembly(typeof(UnityEditor.ActiveEditorTracker));
+    //    var type = assembly.GetType("UnityEditorInternal.LogEntries");
+    //    var method = type.GetMethod("Clear");
+    //    method.Invoke(new object(), null);
+    //}
 
 }
