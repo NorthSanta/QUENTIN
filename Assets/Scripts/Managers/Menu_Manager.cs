@@ -11,6 +11,8 @@ public class Menu_Manager : MonoBehaviour {
     [SerializeField] private RectTransform Video;
     [SerializeField] private RectTransform Audio;
     [SerializeField] private Slider VolSlider;
+    [SerializeField] private RectTransform PressStart;
+    [SerializeField] private Animator CameraAnim;
 
     public static int myFrameRate = 30;
 
@@ -22,15 +24,23 @@ public class Menu_Manager : MonoBehaviour {
     private float vol;
     private bool mute;
 
+    private float timer;
+    private bool start;
+
     // Use this for initialization
     void Start () {
-        Buttons.gameObject.SetActive(true);
+        Buttons.gameObject.SetActive(false);
         Options.gameObject.SetActive(false);
         Video.gameObject.SetActive(false);
         Audio.gameObject.SetActive(false);
+        PressStart.gameObject.SetActive(false);
 
         fullScreen = true;
         mute = false;
+
+        timer = 0.0f;
+        start = false;
+        
 
         //Set the resX
         switch (PlayerPrefs.GetInt("Res")) {
@@ -53,7 +63,22 @@ public class Menu_Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        timer += Time.deltaTime;
+
+        if(timer >= 5.0f && !start) {
+            PressStart.gameObject.SetActive(true);
+            if (Input.anyKey) {
+                start = true;
+                timer = 0.0f;
+                CameraAnim.SetBool("start", true);
+                PressStart.gameObject.SetActive(false);
+            }
+        }
+
+        if (start && timer >= 2.0f) {
+            PressStart.gameObject.SetActive(false);
+            Buttons.gameObject.SetActive(true);
+        }
 	}
 
 #region MenuButtons
