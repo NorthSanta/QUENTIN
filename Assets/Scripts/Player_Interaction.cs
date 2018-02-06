@@ -9,6 +9,8 @@ using System.Reflection;
 
 public class Player_Interaction : MonoBehaviour
 {
+    [SerializeField]
+    Material switchMat;
     RaycastHit interact;
     public bool canPick;
     public bool interactuable;
@@ -200,7 +202,7 @@ public class Player_Interaction : MonoBehaviour
                 copy.GetComponent<MeshCollider>().enabled = false;
             }
 
-            
+            nou.GetComponent<Renderer>().material = switchMat;
             nou.transform.parent = buttons.transform.parent;
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0, 0, 0);
@@ -208,18 +210,19 @@ public class Player_Interaction : MonoBehaviour
             nou.AddComponent<Object_Movement>();
             nou.GetComponent<Object_Movement>().alpha = 100;
             nou.AddComponent<rot_Obj>();
-           // copy.transform.parent = buttons.transform.parent;
-           //// copy.transform.SetAsFirstSibling();
-           // copy.transform.localPosition = new Vector3(0, 0, 0);
-           // copy.transform.rotation = new Quaternion(0, 0, 0, 0);
-           // copy.AddComponent<Object_Movement>();
-           // copy.GetComponent<Object_Movement>().alpha = 100;
-           // copy.AddComponent<rot_Obj>();
-           // copy.layer = 8;
-           // copy.SetActive(true);
+            nou.AddComponent<ApplyPlayerPos>();
+            // copy.transform.parent = buttons.transform.parent;
+            //// copy.transform.SetAsFirstSibling();
+            // copy.transform.localPosition = new Vector3(0, 0, 0);
+            // copy.transform.rotation = new Quaternion(0, 0, 0, 0);
+            // copy.AddComponent<Object_Movement>();
+            // copy.GetComponent<Object_Movement>().alpha = 100;
+            // copy.AddComponent<rot_Obj>();
+            // copy.layer = 8;
+            // copy.SetActive(true);
             //copy.GetComponent<>().color = Color.red;
-           
-            
+
+
             picked = true;
         }
         else if (picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio"){
