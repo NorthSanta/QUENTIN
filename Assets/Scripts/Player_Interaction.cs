@@ -15,6 +15,8 @@ public class Player_Interaction : MonoBehaviour
     public bool canPick;
     public bool interactuable;
     public bool picked;
+    public bool canPuzzle;
+    public bool inPuzzle;
     public GameObject llibreta;
     public GameObject textPista;
     public Clue_Manager manager;
@@ -146,20 +148,23 @@ public class Player_Interaction : MonoBehaviour
                     break;
                 case "Puzzle":
                     interactuable = true;
-                    if (Input.GetKeyDown(KeyCode.E)) {
-                        puzzleProg.SetActive(!puzzleProg.activeSelf);
-                        punter.SetActive(false);
-                        lupa.SetActive(false);
-                        GetComponent<Camera_Control>().enabled = false;
-                        transform.parent.GetComponent<Camera_Control>().enabled = false;
-                        transform.parent.GetComponent<Player_Movement>().enabled = false;
-                        Cursor.lockState = CursorLockMode.Confined;
-                    }else if (Input.GetKeyDown(KeyCode.R)) {
-                        GetComponent<Camera_Control>().enabled = true;
-                        transform.parent.GetComponent<Camera_Control>().enabled = true;
-                        transform.parent.GetComponent<Player_Movement>().enabled = true;
-                        Cursor.lockState = CursorLockMode.Locked;
-                    }
+                    canPuzzle = true;
+                       
+                    
+                    /* if (Input.GetKeyDown(KeyCode.E)) {
+                         puzzleProg.SetActive(!puzzleProg.activeSelf);
+                         punter.SetActive(false);
+                         lupa.SetActive(false);
+                         GetComponent<Camera_Control>().enabled = false;
+                         transform.parent.GetComponent<Camera_Control>().enabled = false;
+                         transform.parent.GetComponent<Player_Movement>().enabled = false;
+                         Cursor.lockState = CursorLockMode.Confined;
+                     }else if (Input.GetKeyDown(KeyCode.R)) {
+                         GetComponent<Camera_Control>().enabled = true;
+                         transform.parent.GetComponent<Camera_Control>().enabled = true;
+                         transform.parent.GetComponent<Player_Movement>().enabled = true;
+                         Cursor.lockState = CursorLockMode.Locked;
+                     }*/
                     break;
                 default:
                     canPick = false;
@@ -174,8 +179,31 @@ public class Player_Interaction : MonoBehaviour
         }
 
 
+        if (canPuzzle && Input.GetKeyDown(KeyCode.E) && !inPuzzle)
+        {
+            ppProfile.depthOfField.enabled = true;
+            ppProfile.vignette.enabled = true;
 
-        if (canPick && Input.GetKeyDown(KeyCode.E) && !picked){
+            vell = interact.collider.gameObject;
+            vell.SetActive(false);
+            nou = (GameObject)Instantiate(interact.collider.gameObject);
+            GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
+            nou.SetActive(true);
+            nou.layer = 4;
+
+            nou.GetComponent<BoxCollider>().enabled = false;
+            copy.GetComponent<BoxCollider>().enabled = false;
+
+            nou.transform.parent = buttons.transform.parent;
+            nou.transform.SetAsFirstSibling();
+            nou.transform.localPosition = new Vector3(0, 0, 0);
+            nou.transform.localRotation = new Quaternion(0.7071068f, 0.7071068f, 0, 0);
+            nou.transform.localScale = new Vector3(5000, 5000, 900);
+            //Debug.Log("puxxle");
+            inPuzzle = true;
+            picked = true;
+        }
+        else if (canPick && Input.GetKeyDown(KeyCode.E) && !picked){
             buttons.SetActive(true);
             ppProfile.depthOfField.enabled = true;
             ppProfile.vignette.enabled = true;
@@ -202,7 +230,7 @@ public class Player_Interaction : MonoBehaviour
                 copy.GetComponent<MeshCollider>().enabled = false;
             }
 
-            nou.GetComponent<Renderer>().material = switchMat;
+            //nou.GetComponent<Renderer>().material = switchMat;
             nou.transform.parent = buttons.transform.parent;
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0, 0, 0);
@@ -225,7 +253,8 @@ public class Player_Interaction : MonoBehaviour
 
             picked = true;
         }
-        else if (picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio"){
+        else if (picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio" || inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio")
+        {
             UV.SetActive(false);
             Polvos.SetActive(false);
             ADN.SetActive(false);
@@ -237,6 +266,8 @@ public class Player_Interaction : MonoBehaviour
             vell.SetActive(true);
             Destroy(nou);
             picked = false;
+            inPuzzle = false;
+            //Debug.Log("NO puxxle");
         }
 
         if (picked){
