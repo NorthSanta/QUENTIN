@@ -41,7 +41,7 @@ public class Studio_Interaction : MonoBehaviour {
 
     //Guarrada
     //private double counter;
-
+    private Animator animGirar;
 
     // Use this for initialization
     void Start () {
@@ -63,6 +63,7 @@ public class Studio_Interaction : MonoBehaviour {
 
         //Init the Guarrada (every unit is 1 sec)
         //counter = 0.0f; 
+        animGirar = board.GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -86,6 +87,7 @@ public class Studio_Interaction : MonoBehaviour {
         else if (mapEnabled && boardEnabled) {
             caseAccept.gameObject.SetActive(true);
             caseCancel.gameObject.SetActive(true);
+            
         }
         else{
             for (int i = 1; i < mapCases.Length; i++) {
@@ -186,7 +188,10 @@ public class Studio_Interaction : MonoBehaviour {
     void HandleInput() {
         //The input when the MAP is enabled
         if (mapEnabled && !boardEnabled) {
-
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                animGirar.SetBool("girar", !animGirar.GetBool("girar"));
+            }
             //MOUSE INPUT
             if (Input.GetKeyUp(KeyCode.Mouse0)) {
                 if (Physics.Raycast(ray, out hit)) {
@@ -246,6 +251,10 @@ public class Studio_Interaction : MonoBehaviour {
 
         //The input when the BOARD is enabled
         if (mapEnabled && boardEnabled) {
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                animGirar.SetBool("girar", !animGirar.GetBool("girar"));
+            }
             Cursor.visible = false;
             //MOUSE INPUT
             if (Input.GetKeyUp(KeyCode.Mouse0)) {
