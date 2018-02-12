@@ -187,16 +187,16 @@ public class Player_Interaction : MonoBehaviour
             vell = interact.collider.gameObject;
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
-            GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
+           // GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
             nou.layer = 4;
 
             nou.GetComponent<BoxCollider>().enabled = false;
-            copy.GetComponent<BoxCollider>().enabled = false;
+           // copy.GetComponent<BoxCollider>().enabled = false;
 
             nou.transform.parent = buttons.transform.parent;
             nou.transform.SetAsFirstSibling();
-            nou.transform.localPosition = new Vector3(0, 0, 0);
+            nou.transform.localPosition = new Vector3(0, 0, 10);
             nou.transform.localRotation = new Quaternion(0.7071068f, 0.7071068f, 0, 0);
             nou.transform.localScale = new Vector3(5000, 5000, 900);
             //Debug.Log("puxxle");
@@ -215,22 +215,22 @@ public class Player_Interaction : MonoBehaviour
             vell = interact.collider.gameObject;
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
-            GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
+           // GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
             nou.layer = 4;
             //nou.GetComponent<GlowObject>().enabled = false;
             if (col.GetType() == typeof(BoxCollider))
             {
                 nou.GetComponent<BoxCollider>().enabled = false;
-                copy.GetComponent<BoxCollider>().enabled = false;
+                //copy.GetComponent<BoxCollider>().enabled = false;
             }
             else if (col.GetType() == typeof(MeshCollider))
             {
                 nou.GetComponent<MeshCollider>().enabled = false;
-                copy.GetComponent<MeshCollider>().enabled = false;
+                //copy.GetComponent<MeshCollider>().enabled = false;
             }
 
-            //nou.GetComponent<Renderer>().material = switchMat;
+            nou.GetComponent<Renderer>().material = switchMat;
             nou.transform.parent = buttons.transform.parent;
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0, 0, 0);
