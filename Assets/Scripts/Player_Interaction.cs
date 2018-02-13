@@ -12,6 +12,7 @@ public class Player_Interaction : MonoBehaviour
     [SerializeField]
     Material switchMat;
     RaycastHit interact;
+    public GameObject puzzlePieces;
     public bool canPick;
     public bool interactuable;
     public bool picked;
@@ -183,6 +184,8 @@ public class Player_Interaction : MonoBehaviour
         {
             ppProfile.depthOfField.enabled = true;
             ppProfile.vignette.enabled = true;
+
+            puzzlePieces.SetActive(true);
 
             vell = interact.collider.gameObject;
             vell.SetActive(false);
