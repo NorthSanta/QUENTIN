@@ -17,7 +17,7 @@ public class Drag : MonoBehaviour
      {
          Vector3 curPos = new Vector3(Input.mousePosition.x - posX, Input.mousePosition.y - posY, dist.z);
          Vector3 worldPos = Camera.main.ScreenToWorldPoint(curPos);
-         transform.position = Vector3.Cross(worldPos, parentFront.forward);
+        transform.position = worldPos;
      }
     /*private float factor = 4;
     private float factorV = 10;

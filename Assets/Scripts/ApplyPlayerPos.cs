@@ -6,14 +6,14 @@ public class ApplyPlayerPos : MonoBehaviour
 {
     Material Mat;
     GameObject Player;
-    public float Radius = 0.5f;
+    public float Radius = 0.4f;
 
     void Start()
     {
         // Get the material
         Mat = GetComponent<Renderer>().material;
         // Get the player object
-        Player = GameObject.Find("Player");
+        Player = GameObject.Find("UOLO");
     }
 
     void Update()
