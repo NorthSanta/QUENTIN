@@ -11,8 +11,12 @@ public class Player_Interaction : MonoBehaviour
 {
     [SerializeField]
     Material switchMat;
+
+    
+    public static List<GameObject> foundClues = new List<GameObject>();
     RaycastHit interact;
     public GameObject puzzlePieces;
+    public GameObject map;
     public bool canPick;
     public bool interactuable;
     public bool picked;
@@ -74,6 +78,7 @@ public class Player_Interaction : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        //print(foundClues.Count);
         //ClearLog();
         /*Debug.Log("Position: " + transform.position);
         Debug.Log("Rotation: " + transform.rotation);*/
@@ -116,10 +121,12 @@ public class Player_Interaction : MonoBehaviour
                     canPick = false;
                     interactuable = false;
                     if (Input.GetKeyDown(KeyCode.E)) {
-                        transform.parent.position = new Vector3(-0.5857f, 1.5f, -0.5630f);
-                        transform.parent.rotation = new Quaternion(0.0f, 1.0f, 0.0f, -0.24f);
-                        transform.rotation.Set(0.0f, 1.0f, -0.05f, -0.24f);// = new Quaternion(0.0f, 1.0f, -0.05f, -0.24f);
-                                                                           //transform.parent.eulerAngles = new Vector3(0, -0.5630f, 0);
+                        //transform.parent.position = new Vector3(-0.5857f, 1.5f, -0.5630f);
+                        // transform.parent.rotation = new Quaternion(0.0f, 1.0f, 0.0f, -0.24f);
+                        //transform.rotation.Set(0.0f, 1.0f, -0.05f, -0.24f);// = new Quaternion(0.0f, 1.0f, -0.05f, -0.24f);
+                        //transform.parent.eulerAngles = new Vector3(0, -0.5630f, 0);
+                        //transform.parent.rotation = Quaternion.Lerp(transform.rotation, map.transform.rotation, Time.time );
+                       // transform.parent.rotation = Quaternion.Lerp(transform.rotation, map.transform.rotation, Time.time);
                         studio_Script.mapEnabled = true;
                     }
                     break;
@@ -139,7 +146,9 @@ public class Player_Interaction : MonoBehaviour
                             indexClue = interact.collider.gameObject.GetComponent<Clue_Index>().clueIndex;
                             textPista.GetComponent<Text>().text = manager.caseClues[indexClue];
                             PlayerPrefs.SetString("office" + cluesFound++, manager.caseClues[indexClue]);
+                            //PlayerPrefs.SetInt("office" + cluesFound++, indexClue);
                             interact.collider.gameObject.GetComponent<Clue_Index>().found = true;
+                            foundClues.Add(interact.collider.gameObject);
                             //textPista.GetComponent<Text>().text = PlayerPrefs.GetString("office" + indexClue);
                             llibreta.SetActive(true);
                             textPista.SetActive(true);

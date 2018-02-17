@@ -13,6 +13,10 @@ public class Studio_Interaction : MonoBehaviour {
 
     [SerializeField] private GameObject map;
     [SerializeField] private GameObject board;
+    [SerializeField]
+    private GameObject axis;
+    [SerializeField]
+    private GameObject AxisBoard;
 
     [SerializeField] private GameObject caseName;
     [SerializeField] private GameObject caseImage;
@@ -78,6 +82,12 @@ public class Studio_Interaction : MonoBehaviour {
 
         //Print the map cases on scene & accept/cancel
         if (mapEnabled && !boardEnabled) {
+            Camera.main.transform.parent.position = new Vector3(-0.5857f, 1.5f, -0.5630f);
+            Quaternion q = Quaternion.Euler(Camera.main.transform.parent.rotation.ToEuler().x, -152.754f, 0);
+            //print(axis.transform.rotation.y);
+            Camera.main.transform.parent.rotation = q;
+
+
             for (int i = 1; i < mapCases.Length; i++) {
                 mapCases[i].gameObject.SetActive(true);
             }
@@ -85,6 +95,9 @@ public class Studio_Interaction : MonoBehaviour {
             board.GetComponent<BoxCollider>().enabled = false;
         }
         else if (mapEnabled && boardEnabled) {
+           // Camera.main.transform.parent.position = AxisBoard.transform.position;
+            //
+           // Camera.main.transform.rotation = Quaternion.Lerp(transform.rotation, AxisBoard.transform.rotation, Time.time);
             caseAccept.gameObject.SetActive(true);
             caseCancel.gameObject.SetActive(true);
             
