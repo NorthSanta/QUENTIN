@@ -8,10 +8,14 @@ using UnityEngine.UI;
 public class Clue_Manager : MonoBehaviour {
     public string[] caseClues;
     public string[] clueInfo;
-    public List<int> solution;
+    public static List<int> solution;
 
 	// Use this for initialization
 	void Start () {
+        for (int i = 0; i < 3; i++)
+        {
+            solution.Add(i);
+        }
         switch (SceneManager.GetActiveScene().name) {
             case "CaseOffice":
                 caseClues[0] = "Somebody walks here.";
@@ -26,17 +30,10 @@ public class Clue_Manager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        //string s = Camera.main.GetComponent<Studio_Interaction>().activeCase.gameObject.name;
-        //if (s != Camera.main.GetComponent<Studio_Interaction>().activeCase.gameObject.name) {
-        //    switch (Camera.main.GetComponent<Studio_Interaction>().activeCase.gameObject.name)
-        //    {
-        //        case "CaseOffice":
-        //            for(int i = 0; i < 3; i++)
-        //            {
-        //                solution.Add(i);
-        //            }
-        //            break;
-        //    }
-        //}
+
+
+       
+       
+        
 	}
 }
