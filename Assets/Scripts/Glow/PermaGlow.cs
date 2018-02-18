@@ -38,6 +38,7 @@ public class PermaGlow : MonoBehaviour
             _materials.AddRange(renderer.materials);
         }
         _targetColor = Color.black;
+        _currentColor = Color.black;
     }
 
     //private void OnMouseEnter() {

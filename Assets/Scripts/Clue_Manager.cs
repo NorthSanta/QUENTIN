@@ -21,6 +21,7 @@ public class Clue_Manager : MonoBehaviour {
                 caseClues[0] = "Somebody walks here.";
                 caseClues[1] = "Keeps walking.";
                 caseClues[2] = "Quentin Logo.";
+                caseClues[3] = "Mr. M.";
                 break;
             default:
                 //caseClues[0] = "";

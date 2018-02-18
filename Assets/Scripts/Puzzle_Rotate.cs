@@ -7,6 +7,7 @@ public class Puzzle_Rotate : MonoBehaviour {
 
     public float smooth = 1f;
     private Quaternion targetRotation;
+    bool turn;
     void Start()
     {
         targetRotation = transform.rotation;
@@ -20,11 +21,14 @@ public class Puzzle_Rotate : MonoBehaviour {
     }
     void Update()
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 10 * smooth * Time.deltaTime);
+        if (turn)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 10 * smooth * Time.deltaTime);
+        }
     }
     public void clicked()
     {
-        //Debug.Log("In");
+        turn = true;
         targetRotation *= Quaternion.AngleAxis(-90, Vector3.forward);
     }
 }

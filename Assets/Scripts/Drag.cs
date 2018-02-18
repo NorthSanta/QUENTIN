@@ -52,10 +52,10 @@ public class Drag : MonoBehaviour
     {
         if (selected)
         {
-            copy.GetComponent<PermaGlow>()._targetColor = Color.yellow;
+            copy.GetComponent<PermaGlow>()._targetColor = Color.cyan;
         }else if(!selected && copy != null)
         {
-            print("notGlow");
+            //print("notGlow");
             copy.GetComponent<PermaGlow>()._targetColor = Color.black;
         }
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);

@@ -12,7 +12,9 @@ public class Player_Interaction : MonoBehaviour
     [SerializeField]
     Material switchMat;
 
-    
+    [SerializeField]
+    GameObject textPuzzle;
+    int count = 0;
     public static List<int> foundClues = new List<int>();
     RaycastHit interact;
     public GameObject puzzlePieces;
@@ -267,7 +269,6 @@ public class Player_Interaction : MonoBehaviour
         }
         else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio") || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
         {
-            
             UV.SetActive(false);
             Polvos.SetActive(false);
             ADN.SetActive(false);
@@ -283,7 +284,21 @@ public class Player_Interaction : MonoBehaviour
             inPuzzle = false;
             //Debug.Log("NO puxxle");
         }
-
+        if(inPuzzle && Input.GetKeyDown(KeyCode.K) && count < 1)
+        {
+            puzzlePieces.SetActive(false);
+            textPuzzle.SetActive(true);
+            indexClue = 3;
+            textPista.GetComponent<Text>().text = manager.caseClues[indexClue];
+            PlayerPrefs.SetString("office" + cluesFound++, manager.caseClues[indexClue]);
+            //PlayerPrefs.SetInt("office" + cluesFound++, indexClue);
+            //interact.collider.gameObject.GetComponent<Clue_Index>().found = true;
+            foundClues.Add(indexClue);
+            //textPista.GetComponent<Text>().text = PlayerPrefs.GetString("office" + indexClue);
+            llibreta.SetActive(true);
+            textPista.SetActive(true);
+            count++;
+        }
         if (picked){
             Cursor.lockState = CursorLockMode.None;
             Vector2 pos;

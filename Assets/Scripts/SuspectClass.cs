@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class SuspectClass : MonoBehaviour
 {
-    [SerializeField]
+   
     public List<GameObject> clues = new List<GameObject>();
+    [SerializeField]
+    bool innocent;
     public bool inculp()
     {
-
+        if (innocent)
+        {
+            transform.GetChild(1).gameObject.SetActive(true);
+            return false;
+        }
         int total = 0;
 
         for (int i = 0; i < clues.Count; i++)
@@ -34,7 +40,7 @@ public class SuspectClass : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(true);
             return true;
         }
-       // print("Inocente!");
+        // print("Inocente!");
         transform.GetChild(1).gameObject.SetActive(true);
         return false;
     }
