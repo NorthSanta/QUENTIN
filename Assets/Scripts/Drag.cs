@@ -9,9 +9,11 @@ public class Drag : MonoBehaviour
      float posX;
      float posY;
     GameObject copy;
+    GameObject last;
     Ray ray;
     RaycastHit hit;
     bool move;
+    bool selected;
     Vector3 initPos;
     SuspectClass sus1;
     SuspectClass sus2;
@@ -44,9 +46,18 @@ public class Drag : MonoBehaviour
                 minClues[i].GetComponent<Clue_Index>().clueIndex = Player_Interaction.foundClues[i];
             }
         }
+        last = null;
     }
     private void Update()
     {
+        if (selected)
+        {
+            copy.GetComponent<PermaGlow>()._targetColor = Color.yellow;
+        }else if(!selected && copy != null)
+        {
+            print("notGlow");
+            copy.GetComponent<PermaGlow>()._targetColor = Color.black;
+        }
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
@@ -56,34 +67,72 @@ public class Drag : MonoBehaviour
                 {
                     //print("click");
                     copy = hit.transform.gameObject;
+                    selected = true;
                 }
             }else if(Physics.Raycast(ray, out hit) && copy != null)
             {
                 if (hit.transform.tag == "Suspect 1" )
                 {
                     //print("unclick");
-                    sus1.clues.Add(copy);
+                    if (!sus1.clues.Contains(copy))
+                    {
+                        sus1.clues.Add(copy);
+                    }
+                    if (sus2.clues.Contains(copy))
+                    {
+                        sus2.clues.Remove(copy);
+                    }
+                    if (sus3.clues.Contains(copy))
+                    {
+                        sus3.clues.Remove(copy);
+                    }
                     initPos = hit.transform.position;
                     move = true;
-                    
-                }else if(hit.transform.tag == "Suspect 2"){
-                    sus2.clues.Add(copy);
-                    initPos = hit.transform.position;
-                    move = true;
+                    selected = false;  
+                }
+                else if(hit.transform.tag == "Suspect 2"){
+                    if (!sus2.clues.Contains(copy))
+                    {
+                        sus2.clues.Add(copy);
+                    }
 
+                    if (sus1.clues.Contains(copy))
+                    {
+                        sus1.clues.Remove(copy);
+                    }
+                    if (sus3.clues.Contains(copy))
+                    {
+                        sus3.clues.Remove(copy);
+                    }
+                    initPos = hit.transform.position;
+                    move = true;
+                    selected = false;
                 }
                 else if (hit.transform.tag == "Suspect 3")
                 {
-                    sus3.clues.Add(copy);
+                    if (!sus3.clues.Contains(copy))
+                    {
+                        sus3.clues.Add(copy);
+                    }
+                    if (sus1.clues.Contains(copy))
+                    {
+                        sus1.clues.Remove(copy);
+                    }
+                    if (sus2.clues.Contains(copy))
+                    {
+                        sus2.clues.Remove(copy);
+                    }
+
                     initPos = hit.transform.position;
                     move = true;
+                    selected = false;
                 }
             }
         }
         if (move)
         {
             copy.transform.position = Vector3.Lerp(copy.transform.position,initPos, 0.1f);
-            if(Vector3.Distance(copy.transform.position,initPos)<= 0.01f)
+            if(Vector3.Distance(copy.transform.position,initPos)<= 0.001f)
             {
                 move = false;
                 copy = null;

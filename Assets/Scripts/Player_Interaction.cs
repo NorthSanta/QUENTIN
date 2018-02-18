@@ -265,8 +265,9 @@ public class Player_Interaction : MonoBehaviour
 
             picked = true;
         }
-        else if (picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio" || inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio")
+        else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio") || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
         {
+            
             UV.SetActive(false);
             Polvos.SetActive(false);
             ADN.SetActive(false);
@@ -278,6 +279,7 @@ public class Player_Interaction : MonoBehaviour
             vell.SetActive(true);
             Destroy(nou);
             picked = false;
+            puzzlePieces.SetActive(false);
             inPuzzle = false;
             //Debug.Log("NO puxxle");
         }
