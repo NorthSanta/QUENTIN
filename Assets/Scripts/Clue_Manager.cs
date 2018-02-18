@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Clue_Manager : MonoBehaviour {
     public string[] caseClues;
     public string[] clueInfo;
-    public static List<int> solution;
+    public static List<int> solution = new List<int>();
 
 	// Use this for initialization
 	void Start () {

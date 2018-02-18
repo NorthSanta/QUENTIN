@@ -13,7 +13,7 @@ public class Player_Interaction : MonoBehaviour
     Material switchMat;
 
     
-    public static List<GameObject> foundClues = new List<GameObject>();
+    public static List<int> foundClues = new List<int>();
     RaycastHit interact;
     public GameObject puzzlePieces;
     public GameObject map;
@@ -148,7 +148,7 @@ public class Player_Interaction : MonoBehaviour
                             PlayerPrefs.SetString("office" + cluesFound++, manager.caseClues[indexClue]);
                             //PlayerPrefs.SetInt("office" + cluesFound++, indexClue);
                             interact.collider.gameObject.GetComponent<Clue_Index>().found = true;
-                            foundClues.Add(interact.collider.gameObject);
+                            foundClues.Add(interact.collider.gameObject.GetComponent<Clue_Index>().clueIndex);
                             //textPista.GetComponent<Text>().text = PlayerPrefs.GetString("office" + indexClue);
                             llibreta.SetActive(true);
                             textPista.SetActive(true);
@@ -297,7 +297,7 @@ public class Player_Interaction : MonoBehaviour
     }
 
     void lookMap(bool enabled) {
-        print(enabled);
+        //print(enabled);
         if (enabled || manager.GetComponent<MenuManager>().inMenu) {
             picked = true;
             punter.SetActive(false);
