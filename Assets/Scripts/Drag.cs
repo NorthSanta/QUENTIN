@@ -127,6 +127,25 @@ public class Drag : MonoBehaviour
                     move = true;
                     selected = false;
                 }
+                else if (hit.transform.tag == "CluesSocket")
+                {
+                    if (sus3.clues.Contains(copy))
+                    {
+                        sus3.clues.Remove(copy);
+                    }
+                    if (sus1.clues.Contains(copy))
+                    {
+                        sus1.clues.Remove(copy);
+                    }
+                    if (sus2.clues.Contains(copy))
+                    {
+                        sus2.clues.Remove(copy);
+                    }
+
+                    initPos = hit.transform.position;
+                    move = true;
+                    selected = false;
+                }
             }
         }
         if (move)
