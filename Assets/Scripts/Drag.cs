@@ -1,5 +1,6 @@
 ﻿﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class Drag : MonoBehaviour
@@ -18,7 +19,9 @@ public class Drag : MonoBehaviour
     SuspectClass sus1;
     SuspectClass sus2;
     SuspectClass sus3;
+    // public static List<GameObject> minClues = new List<GameObject>();
     public GameObject[] minClues;
+    
     private void OnMouseDown()
      {
         //copy = gameObject;
@@ -42,6 +45,7 @@ public class Drag : MonoBehaviour
             
             for(int i = 0; i < Player_Interaction.foundClues.Count; i++)
             {
+                minClues[i].SetActive(true);
                 minClues[i].AddComponent<Clue_Index>();
                 minClues[i].GetComponent<Clue_Index>().clueIndex = Player_Interaction.foundClues[i];
             }
