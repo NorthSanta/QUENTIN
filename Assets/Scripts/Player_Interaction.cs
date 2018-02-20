@@ -141,6 +141,7 @@ public class Player_Interaction : MonoBehaviour
                     }
                     break;
                 case "RastreV":
+                    //sprint("uolo");
                     col = interact.collider;
                     interactuable = true;
                     if (Input.GetKeyDown(KeyCode.E)) {
@@ -180,6 +181,7 @@ public class Player_Interaction : MonoBehaviour
                     break;
                 default:
                     canPick = false;
+                    canPuzzle = false;
                     interactuable = false;
                     break;
             }
@@ -189,8 +191,8 @@ public class Player_Interaction : MonoBehaviour
             interactuable = false;
             canPick = false;
         }
-
-
+        print(foundClues.Count);
+        //print(foundClues.Count);
         if (canPuzzle && Input.GetKeyDown(KeyCode.E) && !inPuzzle)
         {
             ppProfile.depthOfField.enabled = true;
@@ -281,6 +283,7 @@ public class Player_Interaction : MonoBehaviour
             Destroy(nou);
             picked = false;
             puzzlePieces.SetActive(false);
+            textPuzzle.SetActive(false);
             inPuzzle = false;
             //Debug.Log("NO puxxle");
         }

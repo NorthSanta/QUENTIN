@@ -12,7 +12,7 @@ public class Clue_Manager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             solution.Add(i);
         }
@@ -22,6 +22,7 @@ public class Clue_Manager : MonoBehaviour {
                 caseClues[1] = "Keeps walking.";
                 caseClues[2] = "Quentin Logo.";
                 caseClues[3] = "Mr. M.";
+                caseClues[4] = "Blood Stains.";
                 break;
             default:
                 //caseClues[0] = "";

@@ -39,7 +39,10 @@ public class Scannable : MonoBehaviour {
                 opacity -= 0.3f * Time.deltaTime;
                 if (opacity <= 0.0f) {
                     opacity = 0.0f;
-                    col.enabled = false;
+                    if (col != null)
+                    {
+                        col.enabled = false;
+                    }
                     pinged = false;
                     timer = 0.0f;
                 }
@@ -51,7 +54,10 @@ public class Scannable : MonoBehaviour {
         //UIAnim.SetTrigger("Ping");
         //active = transform.GetComponentsInChildren<Transform>(true);
         //active[1].gameObject.SetActive(true);
-        col.enabled = true;
+        if (col != null)
+        {
+            col.enabled = true;
+        }
         pinged = true;
         timer = 0.0f;
     }
