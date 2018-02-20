@@ -54,7 +54,7 @@ public class Drag : MonoBehaviour
     }
     private void Update()
     {
-        print(Player_Interaction.foundClues.Count);
+        
         if (selected)
         {
             copy.GetComponent<PermaGlow>()._targetColor = Color.cyan;
