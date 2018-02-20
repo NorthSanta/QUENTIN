@@ -11,6 +11,8 @@ public class Player_Interaction : MonoBehaviour
 {
     [SerializeField]
     Material switchMat;
+    [SerializeField]
+    Material def;
 
     [SerializeField]
     GameObject textPuzzle;
@@ -226,12 +228,24 @@ public class Player_Interaction : MonoBehaviour
 
             //Camera.main.GetComponent<PostProcessingProfile>().depthOfField.settings = ppProfile.depthOfField.settings;
             //Cursor.SetCursor(mouse, Vector2.zero, CursorMode.Auto);
-           // Cursor.lockState = CursorLockMode.Confined;
-
+            // Cursor.lockState = CursorLockMode.Confined;
+           
             vell = interact.collider.gameObject;
+            //def = vell.GetComponent<Renderer>().material;
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
-           // GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
+            //nou.GetComponent<Renderer>().material.shader = Shader.Find("Standard");
+            
+
+            /*Shader s = Shader.Find("Standard");
+            
+            for (int i = 0;i < mats.Length; i++)
+            {
+                print(mats.Length);
+                mats[i].shader = s;
+            }*/
+            //nou.GetComponent<GlowObject>().enabled = false;
+            // GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
             nou.SetActive(true);
             nou.layer = 4;
             //nou.GetComponent<GlowObject>().enabled = false;
@@ -246,11 +260,14 @@ public class Player_Interaction : MonoBehaviour
                 //copy.GetComponent<MeshCollider>().enabled = false;
             }
 
-            nou.GetComponent<Renderer>().material = switchMat;
+            //nou.GetComponent<Renderer>().material = switchMat;
             nou.transform.parent = buttons.transform.parent;
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0, 0, 0);
             nou.transform.rotation = new Quaternion(0, 0, 0, 0);
+            //nou.transform.localScale = new Vector3(0, 0, 0);
+            /*nou.GetComponent<GlowObject>().enabled = false;
+            nou.AddComponent<PermaGlow>()._targetColor = Color.black;*/
             nou.AddComponent<Object_Movement>();
             nou.GetComponent<Object_Movement>().alpha = 100;
             nou.AddComponent<rot_Obj>();
@@ -286,6 +303,15 @@ public class Player_Interaction : MonoBehaviour
             textPuzzle.SetActive(false);
             inPuzzle = false;
             //Debug.Log("NO puxxle");
+        }
+
+        if(picked && nou != null && Deteccio_Proves.uvLight)
+        {
+            nou.GetComponent<Renderer>().material = switchMat;
+        }
+        else if(nou!= null)
+        {
+            nou.GetComponent<Renderer>().material = def;
         }
         if(inPuzzle && Input.GetKeyDown(KeyCode.K) && count < 1)
         {

@@ -20,7 +20,7 @@ public class GlowObject : MonoBehaviour {
 
 	private List<Material> _materials = new List<Material>();
 	private Color _currentColor;
-	private Color _targetColor;
+	public Color _targetColor;
 
 	void Start() {
         player = GameObject.Find("Player").transform;
