@@ -13,6 +13,7 @@ public class Menu_Manager : MonoBehaviour {
     [SerializeField] private Slider VolSlider;
     [SerializeField] private RectTransform PressStart;
     [SerializeField] private Animator CameraAnim;
+    [SerializeField] private Transform NoteBookOpen;
 
     public static int myFrameRate = 30;
 
@@ -26,6 +27,7 @@ public class Menu_Manager : MonoBehaviour {
 
     private float timer;
     private bool start;
+    private bool showed;
 
     // Use this for initialization
     void Start () {
@@ -40,6 +42,7 @@ public class Menu_Manager : MonoBehaviour {
 
         timer = 0.0f;
         start = false;
+        showed = false;
         
 
         //Set the resX
@@ -75,9 +78,11 @@ public class Menu_Manager : MonoBehaviour {
             }
         }
 
-        if (start && timer >= 2.0f) {
+        if (start && timer >= 2.0f && !showed) {
             PressStart.gameObject.SetActive(false);
             Buttons.gameObject.SetActive(true);
+            NoteBookOpen.gameObject.SetActive(true);
+            showed = true;
         }
 	}
 
