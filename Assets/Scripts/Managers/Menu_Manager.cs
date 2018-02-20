@@ -14,6 +14,9 @@ public class Menu_Manager : MonoBehaviour {
     [SerializeField] private RectTransform PressStart;
     [SerializeField] private Animator CameraAnim;
     [SerializeField] private Transform NoteBookOpen;
+    [SerializeField] private RectTransform ButtonsMark;
+    [SerializeField] private RectTransform[] OptionsMark;
+    [SerializeField] private RectTransform[] VideoMark;
 
     public static int myFrameRate = 30;
 
@@ -28,6 +31,7 @@ public class Menu_Manager : MonoBehaviour {
     private float timer;
     private bool start;
     private bool showed;
+    private bool videoActive;
 
     // Use this for initialization
     void Start () {
@@ -43,6 +47,7 @@ public class Menu_Manager : MonoBehaviour {
         timer = 0.0f;
         start = false;
         showed = false;
+        videoActive = false;
         
 
         //Set the resX
@@ -84,6 +89,9 @@ public class Menu_Manager : MonoBehaviour {
             NoteBookOpen.gameObject.SetActive(true);
             showed = true;
         }
+
+        RenderVideo();
+        //Debugg();
 	}
 
 #region MenuButtons
@@ -95,6 +103,7 @@ public class Menu_Manager : MonoBehaviour {
     public void EnterOptions() {
         Buttons.gameObject.SetActive(false);
         Options.gameObject.SetActive(true);
+        ButtonsMark.gameObject.SetActive(true);
     }
 
     public void LoadCredits(string name) {
@@ -109,35 +118,34 @@ public class Menu_Manager : MonoBehaviour {
 #region Options
     public void EnterVideo() {
         Video.gameObject.SetActive(true);
-        Options.gameObject.SetActive(false);
+        videoActive = true;
+        Audio.gameObject.SetActive(false);
+        OptionsMark[0].gameObject.SetActive(true);
+        OptionsMark[1].gameObject.SetActive(false);
     }
 
     public void EnterAudio() {
         Audio.gameObject.SetActive(true);
-        Options.gameObject.SetActive(false);
+        Video.gameObject.SetActive(false);
+        videoActive = false;
+        OptionsMark[1].gameObject.SetActive(true);
+        OptionsMark[0].gameObject.SetActive(false);
     }
 
     public void BackOptions() {
         Buttons.gameObject.SetActive(true);
         Options.gameObject.SetActive(false);
+        Audio.gameObject.SetActive(false);
+        Video.gameObject.SetActive(false);
+        videoActive = false;
+        ButtonsMark.gameObject.SetActive(false);
+        OptionsMark[0].gameObject.SetActive(false);
+        OptionsMark[1].gameObject.SetActive(false);
     }
 #endregion
 
 #region Video
     public void Resolution(int res) {
-        switch (res) {
-            case 1080:
-                resX = 1920;
-                break;
-            case 720:
-                resX = 1280;
-                break;
-            case 540:
-                resX = 960;
-                break;
-            default:
-                break;
-        }
         PlayerPrefs.SetInt("Res", res);
         Screen.SetResolution(resX, res, fullScreen);
     }
@@ -155,11 +163,6 @@ public class Menu_Manager : MonoBehaviour {
     public void AntiAliasing(int aa) {
         PlayerPrefs.SetInt("AA", aa);
         QualitySettings.antiAliasing = PlayerPrefs.GetInt("AA");
-    }
-
-    public void BackVideo() {
-        Video.gameObject.SetActive(false);
-        Options.gameObject.SetActive(true);
     }
 #endregion
 
@@ -182,11 +185,6 @@ public class Menu_Manager : MonoBehaviour {
         AudioListener.volume = vol;
         PlayerPrefs.SetFloat("Vol", vol);
     }
-
-    public void BackAudio() {
-        Audio.gameObject.SetActive(false);
-        Options.gameObject.SetActive(true);
-    }
     #endregion
 
 #region SocialMedia
@@ -194,5 +192,109 @@ public class Menu_Manager : MonoBehaviour {
         Application.OpenURL(name);
     }
 #endregion
+
+    public void RenderVideo() {
+        if (Video.gameObject.active) {
+            switch (PlayerPrefs.GetInt("Res"))
+            {
+                case 1080:
+                    resX = 1920;
+                    VideoMark[0].gameObject.SetActive(true);
+                    VideoMark[1].gameObject.SetActive(false);
+                    VideoMark[2].gameObject.SetActive(false);
+                    break;
+                case 720:
+                    resX = 1280;
+                    VideoMark[1].gameObject.SetActive(true);
+                    VideoMark[0].gameObject.SetActive(false);
+                    VideoMark[2].gameObject.SetActive(false);
+                    break;
+                case 540:
+                    resX = 960;
+                    VideoMark[2].gameObject.SetActive(true);
+                    VideoMark[0].gameObject.SetActive(false);
+                    VideoMark[1].gameObject.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+            switch (PlayerPrefs.GetInt("Fps"))
+            {
+                case 30:
+                    VideoMark[5].gameObject.SetActive(true);
+                    VideoMark[3].gameObject.SetActive(false);
+                    VideoMark[4].gameObject.SetActive(false);
+                    break;
+                case 60:
+                    VideoMark[4].gameObject.SetActive(true);
+                    VideoMark[3].gameObject.SetActive(false);
+                    VideoMark[5].gameObject.SetActive(false);
+                    break;
+                case 120:
+                    VideoMark[3].gameObject.SetActive(true);
+                    VideoMark[4].gameObject.SetActive(false);
+                    VideoMark[5].gameObject.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+            switch (PlayerPrefs.GetInt("VSync"))
+            {
+                case 0:
+                    VideoMark[6].gameObject.SetActive(true);
+                    VideoMark[7].gameObject.SetActive(false);
+                    break;
+                case 1:
+                    VideoMark[7].gameObject.SetActive(true);
+                    VideoMark[6].gameObject.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+            switch (PlayerPrefs.GetInt("AA"))
+            {
+                case 0:
+                    VideoMark[8].gameObject.SetActive(true);
+                    VideoMark[9].gameObject.SetActive(false);
+                    VideoMark[10].gameObject.SetActive(false);
+                    VideoMark[11].gameObject.SetActive(false);
+                    break;
+                case 2:
+                    VideoMark[9].gameObject.SetActive(true);
+                    VideoMark[8].gameObject.SetActive(false);
+                    VideoMark[10].gameObject.SetActive(false);
+                    VideoMark[11].gameObject.SetActive(false);
+                    break;
+                case 4:
+                    VideoMark[10].gameObject.SetActive(true);
+                    VideoMark[8].gameObject.SetActive(false);
+                    VideoMark[9].gameObject.SetActive(false);
+                    VideoMark[11].gameObject.SetActive(false);
+                    break;
+                case 8:
+                    VideoMark[11].gameObject.SetActive(true);
+                    VideoMark[8].gameObject.SetActive(false);
+                    VideoMark[9].gameObject.SetActive(false);
+                    VideoMark[10].gameObject.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else {
+            for (int i = 0; i < 12; i++) {
+                VideoMark[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void Debugg()
+    {
+        print(PlayerPrefs.GetInt("Res"));
+        print(PlayerPrefs.GetInt("Fps"));
+        print(PlayerPrefs.GetInt("VSync"));
+        print(PlayerPrefs.GetInt("AA"));
+
+    }
 
 }
