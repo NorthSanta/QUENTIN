@@ -292,6 +292,9 @@ public class Player_Interaction : MonoBehaviour
             UV.SetActive(false);
             Polvos.SetActive(false);
             ADN.SetActive(false);
+            Deteccio_Proves.uvLight= false;
+            Deteccio_Proves.polvosLight = false;
+            Deteccio_Proves.adnLight = false;
             buttons.SetActive(false);
             ppProfile.depthOfField.enabled = false;
             ppProfile.vignette.enabled = false;
@@ -310,7 +313,7 @@ public class Player_Interaction : MonoBehaviour
         {
             nou.GetComponent<Renderer>().material = switchMat;
         }
-        else if(nou!= null)
+        else if(nou!= null && !inPuzzle)
         {
             nou.GetComponent<Renderer>().material = def;
         }
