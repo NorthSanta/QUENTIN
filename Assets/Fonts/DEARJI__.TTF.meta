@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 17e20acd17f271b42ac7ccc0823ca76a
+timeCreated: 1517847673
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 100
+  forceTextureCase: -1
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: dearJoe II
+  fontNames:
+  - dearJoe II
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

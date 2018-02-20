@@ -196,6 +196,7 @@ public class Player_Interaction : MonoBehaviour
         print(foundClues.Count);
         //print(foundClues.Count);
         if (canPuzzle && Input.GetKeyDown(KeyCode.E) && !inPuzzle)
+
         {
             ppProfile.depthOfField.enabled = true;
             ppProfile.vignette.enabled = true;
@@ -231,7 +232,7 @@ public class Player_Interaction : MonoBehaviour
             // Cursor.lockState = CursorLockMode.Confined;
            
             vell = interact.collider.gameObject;
-            //def = vell.GetComponent<Renderer>().material;
+            def = vell.GetComponent<Renderer>().material;
             vell.SetActive(false);
             nou = (GameObject)Instantiate(interact.collider.gameObject);
             //nou.GetComponent<Renderer>().material.shader = Shader.Find("Standard");
