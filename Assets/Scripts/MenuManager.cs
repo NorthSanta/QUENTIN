@@ -121,6 +121,6 @@ public class MenuManager : MonoBehaviour
     }
 
     public void Exit() {
-        SceneManager.LoadScene("Menu");
+        Application.Quit();
     }
 }

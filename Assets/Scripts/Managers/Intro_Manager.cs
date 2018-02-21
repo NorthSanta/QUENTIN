@@ -23,7 +23,7 @@ public class Intro_Manager : MonoBehaviour {
             PlayerPrefs.SetInt("Fps", 30);
             PlayerPrefs.SetInt("Res", 720);
             PlayerPrefs.SetInt("VSync", 0);
-            PlayerPrefs.SetInt("AA", 0);
+            PlayerPrefs.SetInt("AA", 2);
 
             PlayerPrefs.SetFloat("Vol", 1.0f);
             PlayerPrefs.SetInt("Mute", 0);
