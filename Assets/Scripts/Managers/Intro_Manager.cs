@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Intro_Manager : MonoBehaviour {
-
-    public static int myFrameRate = 30;
-
+    
     private float introCounter = 0.0f;
 
     [SerializeField] private Animator donkeyLogo;
@@ -37,7 +35,7 @@ public class Intro_Manager : MonoBehaviour {
         }
         
         //Set the current frameRate
-        Application.targetFrameRate = myFrameRate;
+        Application.targetFrameRate = PlayerPrefs.GetInt("Fps");
     }
 
     // Use this for initialization

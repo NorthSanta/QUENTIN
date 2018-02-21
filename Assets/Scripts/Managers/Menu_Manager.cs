@@ -48,8 +48,8 @@ public class Menu_Manager : MonoBehaviour {
         start = false;
         showed = false;
         videoActive = false;
-        
 
+        
         //Set the resX
         switch (PlayerPrefs.GetInt("Res")) {
             case 540:
@@ -147,12 +147,27 @@ public class Menu_Manager : MonoBehaviour {
 #region Video
     public void Resolution(int res) {
         PlayerPrefs.SetInt("Res", res);
+        switch (PlayerPrefs.GetInt("Res")) {
+            case 540:
+                resX = 960;
+                break;
+            case 720:
+                resX = 1280;
+                break;
+            case 1080:
+                resX = 1920;
+                break;
+            default:
+                resX = 1280;
+                break;
+        }
         Screen.SetResolution(resX, res, fullScreen);
     }
 
     public void FPSLimit(int limit) {
         PlayerPrefs.SetInt("Fps", limit);
         Screen.SetResolution(resX, PlayerPrefs.GetInt("Res"), fullScreen, PlayerPrefs.GetInt("Fps"));
+        Application.targetFrameRate = PlayerPrefs.GetInt("Fps");
     }
 
     public void VSync(int active) {
