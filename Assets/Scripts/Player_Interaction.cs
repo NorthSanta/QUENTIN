@@ -193,7 +193,7 @@ public class Player_Interaction : MonoBehaviour
             interactuable = false;
             canPick = false;
         }
-        print(foundClues.Count);
+        //print(foundClues.Count);
         //print(foundClues.Count);
         if (canPuzzle && Input.GetKeyDown(KeyCode.E) && !inPuzzle)
 
