@@ -34,7 +34,7 @@ public class PuzzleManager : MonoBehaviour {
             }
         }
 
-        if (count == pieces.Length - 1)
+        if (count == pieces.Length - 1 && Player_Interaction.inPuzzle)
         {
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(true);

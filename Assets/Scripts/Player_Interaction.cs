@@ -25,7 +25,7 @@ public class Player_Interaction : MonoBehaviour
     public bool interactuable;
     public bool picked;
     public bool canPuzzle;
-    public bool inPuzzle;
+    public static bool inPuzzle;
     public GameObject llibreta;
     public GameObject textPista;
     public Clue_Manager manager;
