@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Puzzle_Rotate : MonoBehaviour {
+public class Puzzle_Rotate : MonoBehaviour
+{
 
     public float smooth = 1f;
     private Quaternion targetRotation;
@@ -12,43 +13,65 @@ public class Puzzle_Rotate : MonoBehaviour {
     public float pos;
     public bool good;
     public int truePos;
-    public float[] angles =new float[] { 0, 90, 180, 270 };
+    public int[] angles = new int[] { 0, -90, -180, -270 };
+    float vz;
+    public int i;
     void Start()
     {
+
         good = false;
-        if (transform.name != "Recta")
+        if (transform.name == "Recta")
+        {
+            if (transform.rotation.eulerAngles.z == 0 || transform.rotation.eulerAngles.z == -180)
+            {
+                pos = 0;
+            }
+            else if (transform.rotation.eulerAngles.z == -90 || transform.rotation.eulerAngles.z == -270)
+            {
+                pos = 1;
+            }
+
+        }
+        else
         {
             if (transform.rotation.eulerAngles.z == 0)
             {
                 pos = 0;
             }
-            else if (transform.rotation.eulerAngles.z == 90 || transform.rotation.eulerAngles.z == -270)
+            else if (transform.rotation.eulerAngles.z == -90)
             {
                 pos = 1;
             }
-            else if (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == -180)
+            else if (transform.rotation.eulerAngles.z == -180)
             {
                 pos = 2;
             }
-            else if (transform.rotation.eulerAngles.z == 270 || transform.rotation.eulerAngles.z == -90)
+            else if (transform.rotation.eulerAngles.z == -270)
             {
                 pos = 3;
             }
         }
+        Vector3 euler = transform.eulerAngles;
+        i = Random.Range(0, angles.Length);
+        euler.z = angles[i];
+        transform.eulerAngles = euler;
+        vz = transform.eulerAngles.z;
+        if (transform.name == "Recta")
+        {
+            if (i == 0 || i == 2)
+            {
+                truePos = 0;
+            }
+            else if (i == 1 || i == 3)
+            {
+                truePos = 1;
+            }
+
+        }
         else
         {
-            if (transform.rotation.eulerAngles.z == 0 || transform.rotation.eulerAngles.z == -360)
-            {
-                pos = 0;
-            }
-            else if (transform.rotation.eulerAngles.z == 90 || transform.rotation.eulerAngles.z == -270)
-            {
-                pos = 1;
-            }
+            truePos = i;
         }
-        Vector3 euler = transform.eulerAngles;
-        euler.z = angles[Random.Range(0, angles.Length)];
-        transform.eulerAngles = euler;
         //transform.rotation.eulerAngles.z  = new Vector3(0,0,Random.Range(0, angles.Length));
         //targetRotation =null;
         gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -56,58 +79,33 @@ public class Puzzle_Rotate : MonoBehaviour {
     }
     void OnMouseDown()
     {
-        
-        
+
+
     }
     void Update()
     {
-        /* if (turn)
-         {
-             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 10 * smooth * Time.deltaTime);
-         }*/
-        if (transform.name != "Recta")
-        {
-            if (transform.rotation.eulerAngles.z == 0 || transform.rotation.eulerAngles.z == -360)
+            if (truePos == pos)
             {
-                truePos = 0;
+                good = true;
             }
-            else if (transform.rotation.eulerAngles.z == 90 || transform.rotation.eulerAngles.z == -270)
+            else
             {
-                truePos = 1;
+                good = false;
             }
-            else if (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == -180)
-            {
-                truePos = 2;
-            }
-            else if (transform.rotation.eulerAngles.z == 270 || transform.rotation.eulerAngles.z == -90)
-            {
-                truePos = 3;
-            }
-        }
-        else
-        {
-            if (transform.rotation.eulerAngles.z == 0 || transform.rotation.eulerAngles.z == -360)
-            {
-                truePos = 0;
-            }
-            else if (transform.rotation.eulerAngles.z == 90 || transform.rotation.eulerAngles.z == -270)
-            {
-                truePos = 1;
-            }
-        }
-       
-        if (truePos == pos)
-        {
-            good = true;
-        }
-        else
-        {
-            good = false;
-        }
+        
     }
     public void clicked()
     {
         turn = true;
         transform.rotation *= Quaternion.AngleAxis(-90, Vector3.forward);
+        truePos++;
+        if (transform.name == "Recta")
+        {
+            truePos %= 2;
+        }
+        else
+        {
+            truePos %= 4;
+        }
     }
 }

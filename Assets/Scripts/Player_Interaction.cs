@@ -149,6 +149,7 @@ public class Player_Interaction : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E)) {
                         if (!interact.collider.gameObject.GetComponent<Clue_Index>().found) {
                             indexClue = interact.collider.gameObject.GetComponent<Clue_Index>().clueIndex;
+                            interact.collider.gameObject.transform.GetChild(0).gameObject.SetActive(true);
                             textPista.GetComponent<Text>().text = manager.caseClues[indexClue];
                             PlayerPrefs.SetString("office" + cluesFound++, manager.caseClues[indexClue]);
                             //PlayerPrefs.SetInt("office" + cluesFound++, indexClue);
@@ -322,6 +323,7 @@ public class Player_Interaction : MonoBehaviour
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(true);
             indexClue = 3;
+            puzzleProg.SetActive(true);
             textPista.GetComponent<Text>().text = manager.caseClues[indexClue];
             PlayerPrefs.SetString("office" + cluesFound++, manager.caseClues[indexClue]);
             //PlayerPrefs.SetInt("office" + cluesFound++, indexClue);
@@ -332,7 +334,7 @@ public class Player_Interaction : MonoBehaviour
             textPista.SetActive(true);
             count++;
         }
-        if (picked){
+        if (picked || inPuzzle){
             Cursor.lockState = CursorLockMode.None;
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(buttons.transform.parent.transform as RectTransform, Input.mousePosition, canvasCam, out pos);

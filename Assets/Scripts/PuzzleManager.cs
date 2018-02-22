@@ -10,11 +10,17 @@ public class PuzzleManager : MonoBehaviour {
     void Start () {
         
         pieces = GameObject.Find("In").transform.GetComponentsInChildren<Transform>(true);
-	}
+        GameObject.Find("In").transform.parent.gameObject.SetActive(false);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
        
+        
+	}
+    private void LateUpdate()
+    {
         int count = 0;
         //print(count);
         for (int i = 0; i < pieces.Length; i++)
@@ -27,11 +33,11 @@ public class PuzzleManager : MonoBehaviour {
                 }
             }
         }
-        
-        if (count == pieces.Length-1)
+
+        if (count == pieces.Length - 1)
         {
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(true);
         }
-	}
+    }
 }
