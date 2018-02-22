@@ -149,9 +149,11 @@ public class Player_Interaction : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E)) {
                         if (!interact.collider.gameObject.GetComponent<Clue_Index>().found) {
                             indexClue = interact.collider.gameObject.GetComponent<Clue_Index>().clueIndex;
+                            cluesFound++;
                             interact.collider.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                            interact.collider.gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = cluesFound.ToString();
                             textPista.GetComponent<Text>().text = manager.caseClues[indexClue];
-                            PlayerPrefs.SetString("office" + cluesFound++, manager.caseClues[indexClue]);
+                            PlayerPrefs.SetString("office" + cluesFound, manager.caseClues[indexClue]);
                             //PlayerPrefs.SetInt("office" + cluesFound++, indexClue);
                             interact.collider.gameObject.GetComponent<Clue_Index>().found = true;
                             foundClues.Add(interact.collider.gameObject.GetComponent<Clue_Index>().clueIndex);
@@ -324,8 +326,10 @@ public class Player_Interaction : MonoBehaviour
             textPuzzle.SetActive(true);
             indexClue = 3;
             puzzleProg.SetActive(true);
+            cluesFound++;
+            puzzleProg.transform.GetChild(0).GetComponent<TextMesh>().text = cluesFound.ToString();
             textPista.GetComponent<Text>().text = manager.caseClues[indexClue];
-            PlayerPrefs.SetString("office" + cluesFound++, manager.caseClues[indexClue]);
+            PlayerPrefs.SetString("office" + cluesFound, manager.caseClues[indexClue]);
             //PlayerPrefs.SetInt("office" + cluesFound++, indexClue);
             //interact.collider.gameObject.GetComponent<Clue_Index>().found = true;
             foundClues.Add(indexClue);
