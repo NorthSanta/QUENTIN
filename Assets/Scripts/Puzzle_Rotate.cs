@@ -13,6 +13,7 @@ public class Puzzle_Rotate : MonoBehaviour
     public float pos;
     public bool good;
     public int truePos;
+    public bool done;
     public int[] angles = new int[] { 0, -90, -180, -270 };
     float vz;
     public int i;
@@ -20,37 +21,37 @@ public class Puzzle_Rotate : MonoBehaviour
     {
 
         good = false;
-        if (transform.name == "Recta")
-        {
-            if (transform.rotation.eulerAngles.z == 0 || transform.rotation.eulerAngles.z == -180)
-            {
-                pos = 0;
-            }
-            else if (transform.rotation.eulerAngles.z == -90 || transform.rotation.eulerAngles.z == -270)
-            {
-                pos = 1;
-            }
+        //if (transform.name == "Recta")
+        //{
+        //    if (transform.rotation.eulerAngles.z == 0 || transform.rotation.eulerAngles.z == -180)
+        //    {
+        //        pos = 0;
+        //    }
+        //    else if (transform.rotation.eulerAngles.z == -90 || transform.rotation.eulerAngles.z == -270)
+        //    {
+        //        pos = 1;
+        //    }
 
-        }
-        else
-        {
-            if (transform.rotation.eulerAngles.z == 0)
-            {
-                pos = 0;
-            }
-            else if (transform.rotation.eulerAngles.z == -90)
-            {
-                pos = 1;
-            }
-            else if (transform.rotation.eulerAngles.z == -180)
-            {
-                pos = 2;
-            }
-            else if (transform.rotation.eulerAngles.z == -270)
-            {
-                pos = 3;
-            }
-        }
+        //}
+        //else
+        //{
+        //    if (transform.rotation.eulerAngles.z == 0)
+        //    {
+        //        pos = 0;
+        //    }
+        //    else if (transform.rotation.eulerAngles.z == -90)
+        //    {
+        //        pos = 1;
+        //    }
+        //    else if (transform.rotation.eulerAngles.z == -180)
+        //    {
+        //        pos = 2;
+        //    }
+        //    else if (transform.rotation.eulerAngles.z == -270)
+        //    {
+        //        pos = 3;
+        //    }
+        //}
         Vector3 euler = transform.eulerAngles;
         i = Random.Range(0, angles.Length);
         euler.z = angles[i];
@@ -76,6 +77,8 @@ public class Puzzle_Rotate : MonoBehaviour
         //targetRotation =null;
         gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
         gameObject.GetComponent<Button>().onClick.AddListener(clicked);
+        done = true;
+        //gameObject.SetActive(false);
     }
     void OnMouseDown()
     {
@@ -84,15 +87,16 @@ public class Puzzle_Rotate : MonoBehaviour
     }
     void Update()
     {
-            if (truePos == pos)
-            {
-                good = true;
-            }
-            else
-            {
-                good = false;
-            }
-        
+
+        if (truePos == pos)
+        {
+            good = true;
+        }
+        else
+        {
+            good = false;
+        }
+
     }
     public void clicked()
     {

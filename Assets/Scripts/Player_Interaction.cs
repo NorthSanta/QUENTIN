@@ -16,6 +16,7 @@ public class Player_Interaction : MonoBehaviour
 
     [SerializeField]
     GameObject textPuzzle;
+    public static bool puzzDone;
     int count = 0;
     public static List<int> foundClues = new List<int>();
     RaycastHit interact;
@@ -205,6 +206,7 @@ public class Player_Interaction : MonoBehaviour
             ppProfile.vignette.enabled = true;
 
             puzzlePieces.SetActive(true);
+          
 
             vell = interact.collider.gameObject;
             vell.SetActive(false);
@@ -320,7 +322,7 @@ public class Player_Interaction : MonoBehaviour
         {
             nou.GetComponent<Renderer>().material = def;
         }
-        if(inPuzzle && Input.GetKeyDown(KeyCode.K) && count < 1)
+        if(inPuzzle && puzzDone && count < 1)
         {
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(true);
