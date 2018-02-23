@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.PostProcessing;
 using UnityEngine;
 
 public class SuspectClass : MonoBehaviour
 {
-   
+    public GameObject buttons;
+    public GameObject indict;
+    public PostProcessingProfile ppProfile;
     public List<GameObject> clues = new List<GameObject>();
     [SerializeField]
     bool innocent;
@@ -46,6 +49,27 @@ public class SuspectClass : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        /*GameObject vell;
+        GameObject nou;
+        ppProfile.depthOfField.enabled = true;
+        ppProfile.vignette.enabled = true;
+
+        vell = gameObject;
+        vell.SetActive(false);
+        nou = (GameObject)Instantiate(gameObject);
+        // GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
+        nou.SetActive(true);
+        nou.layer = 4;
+
+        nou.GetComponent<BoxCollider>().enabled = false;
+        // copy.GetComponent<BoxCollider>().enabled = false;
+
+        nou.transform.parent = buttons.transform.parent;
+        nou.transform.SetAsFirstSibling();
+        nou.transform.localPosition = new Vector3(0, 0, 10);
+        nou.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        nou.transform.localScale = new Vector3(1250, 2500, 100);
+        indict.SetActive(true);*/
         inculp();
     }
 }
