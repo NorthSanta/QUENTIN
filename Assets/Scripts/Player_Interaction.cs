@@ -322,7 +322,7 @@ public class Player_Interaction : MonoBehaviour
         {
             nou.GetComponent<Renderer>().material = def;
         }
-        if(inPuzzle && puzzDone && count < 1)
+        if((inPuzzle && puzzDone && count < 1) || (inPuzzle && Input.GetKeyDown(KeyCode.K) && count < 1))
         {
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(true);
