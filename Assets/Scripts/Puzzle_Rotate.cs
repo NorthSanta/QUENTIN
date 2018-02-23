@@ -74,11 +74,6 @@ public class Puzzle_Rotate : MonoBehaviour
         {
             truePos = i;
         }
-        if (transform.name == "Puta")
-        {
-            print(vz);
-            print(i);
-        }
             //transform.rotation.eulerAngles.z  = new Vector3(0,0,Random.Range(0, angles.Length));
             //targetRotation =null;
             gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
