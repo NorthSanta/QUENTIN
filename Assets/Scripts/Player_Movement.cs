@@ -34,7 +34,7 @@ public class Player_Movement : MonoBehaviour {
         if (firstEntry) {
             fader.GetComponent<Image>().color = c;
             c = new Color(c.r, c.g, c.b, opacity);
-            opacity -= 0.5f * Time.deltaTime;
+            opacity -= 0.4f * Time.deltaTime;
             if (opacity <= 0.0f) {
                 firstEntry = false;
                 fader.SetActive(false);
@@ -43,8 +43,7 @@ public class Player_Movement : MonoBehaviour {
 
         else {
 
-            if (!interact.picked)
-            {
+            if (!interact.picked) {
                 float deltaX = Input.GetAxis("Horizontal") * speed;
                 float deltaZ = Input.GetAxis("Vertical") * speed;
 
