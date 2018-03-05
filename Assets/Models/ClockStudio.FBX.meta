@@ -6,10 +6,25 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Base
+    100004: LightSource
+    100006: Pyramid
     400000: //RootNode
+    400002: Base
+    400004: LightSource
+    400006: Pyramid
     2300000: //RootNode
+    2300002: Base
+    2300004: LightSource
+    2300006: Pyramid
     3300000: //RootNode
+    3300002: Base
+    3300004: LightSource
+    3300006: Pyramid
     4300000: Pyramid001
+    4300002: LightSource
+    4300004: Base
+    4300006: Pyramid
     9500000: //RootNode
   materials:
     importMaterials: 1
