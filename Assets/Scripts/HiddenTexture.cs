@@ -21,6 +21,7 @@ public class HiddenTexture : MonoBehaviour
         {
             GetComponent<Renderer>().material.SetVector("_LightPos", tfLight.position);
             GetComponent<Renderer>().material.SetVector("_LightDir", tfLight.forward);
+            //GetComponent<Renderer>().material.SetFloat("_SpotAngle", 10.0f);
         }
     }
 }
