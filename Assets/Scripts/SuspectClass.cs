@@ -49,7 +49,7 @@ public class SuspectClass : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        /*GameObject vell;
+       GameObject vell;
         GameObject nou;
         ppProfile.depthOfField.enabled = true;
         ppProfile.vignette.enabled = true;
@@ -69,7 +69,7 @@ public class SuspectClass : MonoBehaviour
         nou.transform.localPosition = new Vector3(0, 0, 10);
         nou.transform.localRotation = Quaternion.Euler(0, 0, 0);
         nou.transform.localScale = new Vector3(1250, 2500, 100);
-        indict.SetActive(true);*/
-        inculp();
+        indict.SetActive(true);
+        //inculp();
     }
 }

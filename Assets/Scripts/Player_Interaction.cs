@@ -83,6 +83,7 @@ public class Player_Interaction : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        print(picked);
         //print(foundClues.Count);
         //ClearLog();
         /*Debug.Log("Position: " + transform.position);
