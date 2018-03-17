@@ -13,14 +13,20 @@ public class Deteccio_Proves : MonoBehaviour {
     public GameObject seeThrough;
     [SerializeField]
     public Player_Interaction interact;
+    [SerializeField]
+    private GameObject fregona;
     // Use this for initialization
     void Start () {
-		
-	}
+                
+    }
 	
 	// Update is called once per frame
 	void Update () {
-     
+        if (interact.picked)
+        {
+            fregona = GameObject.Find("FregonaPista(Clone)");
+        }
+
     }
 
     public void enableLightUV() {
@@ -34,6 +40,12 @@ public class Deteccio_Proves : MonoBehaviour {
             UV.SetActive(true);
             Polvos.SetActive(false);
             ADN.SetActive(false);
+            if (fregona)
+            {
+                fregona.GetComponent<BoxCollider>().enabled = true;
+                fregona.GetComponent<HiddenTexture>().enabled = true;
+                
+            }
         }
        
     }

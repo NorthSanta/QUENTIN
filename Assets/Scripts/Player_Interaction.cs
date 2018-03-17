@@ -16,6 +16,10 @@ public class Player_Interaction : MonoBehaviour
 
     [SerializeField]
     GameObject textPuzzle;
+    [SerializeField]
+    GameObject FregonaPista;
+    [SerializeField]
+    Material fregonaBlood;
     public static bool puzzDone;
     int count = 0;
     public static List<int> foundClues = new List<int>();
@@ -132,7 +136,7 @@ public class Player_Interaction : MonoBehaviour
                         //transform.rotation.Set(0.0f, 1.0f, -0.05f, -0.24f);// = new Quaternion(0.0f, 1.0f, -0.05f, -0.24f);
                         //transform.parent.eulerAngles = new Vector3(0, -0.5630f, 0);
                         //transform.parent.rotation = Quaternion.Lerp(transform.rotation, map.transform.rotation, Time.time );
-                       // transform.parent.rotation = Quaternion.Lerp(transform.rotation, map.transform.rotation, Time.time);
+                        // transform.parent.rotation = Quaternion.Lerp(transform.rotation, map.transform.rotation, Time.time);
                         studio_Script.mapEnabled = true;
                     }
                     break;
@@ -169,8 +173,8 @@ public class Player_Interaction : MonoBehaviour
                 case "Puzzle":
                     interactuable = true;
                     canPuzzle = true;
-                       
-                    
+
+
                     /* if (Input.GetKeyDown(KeyCode.E)) {
                          puzzleProg.SetActive(!puzzleProg.activeSelf);
                          punter.SetActive(false);
@@ -186,6 +190,38 @@ public class Player_Interaction : MonoBehaviour
                          Cursor.lockState = CursorLockMode.Locked;
                      }*/
                     break;
+                case "Fregona":
+                    interactuable = true;
+                    if (Input.GetKeyDown(KeyCode.E)) {
+                        buttons.SetActive(true);
+                        ppProfile.depthOfField.enabled = true;
+                        ppProfile.vignette.enabled = true;
+
+                        
+                        vell = interact.collider.gameObject;
+                       
+                        vell.SetActive(false);
+                        nou = (GameObject)Instantiate(FregonaPista);
+                        nou.GetComponent<BoxCollider>().enabled = false;
+                        nou.SetActive(true);
+                        nou.layer = 4;
+                        nou.transform.parent = buttons.transform.parent;
+                        nou.transform.SetAsFirstSibling();
+                        nou.transform.localPosition = new Vector3(0, 0, 0);
+                        nou.transform.rotation = new Quaternion(0, 0, 0, 0);
+                        nou.AddComponent<Object_Movement>();
+                        nou.GetComponent<Object_Movement>().alpha = 100;
+                        nou.GetComponent<Renderer>().sharedMaterial = fregonaBlood;
+                        nou.AddComponent<rot_Obj>();
+                        nou.AddComponent<ApplyPlayerPos>();
+                       
+
+
+
+                        picked = true;
+                    }
+                        
+                        break;
                 default:
                     canPick = false;
                     canPuzzle = false;
@@ -317,7 +353,7 @@ public class Player_Interaction : MonoBehaviour
 
         if(picked && nou != null && Deteccio_Proves.uvLight)
         {
-            nou.GetComponent<Renderer>().material = switchMat;
+           // nou.GetComponent<Renderer>().material = switchMat;
         }
         else if(nou!= null && !inPuzzle)
         {
