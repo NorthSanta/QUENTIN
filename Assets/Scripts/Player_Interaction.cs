@@ -64,8 +64,7 @@ public class Player_Interaction : MonoBehaviour
     // public Object_Movement move;
     // Use this for initialization
     void Start() {
-        hidden = Shader.Find("Custom/Hidden Texture");
-        print(hidden);
+        
         //PlayerPrefs.DeleteAll();
         if (SceneManager.GetActiveScene().name == "Studio") {
             inStudio = true;
@@ -196,8 +195,10 @@ public class Player_Interaction : MonoBehaviour
                      }*/
                     break;
                 case "Fregona":
+                    print("Fregona");
                     interactuable = true;
                     if (Input.GetKeyDown(KeyCode.E)) {
+                        
                         buttons.SetActive(true);
                         ppProfile.depthOfField.enabled = true;
                         ppProfile.vignette.enabled = true;
@@ -227,6 +228,7 @@ public class Player_Interaction : MonoBehaviour
 
 
                         picked = true;
+                        print("Clcikeddddd");
                     }
                         
                         break;
@@ -316,28 +318,17 @@ public class Player_Interaction : MonoBehaviour
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0, 0, 0);
             nou.transform.rotation = new Quaternion(0, 0, 0, 0);
-            //nou.transform.localScale = new Vector3(0, 0, 0);
-            /*nou.GetComponent<GlowObject>().enabled = false;
-            nou.AddComponent<PermaGlow>()._targetColor = Color.black;*/
+
             nou.AddComponent<Object_Movement>();
             nou.GetComponent<Object_Movement>().alpha = 100;
             nou.AddComponent<rot_Obj>();
             nou.AddComponent<ApplyPlayerPos>();
-            // copy.transform.parent = buttons.transform.parent;
-            //// copy.transform.SetAsFirstSibling();
-            // copy.transform.localPosition = new Vector3(0, 0, 0);
-            // copy.transform.rotation = new Quaternion(0, 0, 0, 0);
-            // copy.AddComponent<Object_Movement>();
-            // copy.GetComponent<Object_Movement>().alpha = 100;
-            // copy.AddComponent<rot_Obj>();
-            // copy.layer = 8;
-            // copy.SetActive(true);
-            //copy.GetComponent<>().color = Color.red;
+
 
 
             picked = true;
         }
-        else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio") || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
+        else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio" && !interactuable) || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
         {
             UV.SetActive(false);
             Polvos.SetActive(false);
