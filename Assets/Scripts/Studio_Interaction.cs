@@ -103,9 +103,9 @@ public class Studio_Interaction : MonoBehaviour {
             
         }
         else{
-            for (int i = 1; i < mapCases.Length; i++) {
+            /*for (int i = 1; i < mapCases.Length; i++) {
                 mapCases[i].gameObject.SetActive(false);
-            }
+            }*/
             mapCases[0].GetComponent<BoxCollider>().enabled = true;
             board.GetComponent<BoxCollider>().enabled = true;
             caseAccept.gameObject.SetActive(false);
