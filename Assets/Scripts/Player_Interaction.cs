@@ -5,6 +5,7 @@ using UnityEngine.PostProcessing;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Reflection;
+using UnityEditor;
 
 
 public class Player_Interaction : MonoBehaviour
@@ -58,9 +59,13 @@ public class Player_Interaction : MonoBehaviour
     public GameObject ADN;
 
     public GameObject puzzleProg;
+
+    private Shader hidden;
     // public Object_Movement move;
     // Use this for initialization
     void Start() {
+        hidden = Shader.Find("Custom/Hidden Texture");
+        print(hidden);
         //PlayerPrefs.DeleteAll();
         if (SceneManager.GetActiveScene().name == "Studio") {
             inStudio = true;
@@ -201,8 +206,11 @@ public class Player_Interaction : MonoBehaviour
                         vell = interact.collider.gameObject;
                        
                         vell.SetActive(false);
-                        nou = (GameObject)Instantiate(FregonaPista);
+
+                        nou = PrefabUtility.InstantiatePrefab(FregonaPista) as GameObject;
                         nou.GetComponent<BoxCollider>().enabled = false;
+                       
+                        //nou.GetComponent<Renderer>().materials[0].
                         nou.SetActive(true);
                         nou.layer = 4;
                         nou.transform.parent = buttons.transform.parent;
@@ -211,7 +219,7 @@ public class Player_Interaction : MonoBehaviour
                         nou.transform.rotation = new Quaternion(0, 0, 0, 0);
                         nou.AddComponent<Object_Movement>();
                         nou.GetComponent<Object_Movement>().alpha = 100;
-                        nou.GetComponent<Renderer>().sharedMaterial = fregonaBlood;
+                       
                         nou.AddComponent<rot_Obj>();
                         nou.AddComponent<ApplyPlayerPos>();
                        
@@ -357,7 +365,7 @@ public class Player_Interaction : MonoBehaviour
         }
         else if(nou!= null && !inPuzzle)
         {
-            nou.GetComponent<Renderer>().material = def;
+            //nou.GetComponent<Renderer>().material = def;
         }
         if((inPuzzle && puzzDone && count < 1) || (inPuzzle && Input.GetKeyDown(KeyCode.K) && count < 1))
         {

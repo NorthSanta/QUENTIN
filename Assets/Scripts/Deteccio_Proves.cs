@@ -24,7 +24,7 @@ public class Deteccio_Proves : MonoBehaviour {
 	void Update () {
         if (interact.picked)
         {
-            fregona = GameObject.Find("FregonaPista(Clone)");
+            fregona = GameObject.Find("fregonaPista");
         }
 
     }
@@ -35,17 +35,14 @@ public class Deteccio_Proves : MonoBehaviour {
         if (UV.activeSelf) {
             uvLight = false;
             UV.SetActive(false);
-        }else {
+          
+        }
+        else {
             uvLight = true;
             UV.SetActive(true);
             Polvos.SetActive(false);
             ADN.SetActive(false);
-            if (fregona)
-            {
-                fregona.GetComponent<BoxCollider>().enabled = true;
-                fregona.GetComponent<HiddenTexture>().enabled = true;
-                
-            }
+          
         }
        
     }
