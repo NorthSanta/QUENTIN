@@ -13,20 +13,14 @@ public class Deteccio_Proves : MonoBehaviour {
     public GameObject seeThrough;
     [SerializeField]
     public Player_Interaction interact;
-    [SerializeField]
-    private GameObject fregona;
     // Use this for initialization
     void Start () {
-                
-    }
+		
+	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (interact.picked)
-        {
-            fregona = GameObject.Find("fregonaPista");
-        }
-
+     
     }
 
     public void enableLightUV() {
@@ -35,14 +29,11 @@ public class Deteccio_Proves : MonoBehaviour {
         if (UV.activeSelf) {
             uvLight = false;
             UV.SetActive(false);
-          
-        }
-        else {
+        }else {
             uvLight = true;
             UV.SetActive(true);
             Polvos.SetActive(false);
             ADN.SetActive(false);
-          
         }
        
     }

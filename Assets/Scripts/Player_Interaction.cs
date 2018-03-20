@@ -5,7 +5,6 @@ using UnityEngine.PostProcessing;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Reflection;
-using UnityEditor;
 
 
 public class Player_Interaction : MonoBehaviour
@@ -17,10 +16,6 @@ public class Player_Interaction : MonoBehaviour
 
     [SerializeField]
     GameObject textPuzzle;
-    [SerializeField]
-    GameObject FregonaPista;
-    [SerializeField]
-    Material fregonaBlood;
     public static bool puzzDone;
     int count = 0;
     public static List<int> foundClues = new List<int>();
@@ -59,12 +54,9 @@ public class Player_Interaction : MonoBehaviour
     public GameObject ADN;
 
     public GameObject puzzleProg;
-
-    private Shader hidden;
     // public Object_Movement move;
     // Use this for initialization
     void Start() {
-        
         //PlayerPrefs.DeleteAll();
         if (SceneManager.GetActiveScene().name == "Studio") {
             inStudio = true;
@@ -140,7 +132,7 @@ public class Player_Interaction : MonoBehaviour
                         //transform.rotation.Set(0.0f, 1.0f, -0.05f, -0.24f);// = new Quaternion(0.0f, 1.0f, -0.05f, -0.24f);
                         //transform.parent.eulerAngles = new Vector3(0, -0.5630f, 0);
                         //transform.parent.rotation = Quaternion.Lerp(transform.rotation, map.transform.rotation, Time.time );
-                        // transform.parent.rotation = Quaternion.Lerp(transform.rotation, map.transform.rotation, Time.time);
+                       // transform.parent.rotation = Quaternion.Lerp(transform.rotation, map.transform.rotation, Time.time);
                         studio_Script.mapEnabled = true;
                     }
                     break;
@@ -177,8 +169,8 @@ public class Player_Interaction : MonoBehaviour
                 case "Puzzle":
                     interactuable = true;
                     canPuzzle = true;
-
-
+                       
+                    
                     /* if (Input.GetKeyDown(KeyCode.E)) {
                          puzzleProg.SetActive(!puzzleProg.activeSelf);
                          punter.SetActive(false);
@@ -194,44 +186,6 @@ public class Player_Interaction : MonoBehaviour
                          Cursor.lockState = CursorLockMode.Locked;
                      }*/
                     break;
-                case "Fregona":
-                    print("Fregona");
-                    interactuable = true;
-                    if (Input.GetKeyDown(KeyCode.E)) {
-                        
-                        buttons.SetActive(true);
-                        ppProfile.depthOfField.enabled = true;
-                        ppProfile.vignette.enabled = true;
-
-                        
-                        vell = interact.collider.gameObject;
-                       
-                        vell.SetActive(false);
-
-                        nou = PrefabUtility.InstantiatePrefab(FregonaPista) as GameObject;
-                        nou.GetComponent<BoxCollider>().enabled = false;
-                       
-                        //nou.GetComponent<Renderer>().materials[0].
-                        nou.SetActive(true);
-                        nou.layer = 4;
-                        nou.transform.parent = buttons.transform.parent;
-                        nou.transform.SetAsFirstSibling();
-                        nou.transform.localPosition = new Vector3(0, 0, 0);
-                        nou.transform.rotation = new Quaternion(0, 0, 0, 0);
-                        nou.AddComponent<Object_Movement>();
-                        nou.GetComponent<Object_Movement>().alpha = 100;
-                       
-                        nou.AddComponent<rot_Obj>();
-                        nou.AddComponent<ApplyPlayerPos>();
-                       
-
-
-
-                        picked = true;
-                        print("Clcikeddddd");
-                    }
-                        
-                        break;
                 default:
                     canPick = false;
                     canPuzzle = false;
@@ -318,17 +272,28 @@ public class Player_Interaction : MonoBehaviour
             nou.transform.SetAsFirstSibling();
             nou.transform.localPosition = new Vector3(0, 0, 0);
             nou.transform.rotation = new Quaternion(0, 0, 0, 0);
-
+            //nou.transform.localScale = new Vector3(0, 0, 0);
+            /*nou.GetComponent<GlowObject>().enabled = false;
+            nou.AddComponent<PermaGlow>()._targetColor = Color.black;*/
             nou.AddComponent<Object_Movement>();
             nou.GetComponent<Object_Movement>().alpha = 100;
             nou.AddComponent<rot_Obj>();
             nou.AddComponent<ApplyPlayerPos>();
-
+            // copy.transform.parent = buttons.transform.parent;
+            //// copy.transform.SetAsFirstSibling();
+            // copy.transform.localPosition = new Vector3(0, 0, 0);
+            // copy.transform.rotation = new Quaternion(0, 0, 0, 0);
+            // copy.AddComponent<Object_Movement>();
+            // copy.GetComponent<Object_Movement>().alpha = 100;
+            // copy.AddComponent<rot_Obj>();
+            // copy.layer = 8;
+            // copy.SetActive(true);
+            //copy.GetComponent<>().color = Color.red;
 
 
             picked = true;
         }
-        else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio" && !interactuable) || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
+        else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio") || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
         {
             UV.SetActive(false);
             Polvos.SetActive(false);
@@ -352,11 +317,11 @@ public class Player_Interaction : MonoBehaviour
 
         if(picked && nou != null && Deteccio_Proves.uvLight)
         {
-           // nou.GetComponent<Renderer>().material = switchMat;
+            nou.GetComponent<Renderer>().material = switchMat;
         }
         else if(nou!= null && !inPuzzle)
         {
-            //nou.GetComponent<Renderer>().material = def;
+            nou.GetComponent<Renderer>().material = def;
         }
         if((inPuzzle && puzzDone && count < 1) || (inPuzzle && Input.GetKeyDown(KeyCode.K) && count < 1))
         {
