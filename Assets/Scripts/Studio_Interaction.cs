@@ -43,6 +43,7 @@ public class Studio_Interaction : MonoBehaviour {
     public bool mapEnabled;
     public bool boardEnabled;
     public bool doorOpen;
+    public bool Gir;
 
     //Navigators
     public int mapIndex;
@@ -73,7 +74,7 @@ public class Studio_Interaction : MonoBehaviour {
         //Init the Guarrada (every unit is 1 sec)
         //counter = 0.0f; 
         animGirar = board.GetComponent<Animator>();
-
+        Gir = false;
         
     }
 	
@@ -86,7 +87,16 @@ public class Studio_Interaction : MonoBehaviour {
 
         //The Input of the player
         HandleInput();
-
+        if (Gir)
+        {
+            BoardUI.SetActive(true);
+            MapUI.SetActive(false);
+        }
+        else
+        {
+            MapUI.SetActive(true);
+            BoardUI.SetActive(false);
+        }
         //Print the map cases on scene & accept/cancel
         if (mapEnabled && !boardEnabled) {
             Camera.main.transform.parent.position = new Vector3(-0.5857f, 1.5f, -0.5630f);
@@ -94,8 +104,7 @@ public class Studio_Interaction : MonoBehaviour {
             //print(axis.transform.rotation.y);
             Camera.main.transform.parent.rotation = q;
 
-            MapUI.SetActive(true);
-            BoardUI.SetActive(false);
+           
             for (int i = 1; i < mapCases.Length; i++) {
                 mapCases[i].gameObject.SetActive(true);
                 mapCases[i].GetComponent<BoxCollider>().enabled = true;
@@ -104,8 +113,7 @@ public class Studio_Interaction : MonoBehaviour {
             board.GetComponent<BoxCollider>().enabled = false;
         }
         else if (mapEnabled && boardEnabled) {
-            BoardUI.SetActive(true);
-            MapUI.SetActive(false);
+            
             // Camera.main.transform.parent.position = AxisBoard.transform.position;
             //
             // Camera.main.transform.rotation = Quaternion.Lerp(transform.rotation, AxisBoard.transform.rotation, Time.time);
@@ -220,6 +228,7 @@ public class Studio_Interaction : MonoBehaviour {
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 animGirar.SetBool("girar", !animGirar.GetBool("girar"));
+                Gir = !Gir;
             }
             //MOUSE INPUT
             if (Input.GetKeyUp(KeyCode.Mouse0)) {
@@ -283,6 +292,7 @@ public class Studio_Interaction : MonoBehaviour {
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 animGirar.SetBool("girar", !animGirar.GetBool("girar"));
+                Gir = !Gir;
             }
             Cursor.visible = false;
             //MOUSE INPUT
