@@ -25,6 +25,11 @@ public class Studio_Interaction : MonoBehaviour {
     [SerializeField] private GameObject caseAccept;
     [SerializeField] private GameObject caseCancel;
 
+    [SerializeField]
+    private GameObject MapUI;
+    [SerializeField]
+    private GameObject BoardUI;
+
     public Transform[] mapCases;
 
     public Transform[] nameCases;
@@ -68,6 +73,8 @@ public class Studio_Interaction : MonoBehaviour {
         //Init the Guarrada (every unit is 1 sec)
         //counter = 0.0f; 
         animGirar = board.GetComponent<Animator>();
+
+        
     }
 	
 	// Update is called once per frame
@@ -87,19 +94,26 @@ public class Studio_Interaction : MonoBehaviour {
             //print(axis.transform.rotation.y);
             Camera.main.transform.parent.rotation = q;
 
-
+            MapUI.SetActive(true);
+            BoardUI.SetActive(false);
             for (int i = 1; i < mapCases.Length; i++) {
                 mapCases[i].gameObject.SetActive(true);
+                mapCases[i].GetComponent<BoxCollider>().enabled = true;
             }
             mapCases[0].GetComponent<BoxCollider>().enabled = false;
             board.GetComponent<BoxCollider>().enabled = false;
         }
         else if (mapEnabled && boardEnabled) {
-           // Camera.main.transform.parent.position = AxisBoard.transform.position;
+            BoardUI.SetActive(true);
+            MapUI.SetActive(false);
+            // Camera.main.transform.parent.position = AxisBoard.transform.position;
             //
-           // Camera.main.transform.rotation = Quaternion.Lerp(transform.rotation, AxisBoard.transform.rotation, Time.time);
-            caseAccept.gameObject.SetActive(true);
-            caseCancel.gameObject.SetActive(true);
+            // Camera.main.transform.rotation = Quaternion.Lerp(transform.rotation, AxisBoard.transform.rotation, Time.time);
+            if (selectedCase == null)
+            {
+                caseAccept.gameObject.SetActive(true);
+                caseCancel.gameObject.SetActive(true);
+            }
             
         }
         else{
@@ -110,6 +124,8 @@ public class Studio_Interaction : MonoBehaviour {
             board.GetComponent<BoxCollider>().enabled = true;
             caseAccept.gameObject.SetActive(false);
             caseCancel.gameObject.SetActive(false);
+            MapUI.SetActive(false);
+            BoardUI.SetActive(false);
         }
 
         //Change the Board Info depending to the activeCase

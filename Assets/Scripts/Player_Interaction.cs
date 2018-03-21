@@ -31,7 +31,7 @@ public class Player_Interaction : MonoBehaviour
     public bool interactuable;
     public bool picked;
     public bool PistaPicked;
-
+    public bool lookingMap;
     public bool canPuzzle;
     public static bool inPuzzle;
     public GameObject llibreta;
@@ -105,7 +105,18 @@ public class Player_Interaction : MonoBehaviour
             lookMap(studio_Script.mapEnabled);
         }
         if (interactuable) {
-            if (!lupa.activeSelf) lupa.SetActive(true);
+            if (!lupa.activeSelf) {
+                lupa.SetActive(true);
+                if (lookingMap)
+                {
+                    lupa.transform.GetChild(1).gameObject.SetActive(true);
+                    lupa.transform.GetChild(0).gameObject.SetActive(false);
+                }else
+                {
+                    lupa.transform.GetChild(1).gameObject.SetActive(false);
+                    lupa.transform.GetChild(0).gameObject.SetActive(true);
+                }
+            }
             if (punter.activeSelf) punter.SetActive(false);
         }
         else {
@@ -138,7 +149,8 @@ public class Player_Interaction : MonoBehaviour
                     break;
                 case "Map":
                     canPick = false;
-                    interactuable = false;
+                    interactuable = true;
+                    lookingMap = true;
                     if (Input.GetKeyDown(KeyCode.E)) {
                         //transform.parent.position = new Vector3(-0.5857f, 1.5f, -0.5630f);
                         // transform.parent.rotation = new Quaternion(0.0f, 1.0f, 0.0f, -0.24f);
@@ -244,6 +256,7 @@ public class Player_Interaction : MonoBehaviour
                     canPick = false;
                     canPuzzle = false;
                     interactuable = false;
+                    lookingMap = false;
                     break;
             }
         }
