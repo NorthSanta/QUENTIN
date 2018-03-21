@@ -4,7 +4,7 @@ using System.Collections;
 [ExecuteInEditMode]
 public class ScannerEffectDemo : MonoBehaviour
 {
-	public Transform ScannerOrigin;
+	public GameObject ScannerOrigin;
     private Vector3 _ScannerOrigin;
 	public Material EffectMaterial;
 	public float ScanDistance;
@@ -12,6 +12,7 @@ public class ScannerEffectDemo : MonoBehaviour
     public float MaxScanDistance = 10.0f;
 
 	private Camera _camera;
+    private Animator anim;
 
 	// Demo Code
 	bool _scanning;
@@ -19,6 +20,7 @@ public class ScannerEffectDemo : MonoBehaviour
 
 	void Start() {
         _scannables = FindObjectsOfType<Scannable>();
+        anim = ScannerOrigin.GetComponent<Animator>();
     }
 
 	void Update() {
@@ -34,12 +36,14 @@ public class ScannerEffectDemo : MonoBehaviour
                 }
 			}
 		}
+        print(PlayerPrefs.GetString("SelectedCase"));
 
-		if (Input.GetKeyUp(KeyCode.C)) {
+        if (Input.GetKeyUp(KeyCode.C) && PlayerPrefs.GetString("SelectedCase") != "Studio") {
             if (!_scanning) {
                 _scanning = true;
                 ScanDistance = 0;
-                _ScannerOrigin = ScannerOrigin.position;
+                _ScannerOrigin = ScannerOrigin.transform.position;
+                anim.Play("Scanner");
             }
 		}
 

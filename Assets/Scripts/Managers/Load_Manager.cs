@@ -38,7 +38,7 @@ public class Load_Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        print(async.progress);
+        //print(async.progress);
         if (async.progress >= 0.89) isLoaded = true;
 
         if (isLoaded) text.text = "PRESS ANY KEY";

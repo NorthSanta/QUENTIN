@@ -10,13 +10,13 @@ public class MovementMIA : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Player = GameObject.Find("Player");
-        transform.position = Player.transform.position;
+        transform.position = Camera.main.transform.position;
         transform.position = new Vector3(transform.position.x - 0.8f, transform.position.y, transform.position.z);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        idleTilt = new Vector3((Player.transform.position.x - 1f), (Player.transform.position.y), (Player.transform.position.z));
+        idleTilt = new Vector3((Camera.main.transform.position.x - 1f), (Camera.main.transform.position.y), (Camera.main.transform.position.z));
         transform.position = Vector3.Lerp(transform.position, idleTilt, idleDelay);
     }
 }
