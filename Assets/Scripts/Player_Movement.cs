@@ -43,7 +43,7 @@ public class Player_Movement : MonoBehaviour {
 
         else {
 
-            if (!interact.picked) {
+            if (!interact.picked && !interact.PistaPicked) {
                 float deltaX = Input.GetAxis("Horizontal") * speed;
                 float deltaZ = Input.GetAxis("Vertical") * speed;
 

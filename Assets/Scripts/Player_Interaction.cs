@@ -30,6 +30,8 @@ public class Player_Interaction : MonoBehaviour
     public bool canPick;
     public bool interactuable;
     public bool picked;
+    public bool PistaPicked;
+
     public bool canPuzzle;
     public static bool inPuzzle;
     public GameObject llibreta;
@@ -59,6 +61,9 @@ public class Player_Interaction : MonoBehaviour
     public GameObject ADN;
 
     public GameObject puzzleProg;
+
+    [SerializeField]
+    private GameObject FregonaNum;
 
     private Shader hidden;
     // public Object_Movement move;
@@ -91,7 +96,7 @@ public class Player_Interaction : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        print(picked);
+        //print(picked);
         //print(foundClues.Count);
         //ClearLog();
         /*Debug.Log("Position: " + transform.position);
@@ -177,25 +182,9 @@ public class Player_Interaction : MonoBehaviour
                 case "Puzzle":
                     interactuable = true;
                     canPuzzle = true;
-
-
-                    /* if (Input.GetKeyDown(KeyCode.E)) {
-                         puzzleProg.SetActive(!puzzleProg.activeSelf);
-                         punter.SetActive(false);
-                         lupa.SetActive(false);
-                         GetComponent<Camera_Control>().enabled = false;
-                         transform.parent.GetComponent<Camera_Control>().enabled = false;
-                         transform.parent.GetComponent<Player_Movement>().enabled = false;
-                         Cursor.lockState = CursorLockMode.Confined;
-                     }else if (Input.GetKeyDown(KeyCode.R)) {
-                         GetComponent<Camera_Control>().enabled = true;
-                         transform.parent.GetComponent<Camera_Control>().enabled = true;
-                         transform.parent.GetComponent<Player_Movement>().enabled = true;
-                         Cursor.lockState = CursorLockMode.Locked;
-                     }*/
                     break;
                 case "Fregona":
-                    print("Fregona");
+                     
                     interactuable = true;
                     if (Input.GetKeyDown(KeyCode.E)) {
                         
@@ -211,7 +200,6 @@ public class Player_Interaction : MonoBehaviour
                         nou = PrefabUtility.InstantiatePrefab(FregonaPista) as GameObject;
                         nou.GetComponent<BoxCollider>().enabled = false;
                        
-                        //nou.GetComponent<Renderer>().materials[0].
                         nou.SetActive(true);
                         nou.layer = 4;
                         nou.transform.parent = buttons.transform.parent;
@@ -220,18 +208,38 @@ public class Player_Interaction : MonoBehaviour
                         nou.transform.rotation = new Quaternion(0, 0, 0, 0);
                         nou.AddComponent<Object_Movement>();
                         nou.GetComponent<Object_Movement>().alpha = 100;
-                       
+                        
                         nou.AddComponent<rot_Obj>();
                         nou.AddComponent<ApplyPlayerPos>();
                        
 
 
 
-                        picked = true;
-                        print("Clcikeddddd");
+                        PistaPicked = true;
+
                     }
                         
                         break;
+                case "FregPista":
+                    print("FregonaaPista");
+                    col = interact.collider;
+                        if (!interact.collider.gameObject.GetComponent<Clue_Index>().found)
+                        {
+                            indexClue = interact.collider.gameObject.GetComponent<Clue_Index>().clueIndex;
+                            cluesFound++;
+                            FregonaNum.transform.GetChild(0).gameObject.SetActive(true);
+                            FregonaNum.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = cluesFound.ToString();
+                            textPista.GetComponent<Text>().text = manager.caseClues[indexClue];
+                            PlayerPrefs.SetString("office" + cluesFound, manager.caseClues[indexClue]);
+                            //PlayerPrefs.SetInt("office" + cluesFound++, indexClue);
+                            interact.collider.gameObject.GetComponent<Clue_Index>().found = true;
+                            foundClues.Add(interact.collider.gameObject.GetComponent<Clue_Index>().clueIndex);
+                            //textPista.GetComponent<Text>().text = PlayerPrefs.GetString("office" + indexClue);
+                            llibreta.SetActive(true);
+                            textPista.SetActive(true);
+                        }
+                    
+                    break;
                 default:
                     canPick = false;
                     canPuzzle = false;
@@ -328,7 +336,7 @@ public class Player_Interaction : MonoBehaviour
 
             picked = true;
         }
-        else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio" && !interactuable) || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
+        else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio" && !interactuable) || (PistaPicked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio" && !interactuable) || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
         {
             UV.SetActive(false);
             Polvos.SetActive(false);
@@ -343,6 +351,7 @@ public class Player_Interaction : MonoBehaviour
             //panel.SetActive(false);
             vell.SetActive(true);
             Destroy(nou);
+            PistaPicked = false;
             picked = false;
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(false);
@@ -376,7 +385,7 @@ public class Player_Interaction : MonoBehaviour
             textPista.SetActive(true);
             count++;
         }
-        if (picked || inPuzzle){
+        if (picked || inPuzzle || PistaPicked){
             Cursor.lockState = CursorLockMode.None;
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(buttons.transform.parent.transform as RectTransform, Input.mousePosition, canvasCam, out pos);

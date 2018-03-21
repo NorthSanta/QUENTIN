@@ -33,7 +33,7 @@ public class Camera_Control : MonoBehaviour {
     }
 
     void Update () {
-        if (!interact.picked) {
+        if (!interact.picked && !interact.PistaPicked) {
             if (axis == RotAxis.xAxis) {
                 transform.Rotate(0, Input.GetAxis("Mouse X") * sensHorz, 0);
             }

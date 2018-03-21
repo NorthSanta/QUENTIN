@@ -31,11 +31,11 @@ public class Deteccio_Proves : MonoBehaviour {
 
     public void enableLightUV() {
         // seeThrough.SetActive(true);
-        Debug.Log("Hi");
+        
         if (UV.activeSelf) {
             uvLight = false;
             UV.SetActive(false);
-          
+            
         }
         else {
             uvLight = true;

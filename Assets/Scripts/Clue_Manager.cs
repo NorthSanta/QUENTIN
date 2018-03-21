@@ -20,10 +20,11 @@ public class Clue_Manager : MonoBehaviour {
             case "CaseOffice":
                 caseClues[0] = "Somebody walks here.";
                 caseClues[1] = "Keeps walking.";
-                caseClues[2] = "Quentin Logo.";
+                caseClues[2] = "Quentin Alpha Logo.";
                 caseClues[3] = "Mr. M.";
                 caseClues[4] = "Blood Stains.";
                 caseClues[5] = "Cleaning TimeTable";
+                caseClues[5] = "Blood on the mop.";
                 break;
             default:
                 //caseClues[0] = "";
