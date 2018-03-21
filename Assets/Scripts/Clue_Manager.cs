@@ -24,7 +24,7 @@ public class Clue_Manager : MonoBehaviour {
                 caseClues[3] = "Mr. M.";
                 caseClues[4] = "Blood Stains.";
                 caseClues[5] = "Cleaning TimeTable";
-                caseClues[5] = "Blood on the mop.";
+                caseClues[6] = "Blood on the mop.";
                 break;
             default:
                 //caseClues[0] = "";

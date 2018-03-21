@@ -10,7 +10,7 @@ public class HiddenTexture : MonoBehaviour
     private void Start()
     {
         // find the revealing light named "RevealingLight":
-        GameObject goLight = GameObject.Find("RevealingLight");
+        GameObject goLight = GameObject.FindGameObjectWithTag("LightUV");
         goLight.SetActive(false);
         if (goLight) tfLight = goLight.transform;
         //print("Hidden");
