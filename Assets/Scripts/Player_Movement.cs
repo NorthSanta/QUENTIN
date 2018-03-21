@@ -15,7 +15,7 @@ public class Player_Movement : MonoBehaviour {
     private GameObject fader;
     private GameObject pauseMenu;
    
-    private bool firstEntry;
+    public static bool firstEntry;
 
     // Use this for initialization
     void Start () {

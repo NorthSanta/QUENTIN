@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.PostProcessing;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SuspectClass : MonoBehaviour
 {
@@ -11,8 +12,27 @@ public class SuspectClass : MonoBehaviour
     public List<GameObject> clues = new List<GameObject>();
     [SerializeField]
     bool innocent;
+    public GameObject fader;
+    private float opacity;
+    Color c;
+    private void Start()
+    {
+        opacity = 1.0f;
+        c = new Color(0, 0, 0, 255);
+    }
     public bool inculp()
     {
+        
+        
+        fader.GetComponent<Image>().color = c;
+        c = new Color(c.r, c.g, c.b, opacity);
+        opacity -= 0.4f * Time.deltaTime;
+        if (opacity <= 0.0f)
+        {
+            
+            fader.SetActive(false);
+        }
+       
         if (innocent)
         {
             transform.GetChild(1).gameObject.SetActive(true);
@@ -49,7 +69,7 @@ public class SuspectClass : MonoBehaviour
     }
     private void OnMouseDown()
     {
-       /*GameObject vell;
+       /* GameObject vell;
         GameObject nou;
         ppProfile.depthOfField.enabled = true;
         ppProfile.vignette.enabled = true;
