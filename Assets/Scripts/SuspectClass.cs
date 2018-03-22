@@ -44,7 +44,7 @@ public class SuspectClass : MonoBehaviour
                 fader.SetActive(false);
             }
         }
-        if (Input.GetKeyDown(KeyCode.E) && picked)
+        if (Input.GetKeyDown(KeyCode.E) && picked && !jury)
         {
             indict.SetActive(false);
             indict2.SetActive(false);
@@ -55,7 +55,7 @@ public class SuspectClass : MonoBehaviour
             ppProfile.vignette.enabled = false;
             picked = false;
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && picked)
+        if (Input.GetKeyDown(KeyCode.Escape) && picked && !jury)
         {
             indict.SetActive(false);
             indict2.SetActive(false);
@@ -79,6 +79,7 @@ public class SuspectClass : MonoBehaviour
         {
             transform.GetChild(1).gameObject.SetActive(true);
             //return false;
+            return;
 
         }
         else
@@ -106,11 +107,13 @@ public class SuspectClass : MonoBehaviour
             {
                 // print("Culpable!");
                 transform.GetChild(0).gameObject.SetActive(true);
+                return;
                 //return true;
             }
             // print("Inocente!");
             transform.GetChild(1).gameObject.SetActive(true);
         }
+        return;
         //return false;
     }
     private void OnMouseDown()

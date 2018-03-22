@@ -368,17 +368,14 @@ public class Player_Interaction : MonoBehaviour
             {
                 vell.SetActive(true);
             }
-            if (nou != null && PlayerPrefs.GetString("SelectedCase") == "Studio" && nou.GetComponent<SuspectClass>().indict != null)
-            {
-                nou.GetComponent<SuspectClass>().indict.SetActive(false);
-            }
-            else if (nou != null)
+            
+            if (nou != null)
             {
                 Destroy(nou);
             }
             PistaPicked = false;
             picked = false;
-            SuspectClass.picked = false;
+           // SuspectClass.picked = false;
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(false);
             inPuzzle = false;
