@@ -36,7 +36,7 @@ public class ScannerEffectDemo : MonoBehaviour
                 }
 			}
 		}
-        print(PlayerPrefs.GetString("SelectedCase"));
+        //print(PlayerPrefs.GetString("SelectedCase"));
 
         if (Input.GetKeyUp(KeyCode.C) && PlayerPrefs.GetString("SelectedCase") != "Studio") {
             if (!_scanning) {

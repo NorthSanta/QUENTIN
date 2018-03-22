@@ -7,11 +7,12 @@ public class HiddenTexture : MonoBehaviour
 
     Transform tfLight;
     BoxCollider col;
+    public GameObject goLight;
     private void Start()
     {
         // find the revealing light named "RevealingLight":
-        GameObject goLight = GameObject.FindGameObjectWithTag("LightUV");
-        goLight.SetActive(false);
+        goLight = GameObject.FindGameObjectWithTag("LightUV");
+        
         if (goLight) tfLight = goLight.transform;
         //print("Hidden");
         col = GetComponent<BoxCollider>();

@@ -39,8 +39,8 @@ public class Player_Interaction : MonoBehaviour
     public Clue_Manager manager;
     public int indexClue;
     public int cluesFound;
-    GameObject nou;
-    GameObject vell;
+    public static GameObject nou;
+    public static GameObject vell;
     public PostProcessingProfile ppProfile;
     public GameObject lupa;
     public GameObject punter;
@@ -233,7 +233,7 @@ public class Player_Interaction : MonoBehaviour
                         
                         break;
                 case "FregPista":
-                    print("FregonaaPista");
+                    //print("FregonaaPista");
                     col = interact.collider;
                         if (!interact.collider.gameObject.GetComponent<Clue_Index>().found)
                         {
@@ -351,7 +351,7 @@ public class Player_Interaction : MonoBehaviour
         }
         else if ((picked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase")!= "Studio" && !interactuable) || (PistaPicked && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio" && !interactuable) || (inPuzzle && Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("SelectedCase") != "Studio"))
         {
-            UV.SetActive(false);
+            //UV.SetActive(false);
             Polvos.SetActive(false);
             ADN.SetActive(false);
             Deteccio_Proves.uvLight= false;
@@ -362,10 +362,22 @@ public class Player_Interaction : MonoBehaviour
             ppProfile.vignette.enabled = false;
             //Cursor.lockState = CursorLockMode.Locked;
             //panel.SetActive(false);
-            vell.SetActive(true);
-            Destroy(nou);
+            
+            if (vell != null)
+            {
+                vell.SetActive(true);
+            }
+            if (nou != null && PlayerPrefs.GetString("SelectedCase") == "Studio" && nou.GetComponent<SuspectClass>().indict != null)
+            {
+                nou.GetComponent<SuspectClass>().indict.SetActive(false);
+            }
+            else if (nou != null)
+            {
+                Destroy(nou);
+            }
             PistaPicked = false;
             picked = false;
+            SuspectClass.picked = false;
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(false);
             inPuzzle = false;
@@ -423,6 +435,7 @@ public class Player_Interaction : MonoBehaviour
             //Cursor.lockState = CursorLockMode.Confined;
         }
         else{
+            SuspectClass.picked = false;
             picked = false;
             //transform.LookAt(transform.parent.forward);
             punter.SetActive(true);

@@ -32,14 +32,14 @@ public class Deteccio_Proves : MonoBehaviour {
     public void enableLightUV() {
         // seeThrough.SetActive(true);
         
-        if (UV.activeSelf) {
+        if (uvLight) {
             uvLight = false;
-            UV.SetActive(false);
+            //UV.SetActive(false);
             
         }
         else {
             uvLight = true;
-            UV.SetActive(true);
+           // UV.SetActive(true);
             Polvos.SetActive(false);
             ADN.SetActive(false);
           

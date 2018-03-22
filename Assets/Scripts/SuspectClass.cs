@@ -15,81 +15,113 @@ public class SuspectClass : MonoBehaviour
     public GameObject fader;
     private float opacity;
     Color c;
+    public static bool picked;
+    public bool jury;
+    
     private void Start()
     {
         opacity = 1.0f;
         c = new Color(0, 0, 0, 255);
     }
-    public bool inculp()
+    private void Update()
     {
-        
-        
-        fader.GetComponent<Image>().color = c;
-        c = new Color(c.r, c.g, c.b, opacity);
-        opacity -= 0.4f * Time.deltaTime;
-        if (opacity <= 0.0f)
+        if (jury)
         {
-            
-            fader.SetActive(false);
+            fader.GetComponent<Image>().color = c;
+            c = new Color(c.r, c.g, c.b, opacity);
+            opacity -= 0.4f * Time.deltaTime;
+            if (opacity <= 0.0f)
+            {
+                jury = false;
+                fader.SetActive(false);
+            }
         }
-       
+        if (Input.GetKeyDown(KeyCode.E) && picked)
+        {
+            print("indictfalse");
+            Player_Interaction.vell.SetActive(true);
+            indict.SetActive(false);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && picked)
+        {
+            indict.SetActive(false);
+            Player_Interaction.vell.SetActive(true);
+            Destroy(Player_Interaction.nou);
+            ppProfile.depthOfField.enabled = false;
+            ppProfile.vignette.enabled = false;
+            picked = false;
+            
+        }
+        
+    }
+    public void inculp()
+    {
+
+
+        jury = true;
+
         if (innocent)
         {
             transform.GetChild(1).gameObject.SetActive(true);
-            return false;
+            //return false;
+
         }
-        int total = 0;
-
-        for (int i = 0; i < clues.Count; i++)
+        else
         {
+            int total = 0;
 
-            /*for (int j = 0; j < Clue_Manager.solution.Count; j++)
+            for (int i = 0; i < clues.Count; i++)
             {
-                if (Clue_Manager.solution[j] == clues[i].GetComponent<Clue_Index>().clueIndex)
+
+                /*for (int j = 0; j < Clue_Manager.solution.Count; j++)
                 {
-                    print(Clue_Manager.solution[j]);
+                    if (Clue_Manager.solution[j] == clues[i].GetComponent<Clue_Index>().clueIndex)
+                    {
+                        print(Clue_Manager.solution[j]);
+                        total++;
+                    }
+                }*/
+                if (Clue_Manager.solution.Contains(clues[i].GetComponent<Clue_Index>().clueIndex))
+                {
                     total++;
                 }
-            }*/
-            if (Clue_Manager.solution.Contains(clues[i].GetComponent<Clue_Index>().clueIndex))
-            {
-                total++;
-            }
 
+            }
+            if (total % 3 >= 2)
+            {
+                // print("Culpable!");
+                transform.GetChild(0).gameObject.SetActive(true);
+                //return true;
+            }
+            // print("Inocente!");
+            transform.GetChild(1).gameObject.SetActive(true);
         }
-        if (total%3 >= 2)
-        {
-           // print("Culpable!");
-            transform.GetChild(0).gameObject.SetActive(true);
-            return true;
-        }
-        // print("Inocente!");
-        transform.GetChild(1).gameObject.SetActive(true);
-        return false;
+        //return false;
     }
     private void OnMouseDown()
     {
-       /* GameObject vell;
-        GameObject nou;
+        picked = true;
+        indict.SetActive(true);
+        indict.GetComponent<Button>().onClick.AddListener(this.inculp);
+        
         ppProfile.depthOfField.enabled = true;
         ppProfile.vignette.enabled = true;
 
-        vell = gameObject;
-        vell.SetActive(false);
-        nou = (GameObject)Instantiate(gameObject);
+        Player_Interaction.vell = gameObject;
+        Player_Interaction.vell.SetActive(false);
+        Player_Interaction.nou = (GameObject)Instantiate(gameObject);
         // GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
-        nou.SetActive(true);
-        nou.layer = 4;
-
-        nou.GetComponent<BoxCollider>().enabled = false;
+        Player_Interaction.nou.SetActive(true);
+        Player_Interaction.nou.layer = 4;
+        Player_Interaction.nou.transform.GetChild(0).gameObject.layer = 4;
+        Player_Interaction.nou.transform.GetChild(1).gameObject.layer = 4;
+        Player_Interaction.nou.GetComponent<BoxCollider>().enabled = false;
         // copy.GetComponent<BoxCollider>().enabled = false;
 
-        nou.transform.parent = buttons.transform.parent;
-        nou.transform.SetAsFirstSibling();
-        nou.transform.localPosition = new Vector3(0, 0, 10);
-        nou.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        nou.transform.localScale = new Vector3(1250, 2500, 100);
-        indict.SetActive(true);*/
-        inculp();
+        Player_Interaction.nou.transform.parent = buttons.transform.parent;
+        Player_Interaction.nou.transform.SetAsFirstSibling();
+        Player_Interaction.nou.transform.localPosition = new Vector3(0, 0, 10);
+        Player_Interaction.nou.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        Player_Interaction.nou.transform.localScale = new Vector3(1250, 2500, 100);
     }
 }
