@@ -8,6 +8,8 @@ public class SuspectClass : MonoBehaviour
 {
     public GameObject buttons;
     public GameObject indict;
+    public GameObject indict2;
+    public GameObject indict3;
     public PostProcessingProfile ppProfile;
     public List<GameObject> clues = new List<GameObject>();
     [SerializeField]
@@ -17,16 +19,20 @@ public class SuspectClass : MonoBehaviour
     Color c;
     public static bool picked;
     public bool jury;
+    public GameObject copy;
+    public bool isCopy;
     
     private void Start()
     {
         indict.GetComponent<Button>().onClick.AddListener(inculp);
         opacity = 1.0f;
         c = new Color(0, 0, 0, 255);
+        isCopy = false;
+       
     }
     private void Update()
     {
-        if (jury)
+        if (jury && isCopy)
         {
             fader.SetActive(true);
             fader.GetComponent<Image>().color = c;
@@ -40,13 +46,20 @@ public class SuspectClass : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && picked)
         {
-            print("indictfalse");
-            Player_Interaction.vell.SetActive(true);
             indict.SetActive(false);
+            indict2.SetActive(false);
+            indict3.SetActive(false);
+            Player_Interaction.vell.SetActive(true);
+            Destroy(Player_Interaction.nou);
+            ppProfile.depthOfField.enabled = false;
+            ppProfile.vignette.enabled = false;
+            picked = false;
         }
         if (Input.GetKeyDown(KeyCode.Escape) && picked)
         {
             indict.SetActive(false);
+            indict2.SetActive(false);
+            indict3.SetActive(false);
             Player_Interaction.vell.SetActive(true);
             Destroy(Player_Interaction.nou);
             ppProfile.depthOfField.enabled = false;
@@ -110,8 +123,11 @@ public class SuspectClass : MonoBehaviour
         ppProfile.vignette.enabled = true;
 
         Player_Interaction.vell = gameObject;
-        Player_Interaction.vell.SetActive(false);
+        
         Player_Interaction.nou = (GameObject)Instantiate(gameObject);
+        copy = Player_Interaction.nou;
+        copy.GetComponent<SuspectClass>().isCopy = true;
+        
         // GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
         Player_Interaction.nou.SetActive(true);
         Player_Interaction.nou.layer = 4;
@@ -125,5 +141,6 @@ public class SuspectClass : MonoBehaviour
         Player_Interaction.nou.transform.localPosition = new Vector3(0, 0, 10);
         Player_Interaction.nou.transform.localRotation = Quaternion.Euler(0, 0, 0);
         Player_Interaction.nou.transform.localScale = new Vector3(1250, 2500, 100);
+        Player_Interaction.vell.SetActive(false);
     }
 }
