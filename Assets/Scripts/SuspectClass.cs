@@ -20,6 +20,7 @@ public class SuspectClass : MonoBehaviour
     
     private void Start()
     {
+        indict.GetComponent<Button>().onClick.AddListener(inculp);
         opacity = 1.0f;
         c = new Color(0, 0, 0, 255);
     }
@@ -27,9 +28,10 @@ public class SuspectClass : MonoBehaviour
     {
         if (jury)
         {
+            fader.SetActive(true);
             fader.GetComponent<Image>().color = c;
             c = new Color(c.r, c.g, c.b, opacity);
-            opacity -= 0.4f * Time.deltaTime;
+            opacity -= 0.2f * Time.deltaTime;
             if (opacity <= 0.0f)
             {
                 jury = false;
