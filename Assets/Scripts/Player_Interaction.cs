@@ -96,7 +96,7 @@ public class Player_Interaction : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        print(PlayerPrefs.GetString("SelectedCase"));
+        //print(PlayerPrefs.GetString("SelectedCase"));
         //print(picked);
         //print(foundClues.Count);
         //ClearLog();
