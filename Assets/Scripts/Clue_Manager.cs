@@ -19,12 +19,11 @@ public class Clue_Manager : MonoBehaviour {
         switch (SceneManager.GetActiveScene().name) {
             case "CaseOffice":
                 caseClues[0] = "Somebody walks here.";
-                caseClues[1] = "Keeps walking.";
+                caseClues[1] = "Blood on the mop.";
+                caseClues[2] = "Mr. M.";
+                caseClues[3] = "Blood Stains.";
+                caseClues[4] = "Cleaning TimeTable";
                 caseClues[6] = "Quentin Alpha Logo.";
-                caseClues[3] = "Mr. M.";
-                caseClues[4] = "Blood Stains.";
-                caseClues[5] = "Cleaning TimeTable";
-                caseClues[2] = "Blood on the mop.";
                 break;
             default:
                 //caseClues[0] = "";

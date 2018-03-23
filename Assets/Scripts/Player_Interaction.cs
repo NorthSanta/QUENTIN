@@ -394,7 +394,7 @@ public class Player_Interaction : MonoBehaviour
         {
             puzzlePieces.SetActive(false);
             textPuzzle.SetActive(true);
-            indexClue = 3;
+            indexClue = 2;
             puzzleProg.SetActive(true);
             cluesFound++;
             puzzleProg.transform.GetChild(0).GetComponent<TextMesh>().text = cluesFound.ToString();

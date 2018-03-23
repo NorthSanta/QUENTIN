@@ -21,9 +21,11 @@ public class SuspectClass : MonoBehaviour
     public bool jury;
     public GameObject copy;
     public bool isCopy;
+    bool alreadyUsed;
     
     private void Start()
     {
+        
         indict.GetComponent<Button>().onClick.AddListener(inculp);
         opacity = 1.0f;
         c = new Color(0, 0, 0, 255);
@@ -32,18 +34,19 @@ public class SuspectClass : MonoBehaviour
     }
     private void Update()
     {
-        if (jury && isCopy)
-        {
-            fader.SetActive(true);
-            fader.GetComponent<Image>().color = c;
-            c = new Color(c.r, c.g, c.b, opacity);
-            opacity -= 0.2f * Time.deltaTime;
-            if (opacity <= 0.0f)
-            {
-                jury = false;
-                fader.SetActive(false);
-            }
-        }
+        //if (jury && isCopy)
+        //{
+        //    jury = false;
+        //    fader.SetActive(true);
+        //    fader.GetComponent<Image>().color = c;
+        //    c = new Color(c.r, c.g, c.b, opacity);
+        //    opacity -= 0.2f * Time.deltaTime;
+        //    if (opacity <= 0.0f)
+        //    {
+                
+        //        fader.SetActive(false);
+        //    }
+        //}
         if (Input.GetKeyDown(KeyCode.E) && picked && !jury)
         {
             indict.SetActive(false);
@@ -73,11 +76,12 @@ public class SuspectClass : MonoBehaviour
     {
 
 
-        jury = true;
+        //jury = true;
 
         if (innocent)
         {
             transform.GetChild(1).gameObject.SetActive(true);
+            alreadyUsed = true;
             //return false;
             return;
 
@@ -100,27 +104,33 @@ public class SuspectClass : MonoBehaviour
                 if (Clue_Manager.solution.Contains(clues[i].GetComponent<Clue_Index>().clueIndex))
                 {
                     total++;
+                    print(clues[i].GetComponent<Clue_Index>().clueIndex);
                 }
 
             }
-            if (total % 3 >= 2)
+            if (total > 2)
             {
                 // print("Culpable!");
                 transform.GetChild(0).gameObject.SetActive(true);
+                alreadyUsed = true;
                 return;
                 //return true;
             }
             // print("Inocente!");
             transform.GetChild(1).gameObject.SetActive(true);
         }
+        alreadyUsed = true;
         return;
         //return false;
     }
     private void OnMouseDown()
     {
         picked = true;
-        indict.SetActive(true);
-        indict.GetComponent<Button>().onClick.AddListener(this.inculp);
+        if (!alreadyUsed)
+        {
+            indict.SetActive(true);
+            indict.GetComponent<Button>().onClick.AddListener(this.inculp);
+        }
         
         ppProfile.depthOfField.enabled = true;
         ppProfile.vignette.enabled = true;
