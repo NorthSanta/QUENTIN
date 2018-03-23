@@ -24,9 +24,8 @@ public class Deteccio_Proves : MonoBehaviour {
 	void Update () {
         if (interact.picked)
         {
-            fregona = GameObject.Find("fregonaPista");
+            fregona = GameObject.Find("fregonaPista(Clone)");
         }
-
     }
 
     public void enableLightUV() {

@@ -5,7 +5,7 @@ using UnityEngine.PostProcessing;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Reflection;
-using UnityEditor;
+
 
 
 public class Player_Interaction : MonoBehaviour
@@ -210,7 +210,7 @@ public class Player_Interaction : MonoBehaviour
                        
                         vell.SetActive(false);
 
-                        nou = PrefabUtility.InstantiatePrefab(FregonaPista) as GameObject;
+                        nou = Instantiate(FregonaPista);
                         nou.GetComponent<BoxCollider>().enabled = false;
                        
                         nou.SetActive(true);
