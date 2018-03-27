@@ -14,6 +14,7 @@ public class Player_Movement : MonoBehaviour {
     public CapsuleCollider capsule;
     private GameObject fader;
     private GameObject pauseMenu;
+    private Rigidbody rb;
    
     public static bool firstEntry;
 
@@ -27,6 +28,7 @@ public class Player_Movement : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         capsule = GetComponent<CapsuleCollider>();
         interact = Camera.main.GetComponent<Player_Interaction>();
+        rb = GetComponent<Rigidbody>();
     }
   
     // Update is called once per frame
@@ -51,7 +53,8 @@ public class Player_Movement : MonoBehaviour {
                 deltaZ *= Time.deltaTime;
 
                 transform.Translate(deltaX, 0, deltaZ);
-             
+
+
                 if (Input.GetKeyDown(KeyCode.LeftControl) && !crouch)
                 {
                     crouch = true;
