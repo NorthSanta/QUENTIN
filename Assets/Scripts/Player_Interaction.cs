@@ -32,6 +32,7 @@ public class Player_Interaction : MonoBehaviour
     public bool picked;
     public bool PistaPicked;
     public bool lookingMap;
+    public bool lookingMIA;
     public bool canPuzzle;
     public static bool inPuzzle;
     public GameObject llibreta;
@@ -108,7 +109,7 @@ public class Player_Interaction : MonoBehaviour
         if (interactuable) {
             if (!lupa.activeSelf) {
                 lupa.SetActive(true);
-                if (lookingMap)
+                if (lookingMap || lookingMIA)
                 {
                     lupa.transform.GetChild(1).gameObject.SetActive(true);
                     lupa.transform.GetChild(0).gameObject.SetActive(false);
@@ -253,11 +254,22 @@ public class Player_Interaction : MonoBehaviour
                         }
                     
                     break;
+                case "MIA":
+                    interactuable = true;
+                    lookingMIA = true;
+                    if (Input.GetKeyDown(KeyCode.E) && lookingMIA)
+                    {
+                        interact.collider.gameObject.GetComponent<MovementMIA>().MiaText.text = "";
+                        interact.collider.gameObject.GetComponent<MovementMIA>().indexT++;
+                    }
+                    
+                    break;
                 default:
                     canPick = false;
                     canPuzzle = false;
                     interactuable = false;
                     lookingMap = false;
+                    lookingMIA = false;
                     break;
             }
         }
