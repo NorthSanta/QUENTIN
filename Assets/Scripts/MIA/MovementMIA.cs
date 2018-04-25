@@ -12,7 +12,7 @@ public class MovementMIA : MonoBehaviour
     [SerializeField]
     private float moveDelay;
     [SerializeField]
-    private bool tutorial;
+    private int tutorial;
     private Coroutine lastCor;
     public Text MiaText;
     public GameObject Button;
@@ -23,15 +23,21 @@ public class MovementMIA : MonoBehaviour
     public string[] MiaVoice;
     Animator anim;
     bool moveUpPlayed;
+    public bool clicked;
 
     // Use this for initialization
     void Start()
     {
+        PlayerPrefs.DeleteKey("Tutorial");
         Player = GameObject.Find("Player");
+        tutorial = PlayerPrefs.GetInt("Tutorial");
+
+        
+       
 
         //GetComponent<Animator>().anim
         //transform.position = Camera.main.transform.position;
-//        transform.position = new Vector3(transform.position.x - 0.8f, transform.position.y, transform.position.z);
+        //        transform.position = new Vector3(transform.position.x - 0.8f, transform.position.y, transform.position.z);
 
     }
     IEnumerator WaitInput()
@@ -62,9 +68,9 @@ public class MovementMIA : MonoBehaviour
     void Update()
     {
 
-        if (tutorial)
+        if (tutorial == 0)
         {
-
+           
             switch (indexT)
             {
                 case 0:
@@ -135,7 +141,8 @@ public class MovementMIA : MonoBehaviour
                     }
                     break;
                 case 7:
-                    tutorial = false;
+                    tutorial = 1;
+                    PlayerPrefs.SetInt("Tutorial",tutorial);
                     Button.SetActive(false);
                     break;
                 default:

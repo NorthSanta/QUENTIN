@@ -67,6 +67,7 @@ public class Player_Interaction : MonoBehaviour
     private GameObject FregonaNum;
 
     private Shader hidden;
+    public GameObject light;
     // public Object_Movement move;
     // Use this for initialization
     void Start() {
@@ -261,6 +262,18 @@ public class Player_Interaction : MonoBehaviour
                     {
                         interact.collider.gameObject.GetComponent<MovementMIA>().MiaText.text = "";
                         interact.collider.gameObject.GetComponent<MovementMIA>().indexT++;
+                        interact.collider.gameObject.GetComponent<Animator>().SetBool("click", true);
+
+                        Renderer renderer = light.GetComponent<Renderer>();
+                        Material mat = renderer.material;
+
+                        float emission = Mathf.PingPong(Time.time, 1.0f);
+                        Color baseColor = Color.yellow; //Replace this with whatever you want for your base color at emission level '1'
+
+                        Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+
+                        mat.SetColor("_EmissionColor", finalColor);
+                        light.GetComponent<Light>().color = Color.yellow;
                     }
                     
                     break;

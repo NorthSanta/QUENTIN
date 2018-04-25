@@ -22,7 +22,7 @@ public class SuspectClass : MonoBehaviour
     public GameObject copy;
     public bool isCopy;
     bool alreadyUsed;
-    
+    public GameObject box;
     private void Start()
     {
         
@@ -75,7 +75,7 @@ public class SuspectClass : MonoBehaviour
     public void inculp()
     {
 
-
+        box.SetActive(true);
         //jury = true;
 
         if (innocent)
