@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ClueMaterialManager : MonoBehaviour {
     public Material[] clueMaterial;
-	// Use this for initialization
-	void Start () {
+    public Material[] suspectMaterial;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

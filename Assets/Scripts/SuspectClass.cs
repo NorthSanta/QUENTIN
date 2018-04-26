@@ -23,6 +23,8 @@ public class SuspectClass : MonoBehaviour
     public bool isCopy;
     bool alreadyUsed;
     public GameObject box;
+    public int id;
+    public ClueMaterialManager suspectMaterials;
     private void Start()
     {
         
@@ -141,7 +143,8 @@ public class SuspectClass : MonoBehaviour
         Player_Interaction.nou = (GameObject)Instantiate(gameObject);
         copy = Player_Interaction.nou;
         copy.GetComponent<SuspectClass>().isCopy = true;
-        
+        copy.GetComponent<Renderer>().material = suspectMaterials.suspectMaterial[id];
+
         // GameObject copy = (GameObject)Instantiate(interact.collider.gameObject);
         Player_Interaction.nou.SetActive(true);
         Player_Interaction.nou.layer = 4;
