@@ -24,15 +24,18 @@ public class MovementMIA : MonoBehaviour
     Animator anim;
     bool moveUpPlayed;
     public bool clicked;
-
+    public AudioSource[] voices;
+    public bool hasPlayed;
+    public bool finalTutorial;
+    public static bool indict;
     // Use this for initialization
     void Start()
     {
         PlayerPrefs.DeleteKey("Tutorial");
         Player = GameObject.Find("Player");
         tutorial = PlayerPrefs.GetInt("Tutorial");
-
-        
+        voices = GetComponents<AudioSource>();
+       
        
 
         //GetComponent<Animator>().anim
@@ -44,12 +47,20 @@ public class MovementMIA : MonoBehaviour
     {
         while (Input.GetMouseButtonDown(0))
         {
+           
             if (lastCor != null)
             {
                 StopCoroutine(lastCor);
             }
+            
             MiaText.text = "";
             indexT++;
+            if (indexT == 7)
+            {
+                MiaText.text = "    ";
+                finalTutorial = true;
+                Button.SetActive(false);
+            }
             yield return null;
         }
     }
@@ -67,7 +78,7 @@ public class MovementMIA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //print(indexT);
         if (tutorial == 0)
         {
            
@@ -79,70 +90,105 @@ public class MovementMIA : MonoBehaviour
                     transform.position = Vector3.Lerp(transform.position, MoveUpOb.transform.position, Time.deltaTime * moveDelay);
                     StartCoroutine(WaitInput());
                     Button.SetActive(true);
+                   
                     if (MiaText.text.Length == 0)
                     {
-
+                        hasPlayed = false;
                         lastCor = StartCoroutine(WriteLetter(MiaVoice[indexT]));
+                    }
+                    if (!voices[indexT].isPlaying && !hasPlayed)
+                    {
+                        hasPlayed = true;
+                        if (indexT == 1)
+                        {
+                            voices[indexT - 1].Stop();
+                        }
+                        voices[indexT].Play();
                     }
                     //StartCoroutine(WriteLetter(MiaVoice[indexT]));
                     break;
                 case 1:
                     transform.position = Vector3.Lerp(transform.position, MapOb.transform.position, Time.deltaTime * moveDelay);
                     StartCoroutine(WaitInput());
-
                     if (MiaText.text.Length == 0)
                     {
-
+                        hasPlayed = false;
                         lastCor = StartCoroutine(WriteLetter(MiaVoice[indexT]));
                     }
-
+                    if (!voices[indexT].isPlaying && !hasPlayed)
+                    {
+                        voices[indexT - 1].Stop();
+                        voices[indexT].Play();
+                        hasPlayed = true;
+                    }
+                    
                     break;
                 case 2:
                     StartCoroutine(WaitInput());
                     if (MiaText.text.Length == 0)
                     {
-
+                        hasPlayed = false;
                         lastCor = StartCoroutine(WriteLetter(MiaVoice[indexT]));
+                    }
+                    if (!voices[indexT].isPlaying && !hasPlayed)
+                    {
+                        
+                        hasPlayed = true;
+                        voices[indexT - 1].Stop();
+                        voices[indexT].Play();
                     }
                     break;
                 case 3:
                     StartCoroutine(WaitInput());
                     if (MiaText.text.Length == 0)
                     {
-
+                        hasPlayed = false;
                         lastCor = StartCoroutine(WriteLetter(MiaVoice[indexT]));
+                    }
+                    if (!voices[indexT].isPlaying && !hasPlayed) 
+                    {
+                        hasPlayed = true;
+                        voices[indexT - 1].Stop();
+                        voices[indexT].Play();
                     }
                     break;
                 case 4:
                     StartCoroutine(WaitInput());
                     if (MiaText.text.Length == 0)
                     {
-
+                        hasPlayed = false;
                         lastCor = StartCoroutine(WriteLetter(MiaVoice[indexT]));
+                    }
+                    if (!voices[indexT].isPlaying && !hasPlayed)
+                    {
+                        hasPlayed = true;
+                        voices[indexT - 1].Stop();
+                        voices[indexT].Play();
                     }
                     break;
                 case 5:
                     StartCoroutine(WaitInput());
                     if (MiaText.text.Length == 0)
                     {
-
-                        lastCor = StartCoroutine(WriteLetter(MiaVoice[indexT]));
-                    }
-                    break;
-                case 6:
-                    transform.position = Vector3.Lerp(transform.position, StandOb.transform.position, Time.deltaTime * moveDelay);
-                    StartCoroutine(WaitInput());
-                    if (MiaText.text.Length == 0)
-                    {
-                        if (indexT < MiaVoice.Length)
+                        hasPlayed = false;
+                        if (indexT == 5)
                         {
                             lastCor = StartCoroutine(WriteLetter(MiaVoice[indexT]));
                         }
                     }
+                    if (!voices[indexT].isPlaying && !hasPlayed)
+                    {
+                        hasPlayed = true;
+                        if (indexT == 5)
+                        {
+                            voices[indexT - 1].Stop();
+                            voices[indexT].Play();
+                        }
+                    }
                     break;
-                case 7:
+                case 6:
                     tutorial = 1;
-                    PlayerPrefs.SetInt("Tutorial",tutorial);
+                    PlayerPrefs.SetInt("Tutorial", tutorial);
                     Button.SetActive(false);
                     break;
                 default:
@@ -152,9 +198,32 @@ public class MovementMIA : MonoBehaviour
         }
         else
         {
-            //print("lerf");
-            idleTilt = new Vector3((Camera.main.transform.position.x - 1f), (Camera.main.transform.position.y), (Camera.main.transform.position.z));
-            transform.position = Vector3.Lerp(transform.position, idleTilt, idleDelay *Time.deltaTime);
+            if (!finalTutorial && indict)
+            {
+                transform.position = Vector3.Lerp(transform.position, StandOb.transform.position, Time.deltaTime * moveDelay);
+                StartCoroutine(WaitInput());
+                Button.SetActive(true);
+                if (MiaText.text.Length == 0)
+                {
+                    hasPlayed = false;
+                    lastCor = StartCoroutine(WriteLetter(MiaVoice[6]));
+
+                }
+                if (!voices[6].isPlaying && !hasPlayed)
+                {
+                    hasPlayed = true;
+                    //voices[5].Stop();
+                    voices[6].Play();
+                }
+
+            }
+            else
+            {
+                //print("lerf");
+                idleTilt = new Vector3((Camera.main.transform.position.x - 1f), (Camera.main.transform.position.y), (Camera.main.transform.position.z));
+                transform.position = Vector3.Lerp(transform.position, idleTilt, idleDelay * Time.deltaTime);
+            }
+           
         }
 
     }

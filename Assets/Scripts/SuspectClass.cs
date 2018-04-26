@@ -119,6 +119,7 @@ public class SuspectClass : MonoBehaviour
             // print("Inocente!");
             transform.GetChild(1).gameObject.SetActive(true);
         }
+        MovementMIA.indict = true;
         alreadyUsed = true;
         return;
         //return false;
