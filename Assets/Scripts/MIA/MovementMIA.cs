@@ -198,7 +198,7 @@ public class MovementMIA : MonoBehaviour
         }
         else
         {
-            if (!finalTutorial && indict)
+            if (!finalTutorial && indict && PlayerPrefs.GetString("SelectedCase") == "Studio") 
             {
                 transform.position = Vector3.Lerp(transform.position, StandOb.transform.position, Time.deltaTime * moveDelay);
                 StartCoroutine(WaitInput());
