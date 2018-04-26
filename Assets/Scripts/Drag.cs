@@ -21,6 +21,7 @@ public class Drag : MonoBehaviour
     SuspectClass sus3;
     // public static List<GameObject> minClues = new List<GameObject>();
     public GameObject[] minClues;
+    public ClueMaterialManager materialManager;
     
     private void OnMouseDown()
      {
@@ -48,6 +49,7 @@ public class Drag : MonoBehaviour
                 minClues[i].SetActive(true);
                 minClues[i].AddComponent<Clue_Index>();
                 minClues[i].GetComponent<Clue_Index>().clueIndex = Player_Interaction.foundClues[i];
+                minClues[i].transform.GetChild(1).GetComponent<Renderer>().material = materialManager.clueMaterial[minClues[i].GetComponent<Clue_Index>().clueIndex];
             }
         }
         last = null;
