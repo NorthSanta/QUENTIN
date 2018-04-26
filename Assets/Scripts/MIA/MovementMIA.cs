@@ -23,7 +23,7 @@ public class MovementMIA : MonoBehaviour
     public string[] MiaVoice;
     Animator anim;
     bool moveUpPlayed;
-    public bool clicked;
+    public static bool clicked;
     public AudioSource[] voices;
     public bool hasPlayed;
     public bool finalTutorial;

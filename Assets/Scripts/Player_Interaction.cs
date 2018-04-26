@@ -263,7 +263,7 @@ public class Player_Interaction : MonoBehaviour
                         interact.collider.gameObject.GetComponent<MovementMIA>().MiaText.text = "";
                         interact.collider.gameObject.GetComponent<MovementMIA>().indexT++;
                         interact.collider.gameObject.GetComponent<Animator>().SetBool("click", true);
-
+                        MovementMIA.clicked = true;
                         Renderer renderer = light.GetComponent<Renderer>();
                         Material mat = renderer.material;
 
