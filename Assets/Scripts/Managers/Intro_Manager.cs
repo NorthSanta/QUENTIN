@@ -56,7 +56,7 @@ public class Intro_Manager : MonoBehaviour {
         QualitySettings.vSyncCount = PlayerPrefs.GetInt("VSync");
         QualitySettings.antiAliasing = PlayerPrefs.GetInt("AA");
         if (PlayerPrefs.GetInt("Mute") == 1) AudioListener.volume = 0.0f;
-        else AudioListener.volume = PlayerPrefs.GetFloat("Vol");
+        else AudioListener.volume = 1;
 
         //Pre Load the menu scene for smooth transition
         async = SceneManager.LoadSceneAsync("Menu");
