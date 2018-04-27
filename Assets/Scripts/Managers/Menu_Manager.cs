@@ -185,7 +185,7 @@ public class Menu_Manager : MonoBehaviour {
     public void Mute() {
         if (mute) {
             PlayerPrefs.SetInt("Mute", 0);
-            AudioListener.volume = vol;
+            AudioListener.volume = 1;
             mute = false;
         }
         else {
@@ -197,8 +197,8 @@ public class Menu_Manager : MonoBehaviour {
 
     public void Volume() {
         vol = VolSlider.value;
-        AudioListener.volume = vol;
-        PlayerPrefs.SetFloat("Vol", vol);
+        AudioListener.volume = 1;
+        PlayerPrefs.SetFloat("Vol", 1);
     }
     #endregion
 
