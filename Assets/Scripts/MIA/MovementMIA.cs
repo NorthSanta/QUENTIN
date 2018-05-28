@@ -12,7 +12,7 @@ public class MovementMIA : MonoBehaviour
     [SerializeField]
     private float moveDelay;
     [SerializeField]
-    private int tutorial;
+    public static int tutorial;
     private Coroutine lastCor;
     public Text MiaText;
     public GameObject Button;
@@ -35,8 +35,8 @@ public class MovementMIA : MonoBehaviour
         Player = GameObject.Find("Player");
         tutorial = PlayerPrefs.GetInt("Tutorial");
         voices = GetComponents<AudioSource>();
-       
-       
+
+       // print(tutorial);
 
         //GetComponent<Animator>().anim
         //transform.position = Camera.main.transform.position;
@@ -79,7 +79,7 @@ public class MovementMIA : MonoBehaviour
     void Update()
     {
         //print(indexT);
-        if (tutorial == 0)
+        if (tutorial == 0 && PlayerPrefs.GetString("SelectedCase") == "Studio")
         {
            
             switch (indexT)
@@ -214,6 +214,7 @@ public class MovementMIA : MonoBehaviour
                     hasPlayed = true;
                     //voices[5].Stop();
                     voices[6].Play();
+                    tutorial++;
                 }
 
             }

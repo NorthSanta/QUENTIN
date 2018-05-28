@@ -434,6 +434,7 @@ public class Player_Interaction : MonoBehaviour
             count++;
         }
         if (picked || inPuzzle || PistaPicked){
+            icon.color = Color.black;
             Cursor.lockState = CursorLockMode.None;
             Vector2 pos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(buttons.transform.parent.transform as RectTransform, Input.mousePosition, canvasCam, out pos);
@@ -441,6 +442,7 @@ public class Player_Interaction : MonoBehaviour
         }
         else{
             Cursor.lockState = CursorLockMode.Locked;
+            icon.color = Color.white;
             icon.transform.localPosition = new Vector3(0, 0, 0);
             
         }

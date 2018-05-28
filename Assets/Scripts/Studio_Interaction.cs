@@ -37,7 +37,7 @@ public class Studio_Interaction : MonoBehaviour {
     public Transform[] desCases;
 
     public Transform activeCase;
-    public Transform selectedCase;
+    public static Transform selectedCase;
 
     //Enablers
     public bool mapEnabled;
@@ -70,23 +70,37 @@ public class Studio_Interaction : MonoBehaviour {
         //Init Index to 1
         mapIndex = 1;
         boardIndex = 0;
-
+        PlayerPrefs.SetString("SelectedCase", "Studio");
         //Init the Guarrada (every unit is 1 sec)
         //counter = 0.0f; 
         animGirar = board.GetComponent<Animator>();
         Gir = false;
-        
+
+        print(mapCases[0].name);
+        if(MovementMIA.tutorial < 1)
+        {
+            mapCases[1].gameObject.SetActive(true);
+            mapCases[2].gameObject.SetActive(false);
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
         //The mopuse raycast
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (MovementMIA.tutorial > 1)
+        {
+            mapCases[1].gameObject.SetActive(false);
+            for (int i = 2; i < mapCases.Length; i++)
+            {
+                mapCases[i].gameObject.SetActive(true);
+               // mapCases[i].GetComponent<BoxCollider>().enabled = true;
+            }
+        }
+            //Debug.DrawRay(transform.position, Input.mousePosition * 1.5f, Color.red);
 
-        //Debug.DrawRay(transform.position, Input.mousePosition * 1.5f, Color.red);
-
-        //The Input of the player
-        HandleInput();
+            //The Input of the player
+            HandleInput();
         if (Gir)
         {
             BoardUI.SetActive(true);
@@ -104,9 +118,9 @@ public class Studio_Interaction : MonoBehaviour {
             //print(axis.transform.rotation.y);
             Camera.main.transform.parent.rotation = q;
 
-           
+          
             for (int i = 1; i < mapCases.Length; i++) {
-                mapCases[i].gameObject.SetActive(true);
+                //mapCases[i].gameObject.SetActive(true);
                 mapCases[i].GetComponent<BoxCollider>().enabled = true;
             }
             mapCases[0].GetComponent<BoxCollider>().enabled = false;
