@@ -36,6 +36,8 @@ public class Studio_Interaction : MonoBehaviour {
     public Transform[] imageCases;
     public Transform[] desCases;
 
+    public GameObject caixa;
+
     public Transform activeCase;
     public static Transform selectedCase;
 
@@ -82,13 +84,16 @@ public class Studio_Interaction : MonoBehaviour {
             mapCases[1].gameObject.SetActive(true);
             mapCases[2].gameObject.SetActive(false);
         }
+
+       
+
     }
 	
 	// Update is called once per frame
 	void Update () {
         //The mopuse raycast
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (MovementMIA.tutorial > 1)
+        if (caixa.activeSelf)
         {
             mapCases[1].gameObject.SetActive(false);
             for (int i = 2; i < mapCases.Length; i++)
