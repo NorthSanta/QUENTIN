@@ -83,6 +83,10 @@ public class Studio_Interaction : MonoBehaviour {
         {
             mapCases[1].gameObject.SetActive(true);
             mapCases[2].gameObject.SetActive(false);
+        }else if (caixa.activeSelf)
+        {
+            mapCases[1].gameObject.SetActive(false);
+            mapCases[2].gameObject.SetActive(true);
         }
 
        

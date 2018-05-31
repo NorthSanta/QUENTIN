@@ -28,13 +28,21 @@ public class MovementMIA : MonoBehaviour
     public bool hasPlayed;
     public bool finalTutorial;
     public static bool indict;
+    public GameObject map;
+    public GameObject board;
     // Use this for initialization
     void Start()
     {
-        //PlayerPrefs.DeleteKey("Tutorial");
+        PlayerPrefs.DeleteKey("Tutorial");
         Player = GameObject.Find("Player");
         tutorial = PlayerPrefs.GetInt("Tutorial");
         voices = GetComponents<AudioSource>();
+
+        if(tutorial > 0)
+        {
+            map.tag = "Map";
+            board.tag = "Map";
+        }
 
        // print(tutorial);
 
@@ -190,6 +198,8 @@ public class MovementMIA : MonoBehaviour
                     tutorial = 1;
                     PlayerPrefs.SetInt("Tutorial", tutorial);
                     Button.SetActive(false);
+                    map.tag = "Map";
+                    board.tag = "Map";
                     break;
                 default:
                     Button.SetActive(false);
@@ -215,6 +225,7 @@ public class MovementMIA : MonoBehaviour
                     //voices[5].Stop();
                     voices[6].Play();
                     tutorial++;
+                    
                 }
 
             }
