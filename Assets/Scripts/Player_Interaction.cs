@@ -62,6 +62,7 @@ public class Player_Interaction : MonoBehaviour
     public GameObject ADN;
 
     public GameObject puzzleProg;
+    public GameObject mobil;
 
     [SerializeField]
     private GameObject FregonaNum;
@@ -418,7 +419,9 @@ public class Player_Interaction : MonoBehaviour
         if((inPuzzle && puzzDone && count < 1) || (inPuzzle && Input.GetKeyDown(KeyCode.K) && count < 1))
         {
             puzzlePieces.SetActive(false);
-            textPuzzle.SetActive(true);
+            //textPuzzle.SetActive(true);
+            nou.GetComponent<Renderer>().materials[1].color = Color.white;
+            mobil.GetComponent<Renderer>().materials[1].color = Color.white;
             indexClue = 2;
             puzzleProg.SetActive(true);
             cluesFound++;
@@ -446,7 +449,7 @@ public class Player_Interaction : MonoBehaviour
             icon.transform.localPosition = new Vector3(0, 0, 0);
             
         }
-
+        print(mobil.GetComponent<Renderer>().materials[1]); 
     }
 
     void lookMap(bool enabled) {
