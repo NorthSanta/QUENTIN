@@ -123,6 +123,7 @@ public class SuspectClass : MonoBehaviour
         }
         MovementMIA.indict = true;
         alreadyUsed = true;
+        //Player_Interaction.foundClues.Clear();
         return;
         //return false;
     }

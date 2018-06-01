@@ -33,7 +33,7 @@ public class MovementMIA : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        PlayerPrefs.DeleteKey("Tutorial");
+        //PlayerPrefs.DeleteKey("Tutorial");
         Player = GameObject.Find("Player");
         tutorial = PlayerPrefs.GetInt("Tutorial");
         voices = GetComponents<AudioSource>();
