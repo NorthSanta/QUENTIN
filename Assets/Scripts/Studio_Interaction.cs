@@ -78,12 +78,13 @@ public class Studio_Interaction : MonoBehaviour {
         animGirar = board.GetComponent<Animator>();
         Gir = false;
 
-        print(mapCases[0].name);
+        
         if(MovementMIA.tutorial < 1)
         {
             mapCases[1].gameObject.SetActive(true);
             mapCases[2].gameObject.SetActive(false);
-        }else if (caixa.activeSelf)
+        }
+        if (caixa.activeSelf)
         {
             mapCases[1].gameObject.SetActive(false);
             mapCases[2].gameObject.SetActive(true);

@@ -67,6 +67,8 @@ public class Menu_Manager : MonoBehaviour {
         }
 
         Cursor.visible = true;
+        AudioListener.volume = VolSlider.value/100;
+        PlayerPrefs.SetFloat("Vol", VolSlider.value / 100);
     }
 	
 	// Update is called once per frame
@@ -185,20 +187,23 @@ public class Menu_Manager : MonoBehaviour {
     public void Mute() {
         if (mute) {
             PlayerPrefs.SetInt("Mute", 0);
-            AudioListener.volume = 1;
+            AudioListener.volume = VolSlider.value / 100;
             mute = false;
         }
         else {
             PlayerPrefs.SetInt("Mute", 1);
-            AudioListener.volume = 0.0f;
+            AudioListener.volume = 0;
             mute = true;
         }
     }
 
     public void Volume() {
-        vol = VolSlider.value;
-        AudioListener.volume = 1;
-        PlayerPrefs.SetFloat("Vol", 1);
+        if (!mute)
+        {
+            vol = VolSlider.value / 100;
+            AudioListener.volume = vol;
+            PlayerPrefs.SetFloat("Vol", vol);
+        }
     }
     #endregion
 
