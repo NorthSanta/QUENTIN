@@ -449,7 +449,7 @@ public class Player_Interaction : MonoBehaviour
             icon.transform.localPosition = new Vector3(0, 0, 0);
             
         }
-        print(mobil.GetComponent<Renderer>().materials[1]); 
+        //print(mobil.GetComponent<Renderer>().materials[1]); 
     }
 
     void lookMap(bool enabled) {
